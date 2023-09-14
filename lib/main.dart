@@ -15,8 +15,7 @@ void main() async {
 }
 
 class NavigationRailExampleApp extends StatelessWidget {
-  const NavigationRailExampleApp({Key? key}) : super(key: key);
-
+  const NavigationRailExampleApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,7 @@ class NavigationRailExampleApp extends StatelessWidget {
 }
 
 class NavRailExample extends StatefulWidget {
-  const NavRailExample({Key? key}) : super(key: key);
+  const NavRailExample({super.key});
 
   @override
   State<NavRailExample> createState() => _NavRailExampleState();
@@ -50,6 +49,7 @@ class _NavRailExampleState extends State<NavRailExample> {
                 _selectedIndex = index;
               });
             },
+
             leading: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size(220, 80),
@@ -90,40 +90,60 @@ class _NavRailExampleState extends State<NavRailExample> {
           const VerticalDivider(thickness: 3, width: 1),
           Expanded(
             child: DefaultTabController(
-              length: 3, // 탭의 수
+              length: 3,
               child: Column(
                 children: [
-                  TabBar(
-
-                    indicatorSize: TabBarIndicatorSize.tab,
+                  Container(
+                    color: Colors.grey[200], // Gray color for padding
                     padding: const EdgeInsets.symmetric(
                       horizontal: 50,
                       vertical: 60,
                     ),
-                    indicator: BoxDecoration(
-                      color: Colors.blue,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white, // White color for TabBar
+                        borderRadius: BorderRadius.circular(20.0), // Rounded corners for TabBar
+                        boxShadow: [ // Optional: Add a shadow effect
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3), // Changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: TabBar(
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        indicator: ShapeDecoration(
+                          color: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                        ),
+                        unselectedLabelColor: Colors.black26,
+                        labelColor: Colors.white,
+                        labelStyle: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                        indicatorColor: Colors.blue,
+                        tabs: [
+                          Tab(text: 'RECOMMENDED'),
+                          Tab(text: 'TOP RATED'),
+                          Tab(text: 'LOWEST PRICE'),
+                        ],
+                      ),
                     ),
-                    unselectedLabelColor: Colors.black26,
-                    labelColor: Colors.white,
-                    labelStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                    indicatorColor: Colors.blue,
-
-                    tabs: [
-                      Tab(text: 'RECOMMENDED'),
-                      Tab(text: 'TOP RATED'),
-                      Tab(text: 'LOWEST PRICE'),
-                    ],
                   ),
                   Expanded(
-                    child: TabBarView(
-                      children: [
-                        // 각 탭의 내용을 여기에 추가
-                        Center(child: Text('Tab 1 Content')),
-                        Center(child: Text('Tab 2 Content')),
-                        Center(child: Text('Tab 3 Content')),
-                      ],
+                    child: Container( // Wrap the TabBarView in a Container
+                      color: Colors.grey[200], // Set a light gray background color
+                      child: TabBarView(
+                        children: [
+                          Center(child: Text('Tab 1 Content')),
+                          Center(child: Text('Tab 2 Content')),
+                          Center(child: Text('Tab 3 Content')),
+                        ],
+                      ),
                     ),
                   ),
                 ],
