@@ -1,16 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:provider/provider.dart';
-import 'firebase_options.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hanstour/navigationrail_custom.dart';
 
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+void main() {
   runApp(const NavigationRailExampleApp());
 }
 
@@ -35,80 +26,114 @@ class NavRailExample extends StatefulWidget {
 
 class _NavRailExampleState extends State<NavRailExample> {
   int _selectedIndex = 0;
+  bool _extended = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Row(
         children: <Widget>[
-          NavigationRail(
-            minWidth: 119,
-            selectedIndex: _selectedIndex,
-            onDestinationSelected: (int index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-
-            leading: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(220, 80),
-                backgroundColor: Colors.white,
-                elevation: 0.0,
+          Stack(
+            children: [
+              NavigationRail(
+                minWidth: _extended ? 121 : 40,
+                selectedIndex: _selectedIndex,
+                onDestinationSelected: (int index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
+                leading: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (_extended)
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(220, 80),
+                          backgroundColor: Colors.white,
+                          elevation: 0.0,
+                        ),
+                        onPressed: () {},
+                        child: Image.asset(
+                          'assets/nomadMateLogo.png',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    IconButton(
+                      icon: Icon(
+                        _extended
+                            ? Icons.arrow_circle_left
+                            : Icons.arrow_circle_right,
+                        color: Colors.blue,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _extended = !_extended;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                destinations: <NavigationRailDestination>[
+                  buildCustomNavigationRailDestination(
+                    icon: Icons.airplanemode_active,
+                    isExtended: _extended,
+                    label: "Tour",
+                  ),
+                  buildCustomNavigationRailDestination(
+                    icon: Icons.paragliding,
+                    isExtended: _extended,
+                    label: "Activity",
+                  ),
+                  buildCustomNavigationRailDestination(
+                    icon: Icons.route,
+                    isExtended: _extended,
+                    label: "Transport",
+                  ),
+                  buildCustomNavigationRailDestination(
+                    icon: Icons.airplane_ticket,
+                    isExtended: _extended,
+                    label: "Ticket",
+                  ),
+                  buildCustomNavigationRailDestination(
+                    icon: Icons.hotel,
+                    isExtended: _extended,
+                    label: "Hotel",
+                  ),
+                ],
               ),
-              onPressed: () {
-                // Add your onPressed code here!
-              },
-              child: Image.asset(
-                'assets/nomadMateLogo.png', // Replace with your image path
-                fit: BoxFit.fill,
-              ),
-            ),
-            destinations: <NavigationRailDestination>[
-              buildCustomNavigationRailDestination1(
-                icon: Icons.airplanemode_active,
-                label: 'Tour',
-              ),
-              buildCustomNavigationRailDestination2(
-                icon: Icons.paragliding,
-                label: 'Activity',
-              ),
-              buildCustomNavigationRailDestination3(
-                icon: Icons.route,
-                label: 'Transport',
-              ),
-              buildCustomNavigationRailDestination4(
-                icon: Icons.airplane_ticket,
-                label: 'Ticket',
-              ),
-              buildCustomNavigationRailDestination5(
-                icon: Icons.hotel,
-                label: 'Hotel',
+              Positioned(
+                top: 150.0 + (_selectedIndex * 120.0),
+                left: _extended ? 265 : 0,
+                child: Container(
+                  height: 56.0,
+                  width: 3,
+                  color: Colors.blue,
+                ),
               ),
             ],
           ),
-          const VerticalDivider(thickness: 3, width: 1),
           Expanded(
             child: DefaultTabController(
               length: 3,
               child: Column(
                 children: [
                   Container(
-                    color: Colors.grey[200], // Gray color for padding
+                    color: Colors.grey[200],
                     padding: const EdgeInsets.symmetric(
                       horizontal: 50,
                       vertical: 60,
                     ),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.white, // White color for TabBar
-                        borderRadius: BorderRadius.circular(20.0), // Rounded corners for TabBar
-                        boxShadow: [ // Optional: Add a shadow effect
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20.0),
+                        boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(0.5),
                             spreadRadius: 2,
                             blurRadius: 5,
-                            offset: Offset(0, 3), // Changes position of shadow
+                            offset: Offset(0, 3),
                           ),
                         ],
                       ),
@@ -135,8 +160,8 @@ class _NavRailExampleState extends State<NavRailExample> {
                     ),
                   ),
                   Expanded(
-                    child: Container( // Wrap the TabBarView in a Container
-                      color: Colors.grey[200], // Set a light gray background color
+                    child: Container(
+                      color: Colors.grey[200],
                       child: TabBarView(
                         children: [
                           Center(child: Text('Tab 1 Content')),
