@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:hanstour/navigationrail_custom.dart';
 
 void main() => runApp(NavigationRailExampleApp());
@@ -44,6 +45,48 @@ class _NavRailExampleState extends State<NavRailExample> {
     });
   }
 
+  late Position _currentPosition;
+  String _locationMessage = "위치를 불러오는 중...";
+
+  @override
+  void initState() {
+    super.initState();
+    _determinePosition();
+  }
+
+  Future<void> _determinePosition() async {
+    try {
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        setState(() {
+          _locationMessage = "위치 서비스가 활성화되어 있지 않습니다.";
+        });
+        return;
+      }
+
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          setState(() {
+            _locationMessage = "위치 권한이 거부되었습니다.";
+          });
+          return;
+        }
+      }
+
+      _currentPosition = await Geolocator.getCurrentPosition();
+      setState(() {
+        _locationMessage =
+            "위도: ${_currentPosition.latitude}, 경도: ${_currentPosition.longitude}";
+      });
+    } catch (e) {
+      setState(() {
+        _locationMessage = "위치를 가져오는 중 오류가 발생했습니다: $e";
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +97,8 @@ class _NavRailExampleState extends State<NavRailExample> {
               NavigationRail(
                 minWidth: _extended ? 121 : 40,
                 selectedIndex: _selectedIndex,
-                onDestinationSelected: (index) => setState(() => _selectedIndex = index),
+                onDestinationSelected: (index) =>
+                    setState(() => _selectedIndex = index),
                 leading: _buildLeading(),
                 destinations: _navRailDestinations,
               ),
@@ -130,11 +174,20 @@ class _NavRailExampleState extends State<NavRailExample> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20.0),
-        boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.5), spreadRadius: 2, blurRadius: 5, offset: Offset(0, 3))],
+        boxShadow: [
+          BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 3))
+        ],
       ),
       child: TabBar(
         indicatorSize: TabBarIndicatorSize.tab,
-        indicator: ShapeDecoration(color: Colors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0))),
+        indicator: ShapeDecoration(
+            color: Colors.blue,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0))),
         unselectedLabelColor: Colors.black26,
         labelColor: Colors.white,
         labelStyle: TextStyle(fontWeight: FontWeight.bold),
@@ -147,7 +200,7 @@ class _NavRailExampleState extends State<NavRailExample> {
   Widget _buildTabBarView() {
     return TabBarView(
       children: [
-        Center(child: Text('Tab 1 Content')),
+        Center(child: Text(_locationMessage)),
         Center(child: Text('Tab 2 Content')),
         Center(child: Text('Tab 3 Content')),
       ],
