@@ -78,7 +78,7 @@ class _NavRailExampleState extends State<NavRailExample> {
       _currentPosition = await Geolocator.getCurrentPosition();
       setState(() {
         _locationMessage =
-            "위도: ${_currentPosition.latitude}, 경도: ${_currentPosition.longitude}";
+        "위도: ${_currentPosition.latitude}, 경도: ${_currentPosition.longitude}";
       });
     } catch (e) {
       setState(() {
