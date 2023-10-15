@@ -1,8 +1,17 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hanstour/navigationrail_custom.dart';
+import 'firebase_options.dart';
 
-void main() => runApp(NavigationRailExampleApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(NavigationRailExampleApp());
+}
 
 class NavigationRailExampleApp extends StatelessWidget {
   const NavigationRailExampleApp({super.key});
@@ -26,6 +35,7 @@ class NavRailExample extends StatefulWidget {
 class _NavRailExampleState extends State<NavRailExample> {
   int _selectedIndex = 0;
   bool _extended = true;
+  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
 
   List<NavigationRailDestination> get _navRailDestinations {
     final icons = [
@@ -78,7 +88,7 @@ class _NavRailExampleState extends State<NavRailExample> {
       _currentPosition = await Geolocator.getCurrentPosition();
       setState(() {
         _locationMessage =
-        "위도: ${_currentPosition.latitude}, 경도: ${_currentPosition.longitude}";
+            "위도: ${_currentPosition.latitude}, 경도: ${_currentPosition.longitude}";
       });
     } catch (e) {
       setState(() {
@@ -183,6 +193,15 @@ class _NavRailExampleState extends State<NavRailExample> {
         ],
       ),
       child: TabBar(
+        onTap: (index) {
+          _analytics.logEvent(
+            name: 'tab_changed',
+            parameters: <String, dynamic>{
+              'tab_index': index,
+              'tab_name': tabs[index],
+            },
+          );
+        },
         indicatorSize: TabBarIndicatorSize.tab,
         indicator: ShapeDecoration(
             color: Colors.blue,
