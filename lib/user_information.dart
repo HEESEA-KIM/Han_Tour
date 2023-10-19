@@ -40,7 +40,7 @@ class UserInform extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 30),
-                Container(
+                SizedBox(
                   width: 280,
                   child: TextField(
                     decoration: InputDecoration(

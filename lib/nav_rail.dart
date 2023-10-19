@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:hanstour/tab_content.dart';
 import 'nav_rail_destinations.dart';
+
+class NavigationRailApp extends StatelessWidget {
+  const NavigationRailApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: NavRail(),
+    );
+  }
+}
 
 class NavRail extends StatefulWidget {
   const NavRail({super.key});
@@ -122,13 +135,11 @@ class _NavRailState extends State<NavRail> {
       child: Column(
         children: [
           Container(
-            color: Colors.grey[200],
             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 60),
             child: _buildTabBar(),
           ),
           Expanded(
             child: Container(
-              color: Colors.grey[200],
               child: _buildTabBarView(),
             ),
           ),
@@ -179,7 +190,7 @@ class _NavRailState extends State<NavRail> {
     return TabBarView(
       children: [
         Center(child: Text(_locationMessage)),
-        Center(child: Text('Tab 2 Content')),
+        Contents(),
         Center(child: Text('Tab 3 Content')),
       ],
     );
