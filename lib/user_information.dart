@@ -162,7 +162,7 @@ class UserInform extends StatelessWidget {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      prefixIcon: Icon(Icons.email),
+                      prefixIcon: Icon(Icons.airplanemode_active),
                       fillColor: Colors.white,
                       filled: true,
                     ),
@@ -180,7 +180,7 @@ class UserInform extends StatelessWidget {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          prefixIcon: Icon(Icons.email),
+                          prefixIcon: Icon(Icons.flag_rounded),
                           fillColor: Colors.white,
                           filled: true,
                         ),
@@ -196,7 +196,7 @@ class UserInform extends StatelessWidget {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          prefixIcon: Icon(Icons.email),
+                          prefixIcon: Icon(Icons.drive_file_rename_outline_rounded),
                           fillColor: Colors.white,
                           filled: true,
                         ),
