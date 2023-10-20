@@ -61,7 +61,7 @@ class owner_authentication extends StatelessWidget {
               textInputAction: TextInputAction.search,
               obscureText: true, // 비밀번호입력 ***옵션
             ),
-            SizedBox(height: 100),
+            SizedBox(height: 75),
             SizedBox(width: 100,height: 50,
               child: ElevatedButton(
                 onPressed: () {
@@ -130,7 +130,7 @@ class UserInform extends StatelessWidget {
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: SizedBox(height: 530,
+        child: SizedBox(height: 560,
           child: Padding(
             padding: EdgeInsets.all(16.0),
             child: Column(

@@ -9,7 +9,9 @@ NavigationRailDestination buildCustomNavigationRailDestination({
     icon: Row(
       children: [
         Icon(icon),
-        SizedBox(width: 8), // 아이콘과 라벨 사이의 간격 조정
+        SizedBox(
+          width: 4,
+        ), // 아이콘과 라벨 사이의 간격 조정
         if (isExtended)
           Text(
             label,

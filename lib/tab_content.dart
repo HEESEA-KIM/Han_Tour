@@ -118,7 +118,7 @@ class _TabContentState extends State<TabContent> {
     return Column(
       children: <Widget>[
         SizedBox(
-          height: 50,
+          height: 5,
         ),
         buildImageWithBookmark(context, imagePath),
         SizedBox(height: 20),

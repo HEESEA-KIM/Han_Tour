@@ -43,24 +43,24 @@ class ProductDetailPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
-                  height: 30,
+                  height: 7,
                 ),
                 _buildProductImage(),
-                _verticalSpacing(20),
+                _verticalSpacing(10),
                 _buildProductText(productName,
                     fontSize: 30, fontWeight: FontWeight.bold),
-                _verticalSpacing(10),
+                _verticalSpacing(7),
                 _buildProductText(
                   productDescription,
                   fontSize: 23,
                 ),
-                _verticalSpacing(20),
+                _verticalSpacing(10),
                 _buildProductText(
                   productLocation,
                   fontSize: 25,
                   fontWeight: FontWeight.w500,
                 ),
-                _verticalSpacing(20),
+                _verticalSpacing(7),
                 _buildProductText(productPrice,
                     fontSize: 28, fontWeight: FontWeight.bold),
                 _verticalSpacing(8),
@@ -90,6 +90,7 @@ class ProductDetailPage extends StatelessWidget {
       text,
       style: TextStyle(
           fontSize: fontSize, color: Colors.black, fontWeight: fontWeight),
+      textAlign: TextAlign.center,
     );
   }
 
