@@ -1,7 +1,107 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(UserInform());
+  runApp(MaterialApp(
+    home: owner_authentication(), // 앱의 시작점
+    debugShowCheckedModeBanner: false,
+  ));
+}
+
+class owner_authentication extends StatelessWidget {
+  owner_authentication({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 2,
+        backgroundColor: Colors.white,
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.close,
+              color: Colors.blue,
+              size: 30,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            SizedBox(height: 20),
+            Text(
+              'Password',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 27,
+                fontWeight: FontWeight.bold,
+                color: Colors.black45,
+              ),
+            ),
+            SizedBox(height: 30),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Password',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                prefixIcon: Icon(
+                  Icons.lock,
+                  color: Colors.black45,
+                ),
+                fillColor: Colors.white,
+                filled: true,
+              ),
+              keyboardType: TextInputType.number,
+              textInputAction: TextInputAction.search,
+              obscureText: true, // 비밀번호입력 ***옵션
+            ),
+            SizedBox(height: 100),
+            SizedBox(width: 100,height: 50,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Dialog(
+                          child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.75,
+                        height: MediaQuery.of(context).size.height * 0.75,
+                        child: UserInform(),
+                      ));
+                    },
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  textStyle: TextStyle(fontSize: 18),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: Text(
+                    'Next',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class UserInform extends StatelessWidget {
@@ -11,32 +111,45 @@ class UserInform extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-
-      home: Scaffold(
-        resizeToAvoidBottomInset: true,
-        backgroundColor: Colors.lightBlueAccent,
-        body: SingleChildScrollView(
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 2,
+        backgroundColor: Colors.white,
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.close,
+              color: Colors.blue,
+              size: 30,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: SizedBox(height: 530,
           child: Padding(
             padding: EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(height: 60),
+                SizedBox(height: 20),
                 Icon(
                   Icons.account_circle,
                   size: 100,
-                  color: Colors.white,
+                  color: Colors.lightBlueAccent,
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 1),
                 Text(
                   'Welcome !',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 35,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Colors.black54,
                   ),
                 ),
                 SizedBox(height: 30),
@@ -45,6 +158,7 @@ class UserInform extends StatelessWidget {
                   child: TextField(
                     decoration: InputDecoration(
                       labelText: 'Passport number',
+                      labelStyle: TextStyle(fontSize: 20),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -62,6 +176,7 @@ class UserInform extends StatelessWidget {
                       child: TextField(
                         decoration: InputDecoration(
                           labelText: 'Country',
+                          labelStyle: TextStyle(fontSize: 20),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -71,12 +186,13 @@ class UserInform extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(width: 8), // 필요한 경우 두 TextField 사이의 간격
+                    SizedBox(width: 8),
                     Flexible(
                       flex: 2,
                       child: TextField(
                         decoration: InputDecoration(
-                          labelText: 'first-name / last-name',
+                          labelText: 'First-name / Last-name',
+                          labelStyle: TextStyle(fontSize: 20),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -91,7 +207,8 @@ class UserInform extends StatelessWidget {
                 SizedBox(height: 24),
                 TextField(
                   decoration: InputDecoration(
-                    labelText: 'email',
+                    labelText: 'Email',
+                    labelStyle: TextStyle(fontSize: 20),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -114,9 +231,9 @@ class UserInform extends StatelessWidget {
                     child: Text(
                       'Submit',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Colors.blue,
                       ),
                     ),
                   ),

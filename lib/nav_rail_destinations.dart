@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 List<NavigationRailDestination> buildNavRailDestinations(bool extended) {
   final icons = [
+    Icons.airplane_ticket,
     Icons.airplanemode_active,
     Icons.paragliding,
     Icons.route,
-    Icons.airplane_ticket,
     Icons.hotel
   ];
-  final labels = ["Tour", "Activity", "Transport", "Ticket", "Hotel"];
+  final labels = ["Ticket", "Tour", "Activity", "Transport", "Hotel"];
   return List.generate(icons.length, (index) {
     return buildCustomNavigationRailDestination(
       icon: icons[index],
@@ -23,7 +23,6 @@ NavigationRailDestination buildCustomNavigationRailDestination({
   required bool isExtended,
   required String label,
 }) {
-
   return NavigationRailDestination(
     icon: Icon(icon),
     selectedIcon: Icon(icon, color: Colors.blue),

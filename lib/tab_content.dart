@@ -1,52 +1,120 @@
 import 'package:flutter/material.dart';
+import 'product_detail.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: Contents(),
-    );
-  }
-}
-
-class Contents extends StatefulWidget {
-  const Contents({super.key});
+class TabContent extends StatefulWidget {
+  const TabContent({Key? key}) : super(key: key);
 
   @override
-  _ContentsState createState() => _ContentsState();
+  _TabContentState createState() => _TabContentState();
 }
 
-class _ContentsState extends State<Contents> {
+class _TabContentState extends State<TabContent> {
   final textStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
+  Map<String, String>? selectedProduct;
 
   @override
   Widget build(BuildContext context) {
+    if (selectedProduct != null) {
+      return ProductDetailPage(
+        imagePath: selectedProduct!['imagePath']!,
+        productName: selectedProduct!['name']!,
+        productLocation: selectedProduct!['location']!,
+        productPrice: selectedProduct!['price']!,
+        productDescription: selectedProduct!['description']!,
+      );
+    }
     return Scaffold(
-      body: SizedBox(
-        width: double.infinity,
-        height: MediaQuery.of(context).size.height * 0.8,
+      resizeToAvoidBottomInset: false,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            buildColumn(context, 'assets/contents/everland2.png', 'Everland',
-                'THEME PARKS', 'Do in Gyeionggi-do', '\$ 24.56', '10Km'),
-            buildColumn(context, 'assets/contents/aqualium.png', 'Aqualium',
-                'AQUARIUM', 'Do in Seoul', '\$ 19.25', '5Km'),
-            buildColumn(context, 'assets/contents/nanta.png', 'Nanta',
-                'PERFORMANCES', '& Shows in Seoul', '\$ 22.83', '8Km'),
-          ],
+          children: _buildInkWells(),
         ),
       ),
     );
   }
 
-  Column buildColumn(BuildContext context, String imagePath, String name,
-      String category, String location, String price, String distance) {
+  List<Widget> _buildInkWells() {
+    final contents = [
+      {
+        'imagePath': 'assets/contents/everland2.png',
+        'name': 'Everland',
+        'category': 'THEME PARKS',
+        'location': 'Do in Gyeionggi-do',
+        'price': '\$24.56',
+        'distance': '10Km',
+        'description':
+            "Korea's largest theme park operated by Samsung, located in Yongin-si, Gyeonggi-do."
+      },
+      {
+        'imagePath': 'assets/contents/aqualium.png',
+        'name': 'Aqualium',
+        'category': 'AQUARIUM',
+        'location': 'Do in Seoul',
+        'price': '\$19.25',
+        'distance': '5Km',
+        'description':
+            "One of Korea's representative aquariums with the title of 'Korea's largest shark habitat'",
+      },
+      {
+        'imagePath': 'assets/contents/nanta.png',
+        'name': 'Nanta',
+        'category': 'PERFORMANCES',
+        'location': '& Shows in Seoul',
+        'price': '\$22.83',
+        'distance': '8Km',
+        'description':
+            "Nanta Show is Korea's first non-verbal performance based on Samulnori rhythm, a traditional Korean melody."
+      }
+    ];
+
+    return contents.map((content) {
+      return InkWell(
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return Dialog(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.75,
+                  height: MediaQuery.of(context).size.height * 0.75,
+                  child: ProductDetailPage(
+                    imagePath: content['imagePath']!,
+                    productName: content['name']!,
+                    productLocation: content['location']!,
+                    productPrice: content['price']!,
+                    productDescription: content['description']!,
+                  ),
+                ),
+              );
+            },
+          );
+        },
+        child: buildColumn(
+          context,
+          content['imagePath']!,
+          content['name']!,
+          content['category']!,
+          content['location']!,
+          content['price']!,
+          content['distance']!,
+          content['description']!,
+        ),
+      );
+    }).toList();
+  }
+
+  Column buildColumn(
+      BuildContext context,
+      String imagePath,
+      String name,
+      String category,
+      String location,
+      String price,
+      String distance,
+      String description) {
     return Column(
       children: <Widget>[
         SizedBox(
@@ -101,7 +169,7 @@ class _ContentsState extends State<Contents> {
   Card buildCategoryCard(String text) {
     return Card(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 1),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
         child: Text(
           text,
           style: TextStyle(
@@ -182,9 +250,9 @@ class _ContentsState extends State<Contents> {
         backgroundColor: MaterialStateProperty.all(Colors.blue),
         shape: MaterialStateProperty.all(RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
-        ),),
+        )),
         padding: MaterialStateProperty.all(
-          EdgeInsets.symmetric(vertical: 10.0,horizontal: 25),
+          EdgeInsets.symmetric(vertical: 10.0, horizontal: 25),
         ),
       ),
       child: Row(

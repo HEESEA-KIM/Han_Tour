@@ -71,32 +71,35 @@ class _NavRailState extends State<NavRail> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Row(
-        children: [
-          Stack(
-            children: [
-              NavigationRail(
-                minWidth: _extended ? 121 : 40,
-                selectedIndex: _selectedIndex,
-                onDestinationSelected: (index) =>
-                    setState(() => _selectedIndex = index),
-                leading: _buildLeading(),
-                destinations: buildNavRailDestinations(_extended),
-              ),
-              Positioned(
-                top: 150.0 + (_selectedIndex * 120.0),
-                left: _extended ? 265 : 0,
-                child: Container(
-                  height: 56.0,
-                  width: 3,
-                  color: Colors.blue,
+    return SizedBox(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Row(
+          children: [
+            Stack(
+              children: [
+                NavigationRail(
+                  minWidth: _extended ? 121 : 40,
+                  selectedIndex: _selectedIndex,
+                  onDestinationSelected: (index) =>
+                      setState(() => _selectedIndex = index),
+                  leading: _buildLeading(),
+                  destinations: buildNavRailDestinations(_extended),
                 ),
-              ),
-            ],
-          ),
-          Expanded(child: _buildTabContent()),
-        ],
+                Positioned(
+                  top: 150.0 + (_selectedIndex * 120.0),
+                  left: _extended ? 265 : 0,
+                  child: Container(
+                    height: 56.0,
+                    width: 3,
+                    color: Colors.blue,
+                  ),
+                ),
+              ],
+            ),
+            Expanded(child: _buildTabContent()),
+          ],
+        ),
       ),
     );
   }
@@ -149,7 +152,7 @@ class _NavRailState extends State<NavRail> {
   }
 
   Widget _buildTabBar() {
-    final tabs = ['RECOMMENDED', 'TOP RATED', 'LOWEST PRICE'];
+    final tabs = ['TOP RATED', 'RECOMMENDED', 'LOWEST PRICE'];
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -189,8 +192,8 @@ class _NavRailState extends State<NavRail> {
   Widget _buildTabBarView() {
     return TabBarView(
       children: [
+        TabContent(),
         Center(child: Text(_locationMessage)),
-        Contents(),
         Center(child: Text('Tab 3 Content')),
       ],
     );
