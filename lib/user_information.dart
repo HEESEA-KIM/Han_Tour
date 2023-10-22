@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: owner_authentication(), // 앱의 시작점
-    debugShowCheckedModeBanner: false,
-  ));
-}
 
-class owner_authentication extends StatelessWidget {
-  owner_authentication({super.key});
+
+class OwnerAuthentication extends StatelessWidget {
+  OwnerAuthentication({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +57,9 @@ class owner_authentication extends StatelessWidget {
               obscureText: true, // 비밀번호입력 ***옵션
             ),
             SizedBox(height: 75),
-            SizedBox(width: 100,height: 50,
+            SizedBox(
+              width: 100,
+              height: 50,
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
@@ -107,8 +104,6 @@ class owner_authentication extends StatelessWidget {
 class UserInform extends StatelessWidget {
   UserInform({super.key});
 
-  final TextEditingController _email = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,7 +125,8 @@ class UserInform extends StatelessWidget {
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: SizedBox(height: 560,
+        child: SizedBox(
+          height: 560,
           child: Padding(
             padding: EdgeInsets.all(16.0),
             child: Column(
@@ -196,7 +192,8 @@ class UserInform extends StatelessWidget {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          prefixIcon: Icon(Icons.drive_file_rename_outline_rounded),
+                          prefixIcon:
+                              Icon(Icons.drive_file_rename_outline_rounded),
                           fillColor: Colors.white,
                           filled: true,
                         ),
@@ -220,7 +217,7 @@ class UserInform extends StatelessWidget {
                 SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    print(_email.text);
+
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
