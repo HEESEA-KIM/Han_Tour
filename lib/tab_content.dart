@@ -130,7 +130,7 @@ class _TabContentState extends State<TabContent> {
         SizedBox(height: 10),
         buildHighlightText(location),
         SizedBox(height: 60),
-        buildPriceButton(price),
+        buildPrice(price),
       ],
     );
   }
@@ -243,17 +243,12 @@ class _TabContentState extends State<TabContent> {
     );
   }
 
-  ElevatedButton buildPriceButton(String price) {
-    return ElevatedButton(
-      onPressed: () => print('구매버튼'),
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Colors.blue),
-        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        )),
-        padding: MaterialStateProperty.all(
-          EdgeInsets.symmetric(vertical: 10.0, horizontal: 25),
-        ),
+  Widget buildPrice(String price) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25),
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(15),
       ),
       child: Row(
         children: [
@@ -264,4 +259,5 @@ class _TabContentState extends State<TabContent> {
       ),
     );
   }
-}
+  }
+

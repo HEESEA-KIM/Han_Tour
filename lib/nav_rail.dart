@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:hanstour/tab_content.dart';
 import 'nav_rail_destinations.dart';
 
@@ -26,7 +25,6 @@ class NavRail extends StatefulWidget {
 class _NavRailState extends State<NavRail> {
   int _selectedIndex = 0;
   bool _extended = true;
-  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
   late Position _currentPosition;
   String _locationMessage = "위치를 불러오는 중...";
 
@@ -204,15 +202,7 @@ class _NavRailState extends State<NavRail> {
         ],
       ),
       child: TabBar(
-        onTap: (index) {
-          _analytics.logEvent(
-            name: 'tab_changed',
-            parameters: {
-              'tab_index': index,
-              'tab_name': tabs[index],
-            },
-          );
-        },
+        onTap: (index) {},
         indicator: ShapeDecoration(
           color: Colors.blue,
           shape: RoundedRectangleBorder(

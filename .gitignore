@@ -33,7 +33,7 @@ migrate_working_dir/
 /build/
 *.env
 # Google Services (e.g. APIs or Firebase)
-google-services.json
+# google-services.json
 # Symbolication related
 app.*.symbols
 
