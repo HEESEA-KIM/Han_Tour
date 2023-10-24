@@ -17,7 +17,7 @@ class _TabContentState extends State<TabContent> {
   }
 
   final textStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
+  TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
   Map<String, String>? selectedProduct;
 
   @override
@@ -35,9 +35,9 @@ class _TabContentState extends State<TabContent> {
     }
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: SafeArea(
+      body: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: _buildInkWells(),
@@ -54,39 +54,39 @@ class _TabContentState extends State<TabContent> {
         'name': 'Lotte World',
         'category': 'THEME PARKS',
         'location': '240 Olympic-ro, Songpa-gu, Seoul',
-        'price': '\₩24.56',
+        'price': '\₩33000',
         'distance': '24Km',
         'time': 'about 38 minutes',
         'description':
-            'Experience seasonal parades and dynamic attractions at Lotte World, a land of adventure and mystery full of fun 365 days a year.',
+        'Experience seasonal parades and dynamic attractions at Lotte World, a land of adventure and mystery full of fun 365 days a year.',
         'explanation':
-            "Korea's largest theme park operated by Samsung, located in Yongin-si, Gyeonggi-do."
+        "Korea's largest theme park operated by Samsung, located in Yongin-si, Gyeonggi-do."
       },
       {
         'imagePath': 'assets/contents/aqualium.png',
         'name': 'Lotte Aqualium',
         'category': 'AQUARIUM',
         'location': '300 Olympic-ro, Songpa-gu, Seoul',
-        'price': '\₩19.25',
+        'price': '\₩25900',
         'distance': '24Km',
         'time': 'about 38 minutes',
         'description':
-            'Nature in the city! Come visit Lotte World Aquarium, which dreams of a joyful world where people and nature live together.',
+        'Nature in the city! Come visit Lotte World Aquarium, which dreams of a joyful world where people and nature live together.',
         'explanation':
-            "One of Korea's representative aquariums with the title of 'Korea's largest shark habitat'",
+        "One of Korea's representative aquariums with the title of 'Korea's largest shark habitat'",
       },
       {
         'imagePath': 'assets/contents/nanta.png',
         'name': 'Myeongdong Nanta',
         'category': 'PERFORMANCES',
         'location': 'UNESCO Center, 26 Myeongdong-gil, Jung-gu, Seoul',
-        'price': '\₩22.83',
+        'price': '\₩30700',
         'distance': '2.2Km',
         'time': 'about 11 minutes',
         'description':
-            'Since 1997 14.8 million viewers made a reasonable choice! Nanta impressed not only Korea but the world!',
+        'Since 1997 14.8 million viewers made a reasonable choice! Nanta impressed not only Korea but the world!',
         'explanation':
-            "Nanta Show is Korea's first non-verbal performance based on Samulnori rhythm, a traditional Korean melody."
+        "Nanta Show is Korea's first non-verbal performance based on Samulnori rhythm, a traditional Korean melody."
       }
     ];
 
@@ -112,21 +112,17 @@ class _TabContentState extends State<TabContent> {
             },
           );
         },
-        child: SingleChildScrollView(
-          child: SafeArea(
-            child: buildColumn(
-              context,
-              content['imagePath']!,
-              content['name']!,
-              content['category']!,
-              content['location']!,
-              content['price']!,
-              content['distance']!,
-              content['description']!,
-              content['time']!,
-              content['explanation']!,
-            ),
-          ),
+        child: buildColumn(
+          context,
+          content['imagePath']!,
+          content['name']!,
+          content['category']!,
+          content['location']!,
+          content['price']!,
+          content['distance']!,
+          content['description']!,
+          content['time']!,
+          content['explanation']!,
         ),
       );
     }).toList();
