@@ -170,15 +170,7 @@ class _TabContentState extends State<TabContent> {
             color: Colors.black,
           ),
         ),
-        SizedBox(width: 15),
-        Padding(
-          padding: const EdgeInsets.only(top: 8),
-          child: Text('Reviews',
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey)),
-        ),
+        SizedBox(width: 15)
       ],
     );
   }
