@@ -148,11 +148,53 @@ class _TabContentState extends State<TabContent> {
         SizedBox(height: 1),
         buildImageWithBookmark(context, imagePath),
         SizedBox(height: 10),
+        buildNameWithReviews(name),
+        SizedBox(height: 10),
+        buildCategoryWithReviews(category),
+        SizedBox(height: 10),
         buildLocation(location, distance),
         SizedBox(height: 10),
         buildHighlightText(time, explanation),
         SizedBox(height: 1),
         buildPrice(price),
+      ],
+    );
+  }
+
+  Row buildNameWithReviews(String name) {
+    return Row(
+      textDirection: TextDirection.ltr,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          name,
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w700,
+            color: Colors.black,
+          ),
+        ),
+        SizedBox(width: 15),
+        Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Text('Reviews',
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey)),
+        ),
+      ],
+    );
+  }
+
+  Row buildCategoryWithReviews(String category) {
+    return Row(
+      textDirection: TextDirection.ltr,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        buildCategoryCard(category),
+        SizedBox(width: 1),
+        buildCategoryCard('reviews'),
       ],
     );
   }
