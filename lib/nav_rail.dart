@@ -137,12 +137,12 @@ class _NavRailState extends State<NavRail> {
   final Map<int, List<Widget>> _navRailToTabContents = {
     0: [ // Tour
       TabContent(),
-      Center(child: Text('Tour - RECOMMENDED Content')),
+      Center(child: Text('Tour - MOST PLAYED Content')),
       Center(child: Text('Tour - LOWEST PRICE Content'))
     ],
     1: [ // Activity
       Center(child: Text('Activity - TOP RATED Content')),
-      Center(child: Text('Activity - RECOMMENDED Content')),
+      Center(child: Text('Activity - MOST PLAYED Content')),
       Center(child: Text('Activity - LOWEST PRICE Content'))
     ],
     2: [ // Ticket
@@ -152,7 +152,7 @@ class _NavRailState extends State<NavRail> {
     ],
     3: [ // Transport
       Center(child: Text('Transport - TOP RATED Content')),
-      Center(child: Text('Transport - RECOMMENDED Content')),
+      Center(child: Text('Transport - MOST PLAYED Content')),
       Center(child: Text('Transport - LOWEST PRICE Content'))
     ]
   };
@@ -187,7 +187,7 @@ class _NavRailState extends State<NavRail> {
   }
 
   Widget _buildTabBar() {
-    final tabs = ['TOP RATED', 'RECOMMENDED', 'LOWEST PRICE'];
+    final tabs = ['TOP RATED', 'MOST PLAYED', 'LOWEST PRICE'];
 
     return Container(
       decoration: BoxDecoration(
