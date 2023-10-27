@@ -44,12 +44,11 @@ class ProductDetailPage extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: SizedBox(
-                height: 700,
+                height: 800,
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        SizedBox(height: 7),
                         _buildProductImage(),
                         _verticalSpacing(10),
                         _buildProductText(productName,
@@ -82,26 +81,30 @@ class ProductDetailPage extends StatelessWidget {
   }
 
   Widget _buildProductImage() {
-    return Container(
-      margin: EdgeInsets.all(20.0),
-      width: 300,
-      height: 200,
+    return SizedBox(
+      width: 1250,
+      height: 470,
       child: Image.asset(
         imagePath,
-        width: 250,
+        width: 550,
         height: 200,
-        fit: BoxFit.cover,
+        fit: BoxFit.fill,
       ),
     );
   }
 
   Widget _buildProductText(String text,
       {double fontSize = 20, FontWeight fontWeight = FontWeight.normal}) {
-    return Text(
-      text,
-      style: TextStyle(
-          fontSize: fontSize, color: Colors.black, fontWeight: fontWeight),
-      textAlign: TextAlign.center,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          text,
+          style: TextStyle(
+              fontSize: fontSize, color: Colors.black, fontWeight: fontWeight),
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 

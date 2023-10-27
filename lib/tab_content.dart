@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hanstour/firestore_data.dart';
 import 'product_detail.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:hanstour/global.dart';
 
 class TabContent extends StatefulWidget {
   const TabContent({Key? key}) : super(key: key);
@@ -10,14 +12,35 @@ class TabContent extends StatefulWidget {
 }
 
 class _TabContentState extends State<TabContent> {
+  String? savedDocumentId;
+
   void getLocation() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     print(position);
   }
 
+  void selectProduct(Map<String, String> product) {
+    setState(() {
+      selectedProduct = product;
+    });
+    // 전역 변수에 선택된 제품의 name 값을 저장(즉시 아니고 임시저장).
+    selectedProductName = product['name'];
+    // Firestore에 선택된 제품의 name 값을 저장(즉시저장).
+    if (savedDocumentId != null) {
+      updateSelectedProductNameInFirestore(savedDocumentId!, product['name']);
+    }
+  }
+
+  void updateSelectedProductNameInFirestore(
+      String documentId, String? productName) {
+    if (productName != null) {
+      FirestoreService().updateProductName(documentId, productName);
+    }
+  }
+
   final textStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
   Map<String, String>? selectedProduct;
 
   @override
@@ -54,46 +77,48 @@ class _TabContentState extends State<TabContent> {
         'name': 'Lotte World',
         'category': 'THEME PARKS',
         'location': '240 Olympic-ro, Songpa-gu, Seoul',
-        'price': '\₩33000',
+        'price': '₩33000',
         'distance': '24Km',
         'time': 'about 38 minutes',
         'description':
-        'Experience seasonal parades and dynamic attractions at Lotte World, a land of adventure and mystery full of fun 365 days a year.',
+            'seasonal parades \n dynamic attractions \n Thrilling rides',
         'explanation':
-        "Korea's largest theme park operated by Samsung, located in Yongin-si, Gyeonggi-do."
+            "Korea's largest theme park operated by Samsung, located in Yongin-si, Gyeonggi-do."
       },
       {
         'imagePath': 'assets/contents/aqualium.png',
         'name': 'Lotte Aqualium',
         'category': 'AQUARIUM',
         'location': '300 Olympic-ro, Songpa-gu, Seoul',
-        'price': '\₩25900',
+        'price': '₩25900',
         'distance': '24Km',
         'time': 'about 38 minutes',
         'description':
-        'Nature in the city! Come visit Lotte World Aquarium, which dreams of a joyful world where people and nature live together.',
+            "Korea's largest shark habitat\nlongest underwater tunnel\nlargest acrylic viewing tank",
         'explanation':
-        "One of Korea's representative aquariums with the title of 'Korea's largest shark habitat'",
+            'Nature in the city! Come visit Lotte World Aquarium, which dreams of a joyful world where people and nature live together.',
       },
       {
         'imagePath': 'assets/contents/nanta.png',
         'name': 'Myeongdong Nanta',
         'category': 'PERFORMANCES',
         'location': 'UNESCO Center, 26 Myeongdong-gil, Jung-gu, Seoul',
-        'price': '\₩30700',
+        'price': '₩30700',
         'distance': '2.2Km',
         'time': 'about 11 minutes',
         'description':
-        'Since 1997 14.8 million viewers made a reasonable choice! Nanta impressed not only Korea but the world!',
+            'Exceeded 10 million viewers in 2014\nComical non-verbal performance\ncheerful rhythm',
         'explanation':
-        "Nanta Show is Korea's first non-verbal performance based on Samulnori rhythm, a traditional Korean melody."
+            "Nanta Show is Korea's first non-verbal performance based on Samulnori rhythm, a traditional Korean melody."
       }
     ];
 
     return contents.map((content) {
       return InkWell(
-        onTap: () {
-          showDialog(
+        onTap: () async {
+          // 선택된 제품의 name 값을 Firestore에 저장
+          selectProduct(content);
+          await showDialog(
             context: context,
             builder: (BuildContext context) {
               return SizedBox(
@@ -109,6 +134,12 @@ class _TabContentState extends State<TabContent> {
                   productExplanation: content['explanation']!,
                 ),
               );
+            },
+          );
+          // 다이얼로그가 닫힌 후에 selectedProduct를 초기화하고 UI를 업데이트합니다.
+          setState(
+            () {
+              selectedProduct = null;
             },
           );
         },
@@ -141,17 +172,16 @@ class _TabContentState extends State<TabContent> {
       String explanation) {
     return Column(
       children: <Widget>[
-        SizedBox(height: 1),
+        SizedBox(height: 10),
         buildImageWithBookmark(context, imagePath),
-        SizedBox(height: 10),
+        SizedBox(height: 20),
         buildNameWithReviews(name),
-        SizedBox(height: 10),
+        SizedBox(height: 20),
         buildCategoryWithReviews(category),
-        SizedBox(height: 10),
+        SizedBox(height: 20),
         buildLocation(location, distance),
-        SizedBox(height: 10),
+        SizedBox(height: 20),
         buildHighlightText(time, explanation),
-        SizedBox(height: 1),
         buildPrice(price),
       ],
     );
@@ -181,8 +211,6 @@ class _TabContentState extends State<TabContent> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         buildCategoryCard(category),
-        SizedBox(width: 1),
-        buildCategoryCard('reviews'),
       ],
     );
   }
@@ -264,7 +292,7 @@ class _TabContentState extends State<TabContent> {
         ),
         SizedBox(
           width: 300,
-          height: 140,
+          height: 100,
           child: Flexible(
             child: RichText(
               overflow: TextOverflow.ellipsis,
@@ -277,7 +305,8 @@ class _TabContentState extends State<TabContent> {
                   fontWeight: FontWeight.w700,
                   color: Color(0XFF357ca7),
                 ),
-              ),textAlign: TextAlign.center,
+              ),
+              textAlign: TextAlign.center,
             ),
           ),
         ),

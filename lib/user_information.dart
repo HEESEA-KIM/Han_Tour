@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hanstour/firestore_data.dart';
+import 'package:hanstour/global.dart';
+import 'package:hanstour/qrcode.dart';
 
-
-
+String? savedDocumentId;
 class OwnerAuthentication extends StatelessWidget {
   OwnerAuthentication({super.key});
 
@@ -104,6 +106,9 @@ class OwnerAuthentication extends StatelessWidget {
 class UserInform extends StatelessWidget {
   UserInform({super.key});
 
+  final firstNameLastNameController = TextEditingController();
+  final emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -186,6 +191,7 @@ class UserInform extends StatelessWidget {
                     Flexible(
                       flex: 2,
                       child: TextField(
+                        controller: firstNameLastNameController,
                         decoration: InputDecoration(
                           labelText: 'First-name / Last-name',
                           labelStyle: TextStyle(fontSize: 20),
@@ -203,6 +209,7 @@ class UserInform extends StatelessWidget {
                 ),
                 SizedBox(height: 24),
                 TextField(
+                  controller: emailController,
                   decoration: InputDecoration(
                     labelText: 'Email',
                     labelStyle: TextStyle(fontSize: 20),
@@ -217,7 +224,19 @@ class UserInform extends StatelessWidget {
                 SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
+                    String userName = firstNameLastNameController.text;
+                    String email = emailController.text;
 
+                    // Firestore에 사용자 정보와 선택된 제품의 name 값을 저장.
+                    FirestoreService().saveUserInformation(userName, email, selectedProductName!).then((documentId) {
+                      // QR 코드 페이지로 넘어감.
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => QRCodeDisplayPage(docId: documentId),
+                        ),
+                      );
+                    });
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
@@ -234,7 +253,7 @@ class UserInform extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
+                )
               ],
             ),
           ),
