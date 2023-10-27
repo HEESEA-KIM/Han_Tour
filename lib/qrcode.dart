@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class QRCodeDisplayPage extends StatefulWidget {
-  final String docId;  // Using the document ID from Firestore as the unique identifier
+  final String docId; // Using the document ID from Firestore as the unique identifier
 
-  QRCodeDisplayPage({super.key, required this.docId});
+  QRCodeDisplayPage({Key? key, required this.docId}) : super(key: key);
 
   @override
   _QRCodeDisplayPageState createState() => _QRCodeDisplayPageState();
 }
 
 class _QRCodeDisplayPageState extends State<QRCodeDisplayPage> {
-  String? qrData;
+  late String qrData;
 
   @override
   void initState() {
@@ -28,13 +27,11 @@ class _QRCodeDisplayPageState extends State<QRCodeDisplayPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            qrData != null
-                ? QrImageView(
-              data: qrData!,
+            QrImageView(
+              data: qrData,
               version: QrVersions.auto,
               size: 200.0,
-            )
-                : CircularProgressIndicator(),
+            ),
             SizedBox(height: 20),
             Text(
               "You can check reservation information by scanning the QR code!",

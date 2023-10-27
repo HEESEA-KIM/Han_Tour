@@ -45,7 +45,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyAylG1RYAPR981xvqcBoxNn_YIvuvyKENk',
-    appId: '1:495475729075:web:caee79847ac5a0814846c6',
+    appId: '1:495475729075:web:05c2f1a7671073a64846c6',
     messagingSenderId: '495475729075',
     projectId: 'nomadmate',
     authDomain: 'nomadmate.firebaseapp.com',
