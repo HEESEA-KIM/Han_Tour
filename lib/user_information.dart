@@ -109,6 +109,7 @@ class UserInform extends StatelessWidget {
   final firstNameLastNameController = TextEditingController();
   final emailController = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -228,7 +229,7 @@ class UserInform extends StatelessWidget {
                     String email = emailController.text;
 
                     // Firestore에 사용자 정보와 선택된 제품의 name 값을 저장.
-                    FirestoreService().saveUserInformation(userName, email, selectedProductName!).then((documentId) {
+                    FirestoreService().saveUserInformation(userName, email, selectedProductName!, selectedProductLocation!).then((documentId) {
                       // QR 코드 페이지로 넘어감.
                       Navigator.push(
                         context,

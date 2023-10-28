@@ -26,6 +26,7 @@ class _TabContentState extends State<TabContent> {
     });
     // 전역 변수에 선택된 제품의 name 값을 저장(즉시 아니고 임시저장).
     selectedProductName = product['name'];
+    selectedProductLocation = product['location'];
     // Firestore에 선택된 제품의 name 값을 저장(즉시저장).
     if (savedDocumentId != null) {
       updateSelectedProductNameInFirestore(savedDocumentId!, product['name']);
