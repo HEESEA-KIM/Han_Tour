@@ -7,7 +7,6 @@ class ProductDetailPage extends StatelessWidget {
   final String productLocation;
   final String productPrice;
   final String productDescription;
-  final String productTimetaken;
   final String productExplanation;
 
   const ProductDetailPage({
@@ -16,7 +15,6 @@ class ProductDetailPage extends StatelessWidget {
     required this.productLocation,
     required this.productPrice,
     required this.productDescription,
-    required this.productTimetaken,
     required this.productExplanation,
     Key? key,
   }) : super(key: key);

@@ -7,9 +7,8 @@ List<NavigationRailDestination> buildNavRailDestinations(bool extended) {
     Icons.local_activity,
     Icons.paragliding,
     Icons.airplanemode_active,
-    Icons.route,
   ];
-  final labels = [ "Ticket", "Activity", "Tour","Transport"];
+  final labels = [ "Ticket", "Activity", "Tour",];
   return List.generate(icons.length, (index) {
     return buildCustomNavigationRailDestination(
       icon: icons[index],

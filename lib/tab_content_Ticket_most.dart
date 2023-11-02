@@ -4,14 +4,14 @@ import 'product_detail.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hanstour/global.dart';
 
-class TabContent extends StatefulWidget {
-  const TabContent({Key? key}) : super(key: key);
+class TicketMostContent extends StatefulWidget {
+  const TicketMostContent({Key? key}) : super(key: key);
 
   @override
-  _TabContentState createState() => _TabContentState();
+  _TicketMostContentState createState() => _TicketMostContentState();
 }
 
-class _TabContentState extends State<TabContent> {
+class _TicketMostContentState extends State<TicketMostContent> {
   String? savedDocumentId;
 
   void getLocation() async {
@@ -41,7 +41,7 @@ class _TabContentState extends State<TabContent> {
   }
 
   final textStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
+  TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
   Map<String, String>? selectedProduct;
 
   @override
@@ -73,15 +73,15 @@ class _TabContentState extends State<TabContent> {
   List<Widget> _buildInkWells() {
     final contents = [
       {
-        'imagePath': 'assets/contents/hongdaenanta.png',
-        'name': 'Hongik University Nanta',
-        'category': 'PERFORMANCES',
-        'location': 'Hongik Mall, 29 Yanghwa-ro 16-gil, Mapo-gu, Seoul',
-        'price': '₩30000',
+        'imagePath': 'assets/contents/Yoonscolor.png',
+        'name': 'Yoon`s Color',
+        'category': 'Museum',
+        'location': '12, Wausan-ro 14-gil, Mapo-gu, Seoul, Sangsu-dong',
+        'price': '₩5000',
         'description':
-            'The more I see of Dodream\n the more I want to recommend it \n The party begins for you',
+        'Props used in the drama \n Beautiful set and photo zone \n tourist dating spots',
         'explanation':
-            "Since 1997 14.8 million viewers made a reasonable choice! Nanta impressed not only Korea but the world!"
+        "An exotic museum that displays props used in dramas, on-site photos, and drama sets"
       },
       {
         'imagePath': 'assets/contents/aqualium.png',
@@ -90,9 +90,9 @@ class _TabContentState extends State<TabContent> {
         'location': '65 Eulmadang-ro, Mapo-gu, Seoul',
         'price': '₩12000',
         'description':
-            "each space\n Decorated with a different concept \nVarious photo production",
+        "each space\n Decorated with a different concept \nVarious photo production",
         'explanation':
-            'Each space is decorated with a different concept, allowing you to create a variety of photos.',
+        'Each space is decorated with a different concept, allowing you to create a variety of photos.',
       },
       {
         'imagePath': 'assets/contents/nanta.png',
@@ -101,9 +101,9 @@ class _TabContentState extends State<TabContent> {
         'location': 'UNESCO Center, 26 Myeongdong-gil, Jung-gu, Seoul',
         'price': '₩30700',
         'description':
-            'Exceeded 10 million viewers in 2014\nComical non-verbal performance\ncheerful rhythm',
+        'Exceeded 10 million viewers in 2014\nComical non-verbal performance\ncheerful rhythm',
         'explanation':
-            "Nanta Show is Korea's first non-verbal performance based on Samulnori rhythm, a traditional Korean melody."
+        "Nanta Show is Korea's first non-verbal performance based on Samulnori rhythm, a traditional Korean melody."
       }
     ];
 
@@ -131,7 +131,7 @@ class _TabContentState extends State<TabContent> {
           );
           // 다이얼로그가 닫힌 후에 selectedProduct를 초기화하고 UI를 업데이트합니다.
           setState(
-            () {
+                () {
               selectedProduct = null;
             },
           );

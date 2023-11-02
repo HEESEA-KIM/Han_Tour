@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hanstour/tab_content.dart';
+import 'package:hanstour/tab_content_Ticket_most.dart';
+import 'package:hanstour/tab_content_activity_most.dart';
+import 'package:hanstour/tab_content_activity_top.dart';
 import 'nav_rail_destinations.dart';
 
 class NavigationRailApp extends StatelessWidget {
@@ -137,24 +140,19 @@ class _NavRailState extends State<NavRail> {
   final Map<int, List<Widget>> _navRailToTabContents = {
     0: [ // Tour
       TabContent(),
-      Center(child: Text('Tour - MOST PLAYED Content')),
-      Center(child: Text('Tour - LOWEST PRICE Content'))
+      TicketMostContent(),
+      Center(child: Text('Tour - LOWEST PRICE Content')),
     ],
     1: [ // Activity
-      Center(child: Text('Activity - TOP RATED Content')),
-      Center(child: Text('Activity - MOST PLAYED Content')),
-      Center(child: Text('Activity - LOWEST PRICE Content'))
+      ActivityTopContent(),
+      ActivityMostContent(),
+      Center(child: Text('Activity - LOWEST PRICE Content')),
     ],
     2: [ // Ticket
       Center(child: Text('Ticket - TOP RATED Content')),
       Center(child: Text('Location Content')),
-      Center(child: Text('Ticket - LOWEST PRICE Content'))
+      Center(child: Text('Ticket - LOWEST PRICE Content')),
     ],
-    3: [ // Transport
-      Center(child: Text('Transport - TOP RATED Content')),
-      Center(child: Text('Transport - MOST PLAYED Content')),
-      Center(child: Text('Transport - LOWEST PRICE Content'))
-    ]
   };
 
   Widget _buildTabContent() {

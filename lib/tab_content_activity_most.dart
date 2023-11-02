@@ -4,14 +4,39 @@ import 'product_detail.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hanstour/global.dart';
 
-class TabContent extends StatefulWidget {
-  const TabContent({Key? key}) : super(key: key);
+class ActivityMostContent extends StatefulWidget {
+  const ActivityMostContent({Key? key}) : super(key: key);
 
   @override
-  _TabContentState createState() => _TabContentState();
+  _ActivityMostContentState createState() => _ActivityMostContentState();
 }
 
-class _TabContentState extends State<TabContent> {
+class _ActivityMostContentState extends State<ActivityMostContent> {
+  late ScrollController _controller;
+  @override
+
+  void initState() {
+    _controller = ScrollController();
+    _controller.addListener(() {
+      // 스크롤 할 때 마다 호출
+
+      // 스크롤 된 값
+      print('offset : ${_controller.offset}');
+
+      // 스크롤에 대한 여러 정보를 가지고 있음
+      // 전체 길이, offset, 방향 등
+      print('position : ${_controller.position}');
+      // 컨트롤러가 SingleChildScrollView에 연결이 됐는지 안됐는지
+      _controller.hasClients;
+    });
+    super.initState();
+  }
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   String? savedDocumentId;
 
   void getLocation() async {
@@ -41,7 +66,7 @@ class _TabContentState extends State<TabContent> {
   }
 
   final textStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
+  TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
   Map<String, String>? selectedProduct;
 
   @override
@@ -58,14 +83,15 @@ class _TabContentState extends State<TabContent> {
     }
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Center(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+          controller: _controller,
           scrollDirection: Axis.horizontal,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: _buildInkWells(),
-          ),
-        ),
+          physics: BouncingScrollPhysics(),
+          padding: EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: _buildInkWells(),
+            ),
       ),
     );
   }
@@ -73,38 +99,49 @@ class _TabContentState extends State<TabContent> {
   List<Widget> _buildInkWells() {
     final contents = [
       {
-        'imagePath': 'assets/contents/hongdaenanta.png',
-        'name': 'Hongik University Nanta',
-        'category': 'PERFORMANCES',
-        'location': 'Hongik Mall, 29 Yanghwa-ro 16-gil, Mapo-gu, Seoul',
-        'price': '₩30000',
+        'imagePath': 'assets/contents/rental.png',
+        'name': 'anyone School uniform rental',
+        'category': 'RENTAL',
+        'location': '5th floor of Jinyuwon Building, 55,\n Wausan-ro 35-gil, Mapo-gu, Seoul',
+        'price': '₩25000',
         'description':
-            'The more I see of Dodream\n the more I want to recommend it \n The party begins for you',
+        'Kpop Celebrity Uniform Experience\n an indoor studio \n Various props and directing',
         'explanation':
-            "Since 1997 14.8 million viewers made a reasonable choice! Nanta impressed not only Korea but the world!"
+        "It is a place where you can experience the uniforms of Kpop celebrities and enjoy various pictures and beautiful memories."
       },
       {
-        'imagePath': 'assets/contents/aqualium.png',
-        'name': 'Kt & G Sangsang Madang',
-        'category': 'Complex cultural space',
-        'location': '65 Eulmadang-ro, Mapo-gu, Seoul',
-        'price': '₩12000',
+        'imagePath': 'assets/contents/hongik.png',
+        'name': 'Hongik University Street',
+        'category': 'A TOURIST ATTRACTION',
+        'location': 'Seogyo-dong, Mapo-gu, Seoul',
+        'price': '₩Free',
         'description':
-            "each space\n Decorated with a different concept \nVarious photo production",
+        "Various events and street performances\n a small shop and a fashion shop \n cultural elements such as festivals",
         'explanation':
-            'Each space is decorated with a different concept, allowing you to create a variety of photos.',
+        'Hongik University has a variety of cultural elements and is rich in attractions and food.',
       },
       {
-        'imagePath': 'assets/contents/nanta.png',
-        'name': 'Myeongdong Nanta',
-        'category': 'PERFORMANCES',
-        'location': 'UNESCO Center, 26 Myeongdong-gil, Jung-gu, Seoul',
-        'price': '₩30700',
+        'imagePath': 'assets/contents/Playstation.png',
+        'name': 'Hongik University Lounge Play Store',
+        'category': 'PLAYSTATION ROOM',
+        'location': '5th floor of Hongseok Building,\n 12 Xandari-ro, Mapo-gu, Seoul',
+        'price': '₩3000',
         'description':
-            'Exceeded 10 million viewers in 2014\nComical non-verbal performance\ncheerful rhythm',
+        'Various games\n a couple`s unique date \n a comfortable and pleasant environment',
         'explanation':
-            "Nanta Show is Korea's first non-verbal performance based on Samulnori rhythm, a traditional Korean melody."
-      }
+        "Couples or friends can enjoy various games as a good place to play and enjoy together."
+      },
+      {
+        'imagePath': 'assets/contents/massage.png',
+        'name': 'Himawari Massage & Cafe',
+        'category': 'SPA',
+        'location': '28-7, Wausan-ro 21-gil, Mapo-gu, Seoul',
+        'price': '₩55000',
+        'description':
+        'an exotic date course \n relieving fatigue \n a sincere massage',
+        'explanation':
+        "An unusual place to relieve the exhaustion of a day-to-day exhaustion."
+      },
     ];
 
     return contents.map((content) {
@@ -131,7 +168,7 @@ class _TabContentState extends State<TabContent> {
           );
           // 다이얼로그가 닫힌 후에 selectedProduct를 초기화하고 UI를 업데이트합니다.
           setState(
-            () {
+                () {
               selectedProduct = null;
             },
           );
@@ -169,7 +206,6 @@ class _TabContentState extends State<TabContent> {
         buildCategoryWithReviews(category),
         SizedBox(height: 20),
         buildLocation(location),
-        SizedBox(height: 20),
         buildHighlightText(explanation),
         buildPrice(price),
       ], // time, distance 지움, location 추가
@@ -230,6 +266,7 @@ class _TabContentState extends State<TabContent> {
               text: location,
               style: TextStyle(fontSize: 13, color: Colors.grey)),
         ),
+        SizedBox(height: 30,),
       ],
     );
   }
