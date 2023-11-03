@@ -9,7 +9,7 @@ class QRCodeDisplayPage extends StatefulWidget {
   final double longitude; // 경도 정보를 저장하는 변수입니다.
 
   // 생성자에서 현재 위치 정보를 받습니다.
-  QRCodeDisplayPage({Key? key, required this.currentPosition, required this.latitude, required this.longitude}) : super(key: key);
+  QRCodeDisplayPage({Key? key, required this.currentPosition, required this.latitude, required this.longitude, required String documentId}) : super(key: key);
 
   @override
   _QRCodeDisplayPageState createState() => _QRCodeDisplayPageState();
@@ -28,25 +28,41 @@ class _QRCodeDisplayPageState extends State<QRCodeDisplayPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        // QR 코드 이미지를 표시합니다.
-        QrImageView( // QrImageView 대신 실제 QR 코드 위젯을 사용하세요.
-          data: navigationLink,
-          version: QrVersions.auto,
-          size: 120.0,
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(height: 70,),
+            // QrImage 위젯을 사용하여 QR 코드를 표시합니다.
+            QrImageView(
+              data: navigationLink,
+              version: QrVersions.auto,
+              size: 200.0,
+            ),
+            SizedBox(height: 40),
+            Text(
+              "Location information through Google Maps",
+              style: TextStyle(
+                color: Colors.blueAccent,
+                fontSize: 30,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(height: 80,),
+            ElevatedButton(
+              onPressed: () {
+                // 네비게이션 스택에서 첫 번째 화면으로 돌아갑니다.
+                Navigator.of(context).popUntil((route) => route.isFirst);
+              },
+              child: Text(
+                'Return to Home',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+          ],
         ),
-        // 위치 정보라는 텍스트를 표시합니다.
-        Text(
-          "Location Information",
-          style: TextStyle(
-            color: Colors.blueAccent,
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

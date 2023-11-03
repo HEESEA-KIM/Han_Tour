@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geolocator/geolocator.dart';
 
 class FirestoreService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -22,7 +23,29 @@ class FirestoreService {
       },
     );
   }
+
+  Future<String> saveProductInformation(String productName, Position position) async {
+    DocumentReference reference = await _firestore.collection('selectedProducts').add({
+      'productName': productName,
+      'latitude': position.latitude,
+      'longitude': position.longitude,
+      'timestamp': FieldValue.serverTimestamp(),
+    });
+    return reference.id;
+  }
+
+  Future<String> saveQrcodeLocationInformation(String productName, Position position) async {
+    DocumentReference reference = await _firestore.collection('useQrcode').add({
+      'productName': productName,
+      'latitude': position.latitude,
+      'longitude': position.longitude,
+      'timestamp': FieldValue.serverTimestamp(),
+    });
+    return reference.id;
+  }
 }
+
+
 
 
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:hanstour/user_information.dart';
 import 'package:hanstour/qrcode.dart';
+
+import 'firestore_data.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final String imagePath;
@@ -51,7 +52,7 @@ class ProductDetailPage extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: SizedBox(
-                height: 1000,
+                height: 800,
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -65,16 +66,16 @@ class ProductDetailPage extends StatelessWidget {
                         productDescription,
                         fontSize: 23,
                       ),
-                      _verticalSpacing(10),
+                      _verticalSpacing(15),
                       _buildProductText(
                         productLocation,
                         fontSize: 25,
                         fontWeight: FontWeight.w500,
                       ),
-                      _verticalSpacing(7),
+                      _verticalSpacing(13),
                       _buildProductText(productPrice,
                           fontSize: 28, fontWeight: FontWeight.bold),
-                      _verticalSpacing(8),
+                      _verticalSpacing(15),
                       _buildPurchaseButton(context),
                     ],
                   ),
@@ -120,27 +121,27 @@ class ProductDetailPage extends StatelessWidget {
   }
 
   Widget _buildPurchaseButton(BuildContext context) {
+    // FirestoreService 인스턴스를 생성합니다.
+    final FirestoreService firestoreService = FirestoreService();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        QRCodeDisplayPage(
-            currentPosition: currentPosition,
-            latitude: latitude,
-            longitude: longitude), // QR 코드 위젯
-        SizedBox(width: 200), // 버튼과 QR 코드 사이의 간격 조정
         ElevatedButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return Dialog(
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    height: MediaQuery.of(context).size.height * 0.7,
-                    child: OwnerAuthentication(),
-                  ),
-                );
-              },
+          onPressed: () async {
+            // FirestoreService 인스턴스를 사용하여 위치 정보를 저장하고 문서 ID를 받아옵니다.
+            String documentId = await firestoreService.saveQrcodeLocationInformation(productName, currentPosition);
+
+            // QRCodeDisplayPage로 화면 전환과 동시에 위치 정보와 문서 ID를 전달합니다.
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => QRCodeDisplayPage(
+                  currentPosition: currentPosition,
+                  latitude: latitude,
+                  longitude: longitude,
+                  documentId: documentId, // Firestore 문서 ID 전달
+                ),
+              ),
             );
           },
           style: ButtonStyle(
@@ -149,7 +150,7 @@ class ProductDetailPage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text(
-              'Purchase',
+              'Location Information',
               style: TextStyle(
                 fontSize: 20,
                 color: Colors.white,
