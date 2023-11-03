@@ -4,14 +4,14 @@ import 'product_detail.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hanstour/global.dart';
 
-class ActivityTopContent extends StatefulWidget {
-  const ActivityTopContent({Key? key}) : super(key: key);
+class ActivityRowestContent extends StatefulWidget {
+  const ActivityRowestContent({Key? key}) : super(key: key);
 
   @override
-  _ActivityTopContent createState() => _ActivityTopContent();
+  _ActivityRowestContentState createState() => _ActivityRowestContentState();
 }
 
-class _ActivityTopContent extends State<ActivityTopContent> {
+class _ActivityRowestContentState extends State<ActivityRowestContent> {
   String? savedDocumentId;
   Position? currentPosition;
   Map<String, String>? selectedProduct;
@@ -95,45 +95,32 @@ class _ActivityTopContent extends State<ActivityTopContent> {
   List<Widget> _buildInkWells() {
     final contents = [
       {
-        'imagePath': 'assets/contents/cube.png',
-        'name': 'Cube Escape',
-        'category': 'ROOM ESCAPE CAFE',
-        'location': 'Hongik Mall, 29 Yanghwa-ro 16-gil, Mapo-gu, Seoul',
-        'price': '₩22500',
-        'description':
-            'You only have 60 minutes\n Everything in the room is a clue \n Mystery Room Escape Cafe',
-        'explanation':
-            "A new concept cultural facility where participants must escape by solving a given mission within 60 minutes while trapped in a special theme room.",
-        'latitude': "37.55339708771902",
-        'longitude':"126.92057146067562",
-      },
-      {
-        'imagePath': 'assets/contents/Acorn.png',
-        'name': 'Acorn caricature',
-        'category': 'CRAFT SHOP',
-        'location':
-            'Acorn caricature on the 34th floor,\n Donggyo-ro 38-gil, Mapo-gu, Seoul',
-        'price': '₩7000',
-        'description':
-            "1 minute done\n a picture shop of happiness \n Specialized in caricature",
-        'explanation':
-            'It is a place where you can get your own caricatures at a short and reasonable price.',
-        'latitude': "37.561398942072316",
-        'longitude':"126.92556279626886",
-      },
-      {
-        'imagePath': 'assets/contents/Collectors.png',
-        'name': 'Seoul Collectors',
-        'category': 'COMPLEX CULTURAL SPACE',
-        'location': '1912, Seongmisan-ro, Mapo-gu, Seoul',
+        'imagePath': 'assets/contents/hongik.png',
+        'name': 'Hongik University Street',
+        'category': 'A TOURIST ATTRACTION',
+        'location': 'Seogyo-dong, Mapo-gu, Seoul',
         'price': '₩Free',
         'description':
-            'Seoul`s Modern Life Award\n Directing through various props \n a sentimental cafe',
+            "Various events and street performances\n a small shop and a fashion shop \n cultural elements such as festivals",
         'explanation':
-            "It is a place to reinterpret the moments that connect the past and the present with the keyword of collection from the perspective of this place.",
-        'latitude': "37.56295153121545",
-        'longitude':"126.92655727677936",
-      }
+            'Hongik University has a variety of cultural elements and is rich in attractions and food.',
+        'latitude': "37.55540828121299",
+        'longitude':"126.92355427116303",
+      },
+      {
+        'imagePath': 'assets/contents/PlayStation.png',
+        'name': 'Hongik University Lounge Play Store',
+        'category': 'PLAYSTATION ROOM',
+        'location':
+            '5th floor of Hongseok Building,\n 12 Xandari-ro, Mapo-gu, Seoul',
+        'price': '₩3000',
+        'description':
+            'Various games\n a couple`s unique date \n a comfortable and pleasant environment',
+        'explanation':
+            "Couples or friends can enjoy various games as a good place to play and enjoy together.",
+        'latitude': "37.550895426643145",
+        'longitude':"126.92186138386253",
+      },
     ];
 
     return contents.map((content) {
@@ -313,7 +300,7 @@ class _ActivityTopContent extends State<ActivityTopContent> {
         ),
         SizedBox(
           width: 310,
-          height: 110,
+          height: 100,
           child: Flexible(
             child: RichText(
               overflow: TextOverflow.ellipsis,

@@ -4,14 +4,14 @@ import 'product_detail.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hanstour/global.dart';
 
-class ActivityTopContent extends StatefulWidget {
-  const ActivityTopContent({Key? key}) : super(key: key);
+class TourMostContent extends StatefulWidget {
+  const TourMostContent({Key? key}) : super(key: key);
 
   @override
-  _ActivityTopContent createState() => _ActivityTopContent();
+  _TourMostContentState createState() => _TourMostContentState();
 }
 
-class _ActivityTopContent extends State<ActivityTopContent> {
+class _TourMostContentState extends State<TourMostContent> {
   String? savedDocumentId;
   Position? currentPosition;
   Map<String, String>? selectedProduct;
@@ -95,45 +95,31 @@ class _ActivityTopContent extends State<ActivityTopContent> {
   List<Widget> _buildInkWells() {
     final contents = [
       {
-        'imagePath': 'assets/contents/cube.png',
-        'name': 'Cube Escape',
-        'category': 'ROOM ESCAPE CAFE',
-        'location': 'Hongik Mall, 29 Yanghwa-ro 16-gil, Mapo-gu, Seoul',
-        'price': '₩22500',
-        'description':
-            'You only have 60 minutes\n Everything in the room is a clue \n Mystery Room Escape Cafe',
-        'explanation':
-            "A new concept cultural facility where participants must escape by solving a given mission within 60 minutes while trapped in a special theme room.",
-        'latitude': "37.55339708771902",
-        'longitude':"126.92057146067562",
-      },
-      {
-        'imagePath': 'assets/contents/Acorn.png',
-        'name': 'Acorn caricature',
-        'category': 'CRAFT SHOP',
-        'location':
-            'Acorn caricature on the 34th floor,\n Donggyo-ro 38-gil, Mapo-gu, Seoul',
-        'price': '₩7000',
-        'description':
-            "1 minute done\n a picture shop of happiness \n Specialized in caricature",
-        'explanation':
-            'It is a place where you can get your own caricatures at a short and reasonable price.',
-        'latitude': "37.561398942072316",
-        'longitude':"126.92556279626886",
-      },
-      {
-        'imagePath': 'assets/contents/Collectors.png',
-        'name': 'Seoul Collectors',
-        'category': 'COMPLEX CULTURAL SPACE',
-        'location': '1912, Seongmisan-ro, Mapo-gu, Seoul',
+        'imagePath': 'assets/contents/Musinsa.png',
+        'name': 'Musinsa Terrace Hongdae',
+        'category': 'EDITING SHOP',
+        'location': '188, Yanghwa-ro, Mapo-gu, Seoul, 17th floor',
         'price': '₩Free',
         'description':
-            'Seoul`s Modern Life Award\n Directing through various props \n a sentimental cafe',
+            'Enjoy a variety of experiences\n Various contents every month \n a space where you can be enjoyed',
         'explanation':
-            "It is a place to reinterpret the moments that connect the past and the present with the keyword of collection from the perspective of this place.",
-        'latitude': "37.56295153121545",
-        'longitude':"126.92655727677936",
-      }
+            "It consists of shops, cafes, lounges, and parks, and it is an editing space where you can experience a variety of things such as shopping, food, and relaxation.",
+        'latitude': "37.55774598896755",
+        'longitude':"126.9265029683455",
+      },
+      {
+        'imagePath': 'assets/contents/bakery.png',
+        'name': 'Butter Bakery',
+        'category': 'BAKERY',
+        'location': '226, Donggyo-ro, Mapo-gu, Seoul',
+        'price': '₩Free',
+        'description':
+            "a variety of menus\n Butter's flavor and flavor coexist \n food filled with sincerity",
+        'explanation':
+            'Products that show the chef`s pride in making delicious bread with numerous processes and various methods',
+        'latitude': "37.55995636606521",
+        'longitude':"126.9240221518359",
+      },
     ];
 
     return contents.map((content) {
@@ -265,7 +251,7 @@ class _ActivityTopContent extends State<ActivityTopContent> {
                 text: location,
                 style: TextStyle(fontSize: 13, color: Colors.grey)),
           ),
-        ),
+        ), // SizedBox 추가
       ],
     );
   }
@@ -312,7 +298,7 @@ class _ActivityTopContent extends State<ActivityTopContent> {
           ],
         ),
         SizedBox(
-          width: 310,
+          width: 320,
           height: 110,
           child: Flexible(
             child: RichText(

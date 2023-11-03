@@ -4,14 +4,14 @@ import 'product_detail.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hanstour/global.dart';
 
-class ActivityTopContent extends StatefulWidget {
-  const ActivityTopContent({Key? key}) : super(key: key);
+class TicketRowestContent extends StatefulWidget {
+  const TicketRowestContent({Key? key}) : super(key: key);
 
   @override
-  _ActivityTopContent createState() => _ActivityTopContent();
+  _TicketRowestContentState createState() => _TicketRowestContentState();
 }
 
-class _ActivityTopContent extends State<ActivityTopContent> {
+class _TicketRowestContentState extends State<TicketRowestContent> {
   String? savedDocumentId;
   Position? currentPosition;
   Map<String, String>? selectedProduct;
@@ -95,45 +95,31 @@ class _ActivityTopContent extends State<ActivityTopContent> {
   List<Widget> _buildInkWells() {
     final contents = [
       {
-        'imagePath': 'assets/contents/cube.png',
-        'name': 'Cube Escape',
-        'category': 'ROOM ESCAPE CAFE',
-        'location': 'Hongik Mall, 29 Yanghwa-ro 16-gil, Mapo-gu, Seoul',
-        'price': '₩22500',
-        'description':
-            'You only have 60 minutes\n Everything in the room is a clue \n Mystery Room Escape Cafe',
-        'explanation':
-            "A new concept cultural facility where participants must escape by solving a given mission within 60 minutes while trapped in a special theme room.",
-        'latitude': "37.55339708771902",
-        'longitude':"126.92057146067562",
-      },
-      {
-        'imagePath': 'assets/contents/Acorn.png',
-        'name': 'Acorn caricature',
-        'category': 'CRAFT SHOP',
-        'location':
-            'Acorn caricature on the 34th floor,\n Donggyo-ro 38-gil, Mapo-gu, Seoul',
-        'price': '₩7000',
-        'description':
-            "1 minute done\n a picture shop of happiness \n Specialized in caricature",
-        'explanation':
-            'It is a place where you can get your own caricatures at a short and reasonable price.',
-        'latitude': "37.561398942072316",
-        'longitude':"126.92556279626886",
-      },
-      {
-        'imagePath': 'assets/contents/Collectors.png',
-        'name': 'Seoul Collectors',
+        'imagePath': 'assets/contents/LEE.png',
+        'name': 'Lee Chanhyuk`s inspiration',
         'category': 'COMPLEX CULTURAL SPACE',
-        'location': '1912, Seongmisan-ro, Mapo-gu, Seoul',
+        'location': '11-4 1st floor, Wausan-ro 29 Bar-gil, Mapo-gu, Seoul',
+        'price': '₩30000',
+        'description':
+            'unique and individual\n an artistic exhibition with a new sensibility \n It`s a chance to see a different visual',
+        'explanation':
+            "It was planned with the desire to share the energy of his inspiration with the solo exhibition of Akdong Musician Lee Chan-hyuk's solo exhibition.",
+        'latitude': "37.55559915070057",
+        'longitude':"126.9261627268187",
+      },
+      {
+        'imagePath': 'assets/contents/T.png',
+        'name': 'T FACTORY',
+        'category': 'COMPLEX CULTURAL SPACE',
+        'location': '144 1st floor, Yanghwa-ro, Mapo-gu, Seoul',
         'price': '₩Free',
         'description':
-            'Seoul`s Modern Life Award\n Directing through various props \n a sentimental cafe',
+            "24-hour store\n a large flagship store \n Free trial space for various services",
         'explanation':
-            "It is a place to reinterpret the moments that connect the past and the present with the keyword of collection from the perspective of this place.",
-        'latitude': "37.56295153121545",
-        'longitude':"126.92655727677936",
-      }
+            'It is a space where you can experience various services provided by SK Telecom for free.',
+        'latitude': "37.5553421407844",
+        'longitude':"126.92230094583259",
+      },
     ];
 
     return contents.map((content) {

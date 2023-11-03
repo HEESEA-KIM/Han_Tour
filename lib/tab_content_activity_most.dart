@@ -12,37 +12,65 @@ class ActivityMostContent extends StatefulWidget {
 }
 
 class _ActivityMostContentState extends State<ActivityMostContent> {
-  late ScrollController _controller;
-  @override
-
-  void initState() {
-    _controller = ScrollController();
-    _controller.addListener(() {
-      // 스크롤 할 때 마다 호출
-
-      // 스크롤 된 값
-      print('offset : ${_controller.offset}');
-
-      // 스크롤에 대한 여러 정보를 가지고 있음
-      // 전체 길이, offset, 방향 등
-      print('position : ${_controller.position}');
-      // 컨트롤러가 SingleChildScrollView에 연결이 됐는지 안됐는지
-      _controller.hasClients;
-    });
-    super.initState();
-  }
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
   String? savedDocumentId;
+  Position? currentPosition;
+  Map<String, String>? selectedProduct;
 
-  void getLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    print(position);
+  final textStyle =
+  TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
+
+  @override
+  Widget build(BuildContext context) {
+    // FutureBuilder를 사용하여 현재 위치 정보를 가져옵니다.
+    return FutureBuilder<Position>(
+      future: Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.medium),
+      builder: (BuildContext context, AsyncSnapshot<Position> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('위치 정보를 가져오는데 실패했습니다.'));
+        } else if (snapshot.hasData) {
+          currentPosition = snapshot.data; // 위치 정보를 갱신합니다.
+          return _buildMainContent(); // 주요 컨텐츠 구성
+        } else {
+          return Center(child: Text('위치 정보를 가져오지 못했습니다.'));
+        }
+      },
+    );
+  }
+
+  Widget _buildMainContent() {
+    if (selectedProduct != null) {
+      // 선택된 제품에서 위도와 경도를 추출
+      double latitude = double.parse(selectedProduct!['latitude']!);
+      double longitude = double.parse(selectedProduct!['longitude']!);
+
+      // ProductDetailPage에 위도와 경도를 전달
+      return ProductDetailPage(
+        currentPosition: currentPosition!,
+        imagePath: selectedProduct!['imagePath']!,
+        productName: selectedProduct!['name']!,
+        productLocation: selectedProduct!['location']!,
+        productPrice: selectedProduct!['price']!,
+        productDescription: selectedProduct!['description']!,
+        productExplanation: selectedProduct!['explanation']!,
+        latitude: latitude, // 위도 전달
+        longitude: longitude, // 경도 전달
+      );
+    }
+    // 선택된 제품이 없을 경우 제품 목록을 보여줍니다.
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: _buildInkWells(),
+          ),
+        ),
+      ),
+    );
   }
 
   void selectProduct(Map<String, String> product) {
@@ -58,42 +86,10 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
     }
   }
 
-  void updateSelectedProductNameInFirestore(
-      String documentId, String? productName) {
+  void updateSelectedProductNameInFirestore(String documentId, String? productName) {
     if (productName != null) {
       FirestoreService().updateProductName(documentId, productName);
     }
-  }
-
-  final textStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
-  Map<String, String>? selectedProduct;
-
-  @override
-  Widget build(BuildContext context) {
-    if (selectedProduct != null) {
-      return ProductDetailPage(
-        imagePath: selectedProduct!['imagePath']!,
-        productName: selectedProduct!['name']!,
-        productLocation: selectedProduct!['location']!,
-        productPrice: selectedProduct!['price']!,
-        productDescription: selectedProduct!['description']!,
-        productExplanation: selectedProduct!['explanation']!,
-      );// time, distance 지움
-    }
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SingleChildScrollView(
-          controller: _controller,
-          scrollDirection: Axis.horizontal,
-          physics: BouncingScrollPhysics(),
-          padding: EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: _buildInkWells(),
-            ),
-      ),
-    );
   }
 
   List<Widget> _buildInkWells() {
@@ -102,34 +98,15 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
         'imagePath': 'assets/contents/rental.png',
         'name': 'anyone School uniform rental',
         'category': 'RENTAL',
-        'location': '5th floor of Jinyuwon Building, 55,\n Wausan-ro 35-gil, Mapo-gu, Seoul',
+        'location':
+            '5th floor of Jinyuwon Building, 55,\n Wausan-ro 35-gil, Mapo-gu, Seoul',
         'price': '₩25000',
         'description':
-        'Kpop Celebrity Uniform Experience\n an indoor studio \n Various props and directing',
+            'Kpop Celebrity Uniform Experience\n an indoor studio \n Various props and directing',
         'explanation':
-        "It is a place where you can experience the uniforms of Kpop celebrities and enjoy various pictures and beautiful memories."
-      },
-      {
-        'imagePath': 'assets/contents/hongik.png',
-        'name': 'Hongik University Street',
-        'category': 'A TOURIST ATTRACTION',
-        'location': 'Seogyo-dong, Mapo-gu, Seoul',
-        'price': '₩Free',
-        'description':
-        "Various events and street performances\n a small shop and a fashion shop \n cultural elements such as festivals",
-        'explanation':
-        'Hongik University has a variety of cultural elements and is rich in attractions and food.',
-      },
-      {
-        'imagePath': 'assets/contents/Playstation.png',
-        'name': 'Hongik University Lounge Play Store',
-        'category': 'PLAYSTATION ROOM',
-        'location': '5th floor of Hongseok Building,\n 12 Xandari-ro, Mapo-gu, Seoul',
-        'price': '₩3000',
-        'description':
-        'Various games\n a couple`s unique date \n a comfortable and pleasant environment',
-        'explanation':
-        "Couples or friends can enjoy various games as a good place to play and enjoy together."
+            "It is a place where you can experience the uniforms of Kpop celebrities and enjoy various pictures and beautiful memories.",
+        'latitude': "37.556411000348504",
+        'longitude':"126.92770110295436",
       },
       {
         'imagePath': 'assets/contents/massage.png',
@@ -138,9 +115,24 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
         'location': '28-7, Wausan-ro 21-gil, Mapo-gu, Seoul',
         'price': '₩55000',
         'description':
-        'an exotic date course \n relieving fatigue \n a sincere massage',
+            'an exotic date course \n relieving fatigue \n a sincere massage',
         'explanation':
-        "An unusual place to relieve the exhaustion of a day-to-day exhaustion."
+            "An unusual place to relieve the exhaustion of a day-to-day exhaustion.",
+        'latitude': "37.5526864110532",
+        'longitude':"126.9222414599555 ",
+      },
+      {
+        'imagePath': 'assets/contents/selfphoto.png',
+        'name': 'Odity mode',
+        'category': 'A SELF-PHOTO STUDIO',
+        'location': '212-28, Donggyo-ro, Mapo-gu, Seoul, 2nd floor',
+        'price': '₩50000',
+        'description':
+            'The joy of recording my own time \n The excitement of waiting for a picture that looks like me \n Happiness that confirms who I am',
+        'explanation':
+            "Press the shutter for 20 minutes in a private room to capture the nastiest and most pictures of us.",
+        'latitude': "37.55942724698969",
+        'longitude':"126.92435939768679",
       },
     ];
 
@@ -156,19 +148,22 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
                 width: MediaQuery.of(context).size.width * 0.7,
                 height: MediaQuery.of(context).size.height * 0.7,
                 child: ProductDetailPage(
+                  currentPosition: currentPosition!,
                   imagePath: content['imagePath']!,
                   productName: content['name']!,
                   productLocation: content['location']!,
                   productPrice: content['price']!,
                   productDescription: content['description']!,
                   productExplanation: content['explanation']!,
+                  latitude: double.parse(content['latitude']!),
+                  longitude: double.parse(content['longitude']!),
                 ),
               );
             },
           );
           // 다이얼로그가 닫힌 후에 selectedProduct를 초기화하고 UI를 업데이트합니다.
           setState(
-                () {
+            () {
               selectedProduct = null;
             },
           );
@@ -258,15 +253,19 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
       textDirection: TextDirection.ltr,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        RichText(
-          overflow: TextOverflow.ellipsis,
-          maxLines: 2,
-          strutStyle: StrutStyle(fontSize: 13),
-          text: TextSpan(
-              text: location,
-              style: TextStyle(fontSize: 13, color: Colors.grey)),
+        SizedBox(
+          width: 300,
+          height: 30,
+          child: RichText(
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+            strutStyle: StrutStyle(fontSize: 13),
+            text: TextSpan(
+                text: location,
+                style: TextStyle(fontSize: 13, color: Colors.grey)),
+          ),
         ),
-        SizedBox(height: 30,),
       ],
     );
   }
@@ -313,7 +312,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
           ],
         ),
         SizedBox(
-          width: 300,
+          width: 310,
           height: 100,
           child: Flexible(
             child: RichText(

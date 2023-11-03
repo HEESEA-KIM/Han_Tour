@@ -4,14 +4,14 @@ import 'product_detail.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hanstour/global.dart';
 
-class ActivityTopContent extends StatefulWidget {
-  const ActivityTopContent({Key? key}) : super(key: key);
+class TourTopContent extends StatefulWidget {
+  const TourTopContent({Key? key}) : super(key: key);
 
   @override
-  _ActivityTopContent createState() => _ActivityTopContent();
+  _TourTopContentState createState() => _TourTopContentState();
 }
 
-class _ActivityTopContent extends State<ActivityTopContent> {
+class _TourTopContentState extends State<TourTopContent> {
   String? savedDocumentId;
   Position? currentPosition;
   Map<String, String>? selectedProduct;
@@ -95,44 +95,44 @@ class _ActivityTopContent extends State<ActivityTopContent> {
   List<Widget> _buildInkWells() {
     final contents = [
       {
-        'imagePath': 'assets/contents/cube.png',
-        'name': 'Cube Escape',
-        'category': 'ROOM ESCAPE CAFE',
-        'location': 'Hongik Mall, 29 Yanghwa-ro 16-gil, Mapo-gu, Seoul',
-        'price': '₩22500',
+        'imagePath': 'assets/contents/Gyeongbokgung.png',
+        'name': 'Gyeongbokgung Palace',
+        'category': 'Tour',
+        'location': 'Gyeongbokgung Palace, 161 Sajik-ro, Jongno-gu, Seoul',
+        'price': '₩12900',
         'description':
-            'You only have 60 minutes\n Everything in the room is a clue \n Mystery Room Escape Cafe',
+            'an important historical site \n beautiful scenery even at night \n A place where you can learn Korean history',
         'explanation':
-            "A new concept cultural facility where participants must escape by solving a given mission within 60 minutes while trapped in a special theme room.",
-        'latitude': "37.55339708771902",
-        'longitude':"126.92057146067562",
+            "A palace built in the early Joseon Dynasty in Sejong-ro, Jongno-gu, Seoul and used as a royal palace. a royal palace.",
+        'latitude': "37.577565988721304",
+        'longitude':"126.97691146775416",
       },
       {
-        'imagePath': 'assets/contents/Acorn.png',
-        'name': 'Acorn caricature',
-        'category': 'CRAFT SHOP',
+        'imagePath': 'assets/contents/Hongik University.png',
+        'name': 'Hongik Museum of Art',
+        'category': 'ART MUSEUM',
         'location':
-            'Acorn caricature on the 34th floor,\n Donggyo-ro 38-gil, Mapo-gu, Seoul',
-        'price': '₩7000',
+            '94, Wausan-ro, Mapo-gu, Seoul, \n 2nd floor of Hongik University Hongmun Hall',
+        'price': '₩8000',
         'description':
-            "1 minute done\n a picture shop of happiness \n Specialized in caricature",
+            "Introducing trends in contemporary art through special exhibitions and invitations\n Providing a venue for presentation of works to promising active writers \n Providing a place for community art and culture education",
         'explanation':
-            'It is a place where you can get your own caricatures at a short and reasonable price.',
-        'latitude': "37.561398942072316",
-        'longitude':"126.92556279626886",
+            'As the central university of contemporary art education in Korea, it is a place that provides experiments and experiences of contemporary art.',
+        'latitude': "37.55258005778728",
+        'longitude':"126.92497177250269",
       },
       {
-        'imagePath': 'assets/contents/Collectors.png',
-        'name': 'Seoul Collectors',
-        'category': 'COMPLEX CULTURAL SPACE',
-        'location': '1912, Seongmisan-ro, Mapo-gu, Seoul',
+        'imagePath': 'assets/contents/arder.png',
+        'name': 'Arder Error',
+        'category': 'EDITING SHOP',
+        'location': '19-18 Wausan-ro 21-gil, Mapo-gu, Seoul',
         'price': '₩Free',
         'description':
-            'Seoul`s Modern Life Award\n Directing through various props \n a sentimental cafe',
+            'a unique interior\n visual pleasure \n It`s like expressing another dimension',
         'explanation':
-            "It is a place to reinterpret the moments that connect the past and the present with the keyword of collection from the perspective of this place.",
-        'latitude': "37.56295153121545",
-        'longitude':"126.92655727677936",
+            "It is a showroom containing Arthur's unique fashion philosophy and is a place where you can enjoy various clothes and exhibitions at once.",
+        'latitude': "37.551706688143014",
+        'longitude':"126.92241222933296",
       }
     ];
 
@@ -313,7 +313,7 @@ class _ActivityTopContent extends State<ActivityTopContent> {
         ),
         SizedBox(
           width: 310,
-          height: 110,
+          height: 100,
           child: Flexible(
             child: RichText(
               overflow: TextOverflow.ellipsis,

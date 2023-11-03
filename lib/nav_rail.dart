@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hanstour/tab_content.dart';
 import 'package:hanstour/tab_content_Ticket_most.dart';
+import 'package:hanstour/tab_content_Ticket_rowest.dart';
+import 'package:hanstour/tab_content_Tour_most.dart';
+import 'package:hanstour/tab_content_Tour_rowest.dart';
+import 'package:hanstour/tab_content_Tour_top.dart';
 import 'package:hanstour/tab_content_activity_most.dart';
+import 'package:hanstour/tab_content_activity_rowest.dart';
 import 'package:hanstour/tab_content_activity_top.dart';
 import 'nav_rail_destinations.dart';
 
@@ -28,8 +33,7 @@ class NavRail extends StatefulWidget {
 class _NavRailState extends State<NavRail> {
   int _selectedIndex = 0;
   bool _extended = true;
-  late Position _currentPosition;
-  String _locationMessage = "위치를 불러오는 중...";
+  Position? _currentPosition;
 
   @override
   void initState() {
@@ -42,7 +46,6 @@ class _NavRailState extends State<NavRail> {
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
         setState(() {
-          _locationMessage = "위치 서비스가 활성화되어 있지 않습니다.";
         });
         return;
       }
@@ -52,7 +55,6 @@ class _NavRailState extends State<NavRail> {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
           setState(() {
-            _locationMessage = "위치 권한이 거부되었습니다.";
           });
           return;
         }
@@ -60,15 +62,13 @@ class _NavRailState extends State<NavRail> {
 
       _currentPosition = await Geolocator.getCurrentPosition();
       setState(() {
-        _locationMessage =
-        "위도: ${_currentPosition.latitude}, 경도: ${_currentPosition.longitude}";
       });
     } catch (e) {
       setState(() {
-        _locationMessage = "위치를 가져오는 중 오류가 발생했습니다: $e";
       });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -135,37 +135,36 @@ class _NavRailState extends State<NavRail> {
     );
   }
 
-  // ... [다른 부분은 동일하게 유지]
 
   final Map<int, List<Widget>> _navRailToTabContents = {
     0: [ // Tour
       TabContent(),
       TicketMostContent(),
-      Center(child: Text('Tour - LOWEST PRICE Content')),
+      TicketRowestContent(),
     ],
     1: [ // Activity
       ActivityTopContent(),
       ActivityMostContent(),
-      Center(child: Text('Activity - LOWEST PRICE Content')),
+      ActivityRowestContent(),
     ],
     2: [ // Ticket
-      Center(child: Text('Ticket - TOP RATED Content')),
-      Center(child: Text('Location Content')),
-      Center(child: Text('Ticket - LOWEST PRICE Content')),
+      TourTopContent(),
+      TourMostContent(),
+      TourRowestContent(),
     ],
   };
 
   Widget _buildTabContent() {
+    if(_currentPosition == null){
+      return Center(child: CircularProgressIndicator());
+    }
+    // 초기화된 위치 정보를 바탕으로 TabContent를 빌드
     List<Widget> tabContents = _navRailToTabContents[_selectedIndex] ?? [
       Center(child: Text('Unknown index: $_selectedIndex')),
       Center(child: Text('Unknown index: $_selectedIndex')),
       Center(child: Text('Unknown index: $_selectedIndex'))
     ];
-    if (_selectedIndex == 1) { // Activity의 경우
-      tabContents[0] = Center(child: Text(_locationMessage));
-    } else if (_selectedIndex == 2) { // Ticket의 경우
-      tabContents[1] = Center(child: Text(_locationMessage));
-    }
+
 
 
     return DefaultTabController(

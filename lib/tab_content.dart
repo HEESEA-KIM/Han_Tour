@@ -13,11 +13,65 @@ class TabContent extends StatefulWidget {
 
 class _TabContentState extends State<TabContent> {
   String? savedDocumentId;
+  Position? currentPosition;
+  Map<String, String>? selectedProduct;
 
-  void getLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    print(position);
+  final textStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
+
+  @override
+  Widget build(BuildContext context) {
+    // FutureBuilder를 사용하여 현재 위치 정보를 가져옵니다.
+    return FutureBuilder<Position>(
+      future: Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.medium),
+      builder: (BuildContext context, AsyncSnapshot<Position> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('위치 정보를 가져오는데 실패했습니다.'));
+        } else if (snapshot.hasData) {
+          currentPosition = snapshot.data; // 위치 정보를 갱신합니다.
+          return _buildMainContent(); // 주요 컨텐츠 구성
+        } else {
+          return Center(child: Text('위치 정보를 가져오지 못했습니다.'));
+        }
+      },
+    );
+  }
+
+  Widget _buildMainContent() {
+    if (selectedProduct != null) {
+      // 선택된 제품에서 위도와 경도를 추출
+      double latitude = double.parse(selectedProduct!['latitude']!);
+      double longitude = double.parse(selectedProduct!['longitude']!);
+
+      // ProductDetailPage에 위도와 경도를 전달
+      return ProductDetailPage(
+        currentPosition: currentPosition!,
+        imagePath: selectedProduct!['imagePath']!,
+        productName: selectedProduct!['name']!,
+        productLocation: selectedProduct!['location']!,
+        productPrice: selectedProduct!['price']!,
+        productDescription: selectedProduct!['description']!,
+        productExplanation: selectedProduct!['explanation']!,
+        latitude: latitude, // 위도 전달
+        longitude: longitude, // 경도 전달
+      );
+    }
+    // 선택된 제품이 없을 경우 제품 목록을 보여줍니다.
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: _buildInkWells(),
+          ),
+        ),
+      ),
+    );
   }
 
   void selectProduct(Map<String, String> product) {
@@ -40,36 +94,6 @@ class _TabContentState extends State<TabContent> {
     }
   }
 
-  final textStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
-  Map<String, String>? selectedProduct;
-
-  @override
-  Widget build(BuildContext context) {
-    if (selectedProduct != null) {
-      return ProductDetailPage(
-        imagePath: selectedProduct!['imagePath']!,
-        productName: selectedProduct!['name']!,
-        productLocation: selectedProduct!['location']!,
-        productPrice: selectedProduct!['price']!,
-        productDescription: selectedProduct!['description']!,
-        productExplanation: selectedProduct!['explanation']!,
-      );// time, distance 지움
-    }
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Center(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: _buildInkWells(),
-          ),
-        ),
-      ),
-    );
-  }
-
   List<Widget> _buildInkWells() {
     final contents = [
       {
@@ -79,31 +103,38 @@ class _TabContentState extends State<TabContent> {
         'location': 'Hongik Mall, 29 Yanghwa-ro 16-gil, Mapo-gu, Seoul',
         'price': '₩30000',
         'description':
-            'The more I see of Dodream\n the more I want to recommend it \n The party begins for you',
+            'The more I see of Dodream\n the more I want to recommend it \n Let`s relieve stress here.',
         'explanation':
-            "Since 1997 14.8 million viewers made a reasonable choice! Nanta impressed not only Korea but the world!"
+            "Since 1997 14.8 million viewers made a reasonable choice! Nanta impressed not only Korea but the world!",
+        'latitude': "37.55310472979606",
+        'longitude': "126.92126776515072",
       },
       {
-        'imagePath': 'assets/contents/aqualium.png',
-        'name': 'Kt & G Sangsang Madang',
-        'category': 'Complex cultural space',
-        'location': '65 Eulmadang-ro, Mapo-gu, Seoul',
-        'price': '₩12000',
+        'imagePath': 'assets/contents/rolling.png',
+        'name': 'Rolling Hall in Hongdae',
+        'category': 'Concert hall',
+        'location': '35, Eoulmadang-ro, Mapo-gu, Seoul',
+        'price': '₩50000',
         'description':
-            "each space\n Decorated with a different concept \nVarious photo production",
+            "a variety of attractions\n a place full of romance \nVarious photo production",
         'explanation':
-            'Each space is decorated with a different concept, allowing you to create a variety of photos.',
+            'Rolling Hall, which has been in place for a long time since 1995, is a concert hall where both audiences and artists strive to have a good time.',
+        'latitude': "37.54842780429565",
+        'longitude': "126.92015803185787",
       },
       {
-        'imagePath': 'assets/contents/nanta.png',
-        'name': 'Myeongdong Nanta',
-        'category': 'PERFORMANCES',
-        'location': 'UNESCO Center, 26 Myeongdong-gil, Jung-gu, Seoul',
-        'price': '₩30700',
+        'imagePath': 'assets/contents/kt.png',
+        'name': 'KT&G Sangsang Madang',
+        'category': 'COMPLEX CULTURAL SPACE',
+        'location':
+            'Sangsang Madang Building, 65 Eoul Madang-ro, Mapo-gu, Seoul',
+        'price': '₩55000',
         'description':
-            'Exceeded 10 million viewers in 2014\nComical non-verbal performance\ncheerful rhythm',
+            'various cultural and artistic activities\nProviding opportunities for cultural enjoyment\nMultiple facilities in place',
         'explanation':
-            "Nanta Show is Korea's first non-verbal performance based on Samulnori rhythm, a traditional Korean melody."
+            "It is a communication channel between artists and the public and a special space where you can enjoy fresh culture and art.",
+        'latitude': "37.55094895772248",
+        'longitude': "126.92106633311023",
       }
     ];
 
@@ -119,12 +150,15 @@ class _TabContentState extends State<TabContent> {
                 width: MediaQuery.of(context).size.width * 0.7,
                 height: MediaQuery.of(context).size.height * 0.7,
                 child: ProductDetailPage(
+                  currentPosition: currentPosition!,
                   imagePath: content['imagePath']!,
                   productName: content['name']!,
                   productLocation: content['location']!,
                   productPrice: content['price']!,
                   productDescription: content['description']!,
                   productExplanation: content['explanation']!,
+                  latitude: double.parse(content['latitude']!),
+                  longitude: double.parse(content['longitude']!),
                 ),
               );
             },
@@ -169,10 +203,9 @@ class _TabContentState extends State<TabContent> {
         buildCategoryWithReviews(category),
         SizedBox(height: 20),
         buildLocation(location),
-        SizedBox(height: 20),
         buildHighlightText(explanation),
         buildPrice(price),
-      ], // time, distance 지움, location 추가
+      ], // time, distance 지움, location 추가, SizedBox 삭제
     );
   }
 
@@ -222,14 +255,19 @@ class _TabContentState extends State<TabContent> {
       textDirection: TextDirection.ltr,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        RichText(
-          overflow: TextOverflow.ellipsis,
-          maxLines: 2,
-          strutStyle: StrutStyle(fontSize: 13),
-          text: TextSpan(
-              text: location,
-              style: TextStyle(fontSize: 13, color: Colors.grey)),
-        ),
+        SizedBox(
+          width: 300,
+          height: 30,
+          child: RichText(
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+            strutStyle: StrutStyle(fontSize: 13),
+            text: TextSpan(
+                text: location,
+                style: TextStyle(fontSize: 13, color: Colors.grey)),
+          ),
+        ), //SizedBox 추가
       ],
     );
   }
@@ -272,11 +310,11 @@ class _TabContentState extends State<TabContent> {
                 style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFF322dbd))),
+                    color: Color(0xFF322dbd))), //Text 수정
           ],
         ),
         SizedBox(
-          width: 300,
+          width: 310,
           height: 100,
           child: Flexible(
             child: RichText(
@@ -294,7 +332,7 @@ class _TabContentState extends State<TabContent> {
               textAlign: TextAlign.center,
             ),
           ),
-        ),
+        ), //SizedBox 수정
       ],
     );
   }

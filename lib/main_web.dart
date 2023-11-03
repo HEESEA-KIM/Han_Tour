@@ -1,124 +1,72 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:hanstour/firebase_options.dart';
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform
-  );
-  runApp(MyWebApp());
+import 'dart:async';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+void main() {
+  runApp(const MyApp());
 }
 
-class MyWebApp extends StatelessWidget {
-  const MyWebApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        '/':(context)=> ReservationDetailsPage(),
-      },
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MapSample(),
     );
   }
 }
 
-
-
-class ReservationDetailsPage extends StatefulWidget {
-  const ReservationDetailsPage({super.key});
+class MapSample extends StatefulWidget {
+  const MapSample({super.key});
 
   @override
-  _ReservationDetailsPageState createState() => _ReservationDetailsPageState();
+  State<MapSample> createState() => MapSampleState();
 }
 
-class _ReservationDetailsPageState extends State<ReservationDetailsPage> {
-  String? docId;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  Map<String, dynamic>? reservationDetails;
+class MapSampleState extends State<MapSample> {
+  final Completer<GoogleMapController> _controller = Completer();
 
-  @override
-  void initState() {
-    super.initState();
-    // Parse the URL to get the docId
-    final uri = Uri.base;
-    docId = uri.queryParameters['docId'];
-    print("Fetched docId: $docId");
-    _fetchReservationDetails();
-  }
+  // 초기 카메라 위치
+  static final CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 14.4746,
+  );
 
-  Future<void> _fetchReservationDetails() async {
-    if (docId != null) {
-      try {
-        DocumentSnapshot doc = await _firestore.collection('users').doc(docId).get();
-        print("Document exists: ${doc.exists}");
+  // 호수 위치
+  static final CameraPosition _kLake = CameraPosition(
+      bearing: 192.8334901395799,
+      target: LatLng(37.43296265331129, -122.08832357078792),
+      tilt: 59.440717697143555,
+      zoom: 19.151926040649414);
 
-        if (doc.exists) {
-          setState(() {
-            reservationDetails = doc.data() as Map<String, dynamic>;
-          });
-        }
-      } catch (error, stackTrace) {
-        print("Error fetching reservation details: $error");
-        print("Stack Trace: $stackTrace");
-      }
-    }
-  }
-
-  DateTime now = DateTime.now();
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: SizedBox(height: 500,
-        child: Scaffold(
-          appBar: AppBar(title: Text("Reservation Details"),
-          centerTitle: true,
-          ),
-          body: Center(
-            child: reservationDetails != null
-                ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text("${reservationDetails!['productName']}",
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-                ),
-                SizedBox(height: 50,),
-                Text("Date: ${now.month}월 ${now.day}일 ${now.hour}시 ${now.minute}분",
-                  style: TextStyle(
-                    fontSize: 25,fontWeight: FontWeight.bold,
-                  ),),
-                SizedBox(height: 30,),
-                Text("Name: ${reservationDetails!['userName']}",
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),),
-                SizedBox(height: 30,),
-                Text("Location: \n\n${reservationDetails!['location']}",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20,
-                ),
-                ),
-                SizedBox(height: 50,),
-              Text("Contact: 1661-2000",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
-              ),
-              ),
-              SizedBox(height: 30,),
-              ElevatedButton(onPressed: (){}, child: Text('Cancel'),),
-              ],
-            )
-                : CircularProgressIndicator(),
-          ),
-        ),
+    return Scaffold(
+      body: GoogleMap(
+        mapType: MapType.hybrid,
+        initialCameraPosition: _kGooglePlex, // 초기 카메라 위치
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
+      ),
+
+      // floatingActionButton을 누르게 되면 _goToTheLake 실행된다.
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _goToTheLake,
+        label: Text('To the lake!'),
+        icon: Icon(Icons.directions_boat),
       ),
     );
+  }
+
+  Future<void> _goToTheLake() async {
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
 }

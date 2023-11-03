@@ -4,14 +4,14 @@ import 'product_detail.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hanstour/global.dart';
 
-class ActivityTopContent extends StatefulWidget {
-  const ActivityTopContent({Key? key}) : super(key: key);
+class TourRowestContent extends StatefulWidget {
+  const TourRowestContent({Key? key}) : super(key: key);
 
   @override
-  _ActivityTopContent createState() => _ActivityTopContent();
+  _TourRowestContentState createState() => _TourRowestContentState();
 }
 
-class _ActivityTopContent extends State<ActivityTopContent> {
+class _TourRowestContentState extends State<TourRowestContent> {
   String? savedDocumentId;
   Position? currentPosition;
   Map<String, String>? selectedProduct;
@@ -95,44 +95,30 @@ class _ActivityTopContent extends State<ActivityTopContent> {
   List<Widget> _buildInkWells() {
     final contents = [
       {
-        'imagePath': 'assets/contents/cube.png',
-        'name': 'Cube Escape',
-        'category': 'ROOM ESCAPE CAFE',
-        'location': 'Hongik Mall, 29 Yanghwa-ro 16-gil, Mapo-gu, Seoul',
-        'price': '₩22500',
-        'description':
-            'You only have 60 minutes\n Everything in the room is a clue \n Mystery Room Escape Cafe',
-        'explanation':
-            "A new concept cultural facility where participants must escape by solving a given mission within 60 minutes while trapped in a special theme room.",
-        'latitude': "37.55339708771902",
-        'longitude':"126.92057146067562",
-      },
-      {
-        'imagePath': 'assets/contents/Acorn.png',
-        'name': 'Acorn caricature',
-        'category': 'CRAFT SHOP',
-        'location':
-            'Acorn caricature on the 34th floor,\n Donggyo-ro 38-gil, Mapo-gu, Seoul',
-        'price': '₩7000',
-        'description':
-            "1 minute done\n a picture shop of happiness \n Specialized in caricature",
-        'explanation':
-            'It is a place where you can get your own caricatures at a short and reasonable price.',
-        'latitude': "37.561398942072316",
-        'longitude':"126.92556279626886",
-      },
-      {
-        'imagePath': 'assets/contents/Collectors.png',
-        'name': 'Seoul Collectors',
-        'category': 'COMPLEX CULTURAL SPACE',
-        'location': '1912, Seongmisan-ro, Mapo-gu, Seoul',
+        'imagePath': 'assets/contents/center.png',
+        'name': 'Seogyo Arts Experiment Center',
+        'category': 'TOUR',
+        'location': '33, Zandari-ro 6-gil, Mapo-gu, Seoul',
         'price': '₩Free',
         'description':
-            'Seoul`s Modern Life Award\n Directing through various props \n a sentimental cafe',
+            "If you like art\n Through various exchanges and communication \n to the best of one's abilities",
         'explanation':
-            "It is a place to reinterpret the moments that connect the past and the present with the keyword of collection from the perspective of this place.",
-        'latitude': "37.56295153121545",
-        'longitude':"126.92655727677936",
+            'An art platform that connects the art ecosystem in front of Hongdae',
+        'latitude': "37.552451289430785",
+        'longitude':"126.92094309224551",
+      },
+      {
+        'imagePath': 'assets/contents/roop.png',
+        'name': 'Alternative space loop',
+        'category': 'TOUR',
+        'location': '20, Wausan-ro 29na-gil, Mapo-gu, Seoul, Republic of Korea',
+        'price': '₩Free',
+        'description':
+            'It opened in February 1999\n one of the few alternative spaces \n Supporting promising young artists with exhibition space',
+        'explanation':
+            "The alternative space loop has been carrying out colorful activities with a new and experimental flow of contemporary art.",
+        'latitude': "37.5544424103217",
+        'longitude':"126.92784729885693",
       }
     ];
 
@@ -313,7 +299,7 @@ class _ActivityTopContent extends State<ActivityTopContent> {
         ),
         SizedBox(
           width: 310,
-          height: 110,
+          height: 100,
           child: Flexible(
             child: RichText(
               overflow: TextOverflow.ellipsis,

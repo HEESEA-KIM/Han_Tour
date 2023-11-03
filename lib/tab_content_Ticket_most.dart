@@ -13,11 +13,64 @@ class TicketMostContent extends StatefulWidget {
 
 class _TicketMostContentState extends State<TicketMostContent> {
   String? savedDocumentId;
+  Position? currentPosition;
+  Map<String, String>? selectedProduct;
 
-  void getLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    print(position);
+  final textStyle =
+  TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
+
+  @override
+  Widget build(BuildContext context) {
+    // FutureBuilder를 사용하여 현재 위치 정보를 가져옵니다.
+    return FutureBuilder<Position>(
+      future: Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.medium),
+      builder: (BuildContext context, AsyncSnapshot<Position> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('위치 정보를 가져오는데 실패했습니다.'));
+        } else if (snapshot.hasData) {
+          currentPosition = snapshot.data; // 위치 정보를 갱신합니다.
+          return _buildMainContent(); // 주요 컨텐츠 구성
+        } else {
+          return Center(child: Text('위치 정보를 가져오지 못했습니다.'));
+        }
+      },
+    );
+  }
+
+  Widget _buildMainContent() {
+    if (selectedProduct != null) {
+      // 선택된 제품에서 위도와 경도를 추출
+      double latitude = double.parse(selectedProduct!['latitude']!);
+      double longitude = double.parse(selectedProduct!['longitude']!);
+
+      // ProductDetailPage에 위도와 경도를 전달
+      return ProductDetailPage(
+        currentPosition: currentPosition!,
+        imagePath: selectedProduct!['imagePath']!,
+        productName: selectedProduct!['name']!,
+        productLocation: selectedProduct!['location']!,
+        productPrice: selectedProduct!['price']!,
+        productDescription: selectedProduct!['description']!,
+        productExplanation: selectedProduct!['explanation']!,
+        latitude: latitude, // 위도 전달
+        longitude: longitude, // 경도 전달
+      );
+    }
+    // 선택된 제품이 없을 경우 제품 목록을 보여줍니다.
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: _buildInkWells(),
+          ),
+        ),
+      ),
+    );
   }
 
   void selectProduct(Map<String, String> product) {
@@ -33,41 +86,10 @@ class _TicketMostContentState extends State<TicketMostContent> {
     }
   }
 
-  void updateSelectedProductNameInFirestore(
-      String documentId, String? productName) {
+  void updateSelectedProductNameInFirestore(String documentId, String? productName) {
     if (productName != null) {
       FirestoreService().updateProductName(documentId, productName);
     }
-  }
-
-  final textStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
-  Map<String, String>? selectedProduct;
-
-  @override
-  Widget build(BuildContext context) {
-    if (selectedProduct != null) {
-      return ProductDetailPage(
-        imagePath: selectedProduct!['imagePath']!,
-        productName: selectedProduct!['name']!,
-        productLocation: selectedProduct!['location']!,
-        productPrice: selectedProduct!['price']!,
-        productDescription: selectedProduct!['description']!,
-        productExplanation: selectedProduct!['explanation']!,
-      );// time, distance 지움
-    }
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Center(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: _buildInkWells(),
-          ),
-        ),
-      ),
-    );
   }
 
   List<Widget> _buildInkWells() {
@@ -79,31 +101,38 @@ class _TicketMostContentState extends State<TicketMostContent> {
         'location': '12, Wausan-ro 14-gil, Mapo-gu, Seoul, Sangsu-dong',
         'price': '₩5000',
         'description':
-        'Props used in the drama \n Beautiful set and photo zone \n tourist dating spots',
+            'Props used in the drama \n Beautiful set and photo zone \n tourist dating spots',
         'explanation':
-        "An exotic museum that displays props used in dramas, on-site photos, and drama sets"
+            "An exotic museum that displays props used in dramas, on-site photos, and drama sets",
+        'latitude': "37.55015331355875",
+        'longitude':"126.92371241168854",
       },
       {
-        'imagePath': 'assets/contents/aqualium.png',
-        'name': 'Kt & G Sangsang Madang',
-        'category': 'Complex cultural space',
-        'location': '65 Eulmadang-ro, Mapo-gu, Seoul',
-        'price': '₩12000',
+        'imagePath': 'assets/contents/DA.png',
+        'name': 'Art Space DA Studio',
+        'category': 'MUSEUM',
+        'location': '35 B1, Sinchon-ro 12-gil, Mapo-gu, Seoul',
+        'price': '₩Free',
         'description':
-        "each space\n Decorated with a different concept \nVarious photo production",
+            "a place where you can enjoy art\n communication space with the writer \n You can enjoy a new experience.",
         'explanation':
-        'Each space is decorated with a different concept, allowing you to create a variety of photos.',
+            'It aims to become a space where artists and galleries coexist through various special exhibitions and artist curations.',
+        'latitude': "37.55483500213329",
+        'longitude':"126.9327784081659",
       },
       {
-        'imagePath': 'assets/contents/nanta.png',
-        'name': 'Myeongdong Nanta',
-        'category': 'PERFORMANCES',
-        'location': 'UNESCO Center, 26 Myeongdong-gil, Jung-gu, Seoul',
-        'price': '₩30700',
+        'imagePath': 'assets/contents/Yeonhui.png',
+        'name': 'Yeonhui Art Theater',
+        'category': 'COMPLEX CULTURAL SPACE',
+        'location':
+            'Yeonhui Art Theater 2-3 B1, Yeonhui Mat-ro, Seodaemun-gu, Seoul',
+        'price': '₩50000',
         'description':
-        'Exceeded 10 million viewers in 2014\nComical non-verbal performance\ncheerful rhythm',
+            'a white-box art house\n Enjoy the liquor and watch \n It`s a meeting place.',
         'explanation':
-        "Nanta Show is Korea's first non-verbal performance based on Samulnori rhythm, a traditional Korean melody."
+            "It is a theater where you can enjoy and interact with art while drinking wine and beer, not just watching.",
+        'latitude': "37.565617480564505",
+        'longitude':"126.9286005456683",
       }
     ];
 
@@ -119,19 +148,22 @@ class _TicketMostContentState extends State<TicketMostContent> {
                 width: MediaQuery.of(context).size.width * 0.7,
                 height: MediaQuery.of(context).size.height * 0.7,
                 child: ProductDetailPage(
+                  currentPosition: currentPosition!,
                   imagePath: content['imagePath']!,
                   productName: content['name']!,
                   productLocation: content['location']!,
                   productPrice: content['price']!,
                   productDescription: content['description']!,
                   productExplanation: content['explanation']!,
+                  latitude: double.parse(content['latitude']!),
+                  longitude: double.parse(content['longitude']!),
                 ),
               );
             },
           );
           // 다이얼로그가 닫힌 후에 selectedProduct를 초기화하고 UI를 업데이트합니다.
           setState(
-                () {
+            () {
               selectedProduct = null;
             },
           );
@@ -169,10 +201,9 @@ class _TicketMostContentState extends State<TicketMostContent> {
         buildCategoryWithReviews(category),
         SizedBox(height: 20),
         buildLocation(location),
-        SizedBox(height: 20),
         buildHighlightText(explanation),
         buildPrice(price),
-      ], // time, distance 지움, location 추가
+      ], // time, distance 지움, location 추가, sizedbox 수정 및 삭제
     );
   }
 
@@ -222,13 +253,18 @@ class _TicketMostContentState extends State<TicketMostContent> {
       textDirection: TextDirection.ltr,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        RichText(
-          overflow: TextOverflow.ellipsis,
-          maxLines: 2,
-          strutStyle: StrutStyle(fontSize: 13),
-          text: TextSpan(
-              text: location,
-              style: TextStyle(fontSize: 13, color: Colors.grey)),
+        SizedBox(
+          width: 300,
+          height: 30,
+          child: RichText(
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+            strutStyle: StrutStyle(fontSize: 13),
+            text: TextSpan(
+                text: location,
+                style: TextStyle(fontSize: 13, color: Colors.grey)),
+          ),
         ),
       ],
     );
@@ -276,7 +312,7 @@ class _TicketMostContentState extends State<TicketMostContent> {
           ],
         ),
         SizedBox(
-          width: 300,
+          width: 310,
           height: 100,
           child: Flexible(
             child: RichText(

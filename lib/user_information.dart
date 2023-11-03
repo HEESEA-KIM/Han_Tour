@@ -230,13 +230,8 @@ class UserInform extends StatelessWidget {
 
                     // Firestore에 사용자 정보와 선택된 제품의 name 값을 저장.
                     FirestoreService().saveUserInformation(userName, email, selectedProductName!, selectedProductLocation!).then((documentId) {
-                      // QR 코드 페이지로 넘어감.
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => QRCodeDisplayPage(docId: documentId),
-                        ),
-                      );
+                      // 모든 페이지를 팝하여 초기화면으로 돌아감.
+                      Navigator.of(context).popUntil((route) => route.isFirst);
                     });
                   },
                   style: ElevatedButton.styleFrom(
