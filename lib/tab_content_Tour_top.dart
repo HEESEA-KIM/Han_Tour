@@ -17,13 +17,14 @@ class _TourTopContentState extends State<TourTopContent> {
   Map<String, String>? selectedProduct;
 
   final textStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
 
   @override
   Widget build(BuildContext context) {
     // FutureBuilder를 사용하여 현재 위치 정보를 가져옵니다.
     return FutureBuilder<Position>(
-      future: Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.medium),
+      future: Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.medium),
       builder: (BuildContext context, AsyncSnapshot<Position> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
@@ -54,7 +55,8 @@ class _TourTopContentState extends State<TourTopContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
-        latitude: latitude, // 위도 전달
+        latitude: latitude,
+        // 위도 전달
         longitude: longitude, // 경도 전달
       );
     }
@@ -73,20 +75,26 @@ class _TourTopContentState extends State<TourTopContent> {
     );
   }
 
-  void selectProduct(Map<String, String> product) {
+  void selectProduct(Map<String, String> product) async {
     setState(() {
       selectedProduct = product;
     });
     // 전역 변수에 선택된 제품의 name 값을 저장(즉시 아니고 임시저장).
     selectedProductName = product['name'];
     selectedProductLocation = product['location'];
-    // Firestore에 선택된 제품의 name 값을 저장(즉시저장).
-    if (savedDocumentId != null) {
-      updateSelectedProductNameInFirestore(savedDocumentId!, product['name']);
+
+    // 현재 위치 정보와 함께 Firestore에 저장
+    if (currentPosition != null) {
+      String documentId = await FirestoreService().saveProductInformation(
+        product['name']!,
+        currentPosition!,
+      );
+      savedDocumentId = documentId; // 나중에 업데이트를 위해 문서 ID 저장
     }
   }
 
-  void updateSelectedProductNameInFirestore(String documentId, String? productName) {
+  void updateSelectedProductNameInFirestore(
+      String documentId, String? productName) {
     if (productName != null) {
       FirestoreService().updateProductName(documentId, productName);
     }
@@ -105,7 +113,7 @@ class _TourTopContentState extends State<TourTopContent> {
         'explanation':
             "A palace built in the early Joseon Dynasty in Sejong-ro, Jongno-gu, Seoul and used as a royal palace. a royal palace.",
         'latitude': "37.577565988721304",
-        'longitude':"126.97691146775416",
+        'longitude': "126.97691146775416",
       },
       {
         'imagePath': 'assets/contents/Hongik University.png',
@@ -119,7 +127,7 @@ class _TourTopContentState extends State<TourTopContent> {
         'explanation':
             'As the central university of contemporary art education in Korea, it is a place that provides experiments and experiences of contemporary art.',
         'latitude': "37.55258005778728",
-        'longitude':"126.92497177250269",
+        'longitude': "126.92497177250269",
       },
       {
         'imagePath': 'assets/contents/arder.png',
@@ -132,7 +140,7 @@ class _TourTopContentState extends State<TourTopContent> {
         'explanation':
             "It is a showroom containing Arthur's unique fashion philosophy and is a place where you can enjoy various clothes and exhibitions at once.",
         'latitude': "37.551706688143014",
-        'longitude':"126.92241222933296",
+        'longitude': "126.92241222933296",
       }
     ];
 

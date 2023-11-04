@@ -73,20 +73,26 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
     );
   }
 
-  void selectProduct(Map<String, String> product) {
+  void selectProduct(Map<String, String> product) async {
     setState(() {
       selectedProduct = product;
     });
     // 전역 변수에 선택된 제품의 name 값을 저장(즉시 아니고 임시저장).
     selectedProductName = product['name'];
     selectedProductLocation = product['location'];
-    // Firestore에 선택된 제품의 name 값을 저장(즉시저장).
-    if (savedDocumentId != null) {
-      updateSelectedProductNameInFirestore(savedDocumentId!, product['name']);
+
+    // 현재 위치 정보와 함께 Firestore에 저장
+    if (currentPosition != null) {
+      String documentId = await FirestoreService().saveProductInformation(
+        product['name']!,
+        currentPosition!,
+      );
+      savedDocumentId = documentId; // 나중에 업데이트를 위해 문서 ID 저장
     }
   }
 
-  void updateSelectedProductNameInFirestore(String documentId, String? productName) {
+  void updateSelectedProductNameInFirestore(
+      String documentId, String? productName) {
     if (productName != null) {
       FirestoreService().updateProductName(documentId, productName);
     }

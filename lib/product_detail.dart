@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hanstour/qrcode.dart';
-
 import 'firestore_data.dart';
 
 class ProductDetailPage extends StatelessWidget {
@@ -52,7 +51,7 @@ class ProductDetailPage extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: SizedBox(
-                height: 800,
+                height: 850,
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -130,7 +129,8 @@ class ProductDetailPage extends StatelessWidget {
         ElevatedButton(
           onPressed: () async {
             // FirestoreService 인스턴스를 사용하여 위치 정보를 저장하고 문서 ID를 받아옵니다.
-            String documentId = await firestoreService.saveQrcodeLocationInformation(productName, currentPosition);
+            String documentId = await firestoreService
+                .saveQrcodeLocationInformation(productName, currentPosition);
 
             // QRCodeDisplayPage로 화면 전환과 동시에 위치 정보와 문서 ID를 전달합니다.
             Navigator.of(context).push(

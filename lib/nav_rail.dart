@@ -9,7 +9,7 @@ import 'package:hanstour/tab_content_Tour_top.dart';
 import 'package:hanstour/tab_content_activity_most.dart';
 import 'package:hanstour/tab_content_activity_rowest.dart';
 import 'package:hanstour/tab_content_activity_top.dart';
-import 'nav_rail_destinations.dart';
+import 'package:hanstour/nav_rail_destinations.dart';
 
 class NavigationRailApp extends StatelessWidget {
   const NavigationRailApp({super.key});
@@ -45,8 +45,7 @@ class _NavRailState extends State<NavRail> {
     try {
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
-        setState(() {
-        });
+        setState(() {});
         return;
       }
 
@@ -54,21 +53,17 @@ class _NavRailState extends State<NavRail> {
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
-          setState(() {
-          });
+          setState(() {});
           return;
         }
       }
 
       _currentPosition = await Geolocator.getCurrentPosition();
-      setState(() {
-      });
+      setState(() {});
     } catch (e) {
-      setState(() {
-      });
+      setState(() {});
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -134,20 +129,21 @@ class _NavRailState extends State<NavRail> {
       ],
     );
   }
-
-
   final Map<int, List<Widget>> _navRailToTabContents = {
-    0: [ // Tour
+    0: [
+      // Tour
       TabContent(),
       TicketMostContent(),
       TicketRowestContent(),
     ],
-    1: [ // Activity
+    1: [
+      // Activity
       ActivityTopContent(),
       ActivityMostContent(),
       ActivityRowestContent(),
     ],
-    2: [ // Ticket
+    2: [
+      // Ticket
       TourTopContent(),
       TourMostContent(),
       TourRowestContent(),
@@ -155,61 +151,28 @@ class _NavRailState extends State<NavRail> {
   };
 
   Widget _buildTabContent() {
-    if(_currentPosition == null){
+    if (_currentPosition == null) {
       return Center(child: CircularProgressIndicator());
     }
-    // 초기화된 위치 정보를 바탕으로 TabContent를 빌드
-    List<Widget> tabContents = _navRailToTabContents[_selectedIndex] ?? [
-      Center(child: Text('Unknown index: $_selectedIndex')),
-      Center(child: Text('Unknown index: $_selectedIndex')),
-      Center(child: Text('Unknown index: $_selectedIndex'))
-    ];
+// 선택된 인덱스에 따라 탭 내용을 결정
+    List<Widget> tabContents = _navRailToTabContents[_selectedIndex] ??
+        [
+          Center(child: Text('Unknown index: $_selectedIndex')),
+          Center(child: Text('Unknown index: $_selectedIndex')),
+          Center(child: Text('Unknown index: $_selectedIndex')),
+        ];
 
-
-
+    // TabBarView를 DefaultTabController로 감싸서 제공
     return DefaultTabController(
-      length: 3,
+      length: tabContents.length, // 탭의 수를 제공해야 함
       child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 60),
-            child: _buildTabBar(),
-          ),
+          SizedBox(height: 140,),
+          // 여기서는 TabBar 위젯이 없으므로 TabBarView만 진행
           Expanded(
             child: TabBarView(children: tabContents),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildTabBar() {
-    final tabs = ['TOP RATED', 'MOST PLAYED', 'LOWEST PRICE'];
-
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20.0),
-        boxShadow: [
-          BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: Offset(0, 3))
-        ],
-      ),
-      child: TabBar(
-        onTap: (index) {},
-        indicator: ShapeDecoration(
-          color: Colors.blue,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-        ),
-        unselectedLabelColor: Colors.black26,
-        labelColor: Colors.white,
-        labelStyle: TextStyle(fontWeight: FontWeight.bold),
-        tabs: tabs.map((e) => Tab(text: e)).toList(),
       ),
     );
   }

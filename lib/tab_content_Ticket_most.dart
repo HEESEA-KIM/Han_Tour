@@ -17,13 +17,14 @@ class _TicketMostContentState extends State<TicketMostContent> {
   Map<String, String>? selectedProduct;
 
   final textStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
 
   @override
   Widget build(BuildContext context) {
     // FutureBuilder를 사용하여 현재 위치 정보를 가져옵니다.
     return FutureBuilder<Position>(
-      future: Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.medium),
+      future: Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.medium),
       builder: (BuildContext context, AsyncSnapshot<Position> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
@@ -54,7 +55,8 @@ class _TicketMostContentState extends State<TicketMostContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
-        latitude: latitude, // 위도 전달
+        latitude: latitude,
+        // 위도 전달
         longitude: longitude, // 경도 전달
       );
     }
@@ -73,20 +75,26 @@ class _TicketMostContentState extends State<TicketMostContent> {
     );
   }
 
-  void selectProduct(Map<String, String> product) {
+  void selectProduct(Map<String, String> product) async {
     setState(() {
       selectedProduct = product;
     });
     // 전역 변수에 선택된 제품의 name 값을 저장(즉시 아니고 임시저장).
     selectedProductName = product['name'];
     selectedProductLocation = product['location'];
-    // Firestore에 선택된 제품의 name 값을 저장(즉시저장).
-    if (savedDocumentId != null) {
-      updateSelectedProductNameInFirestore(savedDocumentId!, product['name']);
+
+    // 현재 위치 정보와 함께 Firestore에 저장
+    if (currentPosition != null) {
+      String documentId = await FirestoreService().saveProductInformation(
+        product['name']!,
+        currentPosition!,
+      );
+      savedDocumentId = documentId; // 나중에 업데이트를 위해 문서 ID 저장
     }
   }
 
-  void updateSelectedProductNameInFirestore(String documentId, String? productName) {
+  void updateSelectedProductNameInFirestore(
+      String documentId, String? productName) {
     if (productName != null) {
       FirestoreService().updateProductName(documentId, productName);
     }
@@ -105,7 +113,7 @@ class _TicketMostContentState extends State<TicketMostContent> {
         'explanation':
             "An exotic museum that displays props used in dramas, on-site photos, and drama sets",
         'latitude': "37.55015331355875",
-        'longitude':"126.92371241168854",
+        'longitude': "126.92371241168854",
       },
       {
         'imagePath': 'assets/contents/DA.png',
@@ -118,7 +126,7 @@ class _TicketMostContentState extends State<TicketMostContent> {
         'explanation':
             'It aims to become a space where artists and galleries coexist through various special exhibitions and artist curations.',
         'latitude': "37.55483500213329",
-        'longitude':"126.9327784081659",
+        'longitude': "126.9327784081659",
       },
       {
         'imagePath': 'assets/contents/Yeonhui.png',
@@ -132,7 +140,7 @@ class _TicketMostContentState extends State<TicketMostContent> {
         'explanation':
             "It is a theater where you can enjoy and interact with art while drinking wine and beer, not just watching.",
         'latitude': "37.565617480564505",
-        'longitude':"126.9286005456683",
+        'longitude': "126.9286005456683",
       }
     ];
 

@@ -17,13 +17,14 @@ class _TourRowestContentState extends State<TourRowestContent> {
   Map<String, String>? selectedProduct;
 
   final textStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
 
   @override
   Widget build(BuildContext context) {
     // FutureBuilder를 사용하여 현재 위치 정보를 가져옵니다.
     return FutureBuilder<Position>(
-      future: Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.medium),
+      future: Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.medium),
       builder: (BuildContext context, AsyncSnapshot<Position> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
@@ -54,7 +55,8 @@ class _TourRowestContentState extends State<TourRowestContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
-        latitude: latitude, // 위도 전달
+        latitude: latitude,
+        // 위도 전달
         longitude: longitude, // 경도 전달
       );
     }
@@ -73,20 +75,26 @@ class _TourRowestContentState extends State<TourRowestContent> {
     );
   }
 
-  void selectProduct(Map<String, String> product) {
+  void selectProduct(Map<String, String> product) async {
     setState(() {
       selectedProduct = product;
     });
     // 전역 변수에 선택된 제품의 name 값을 저장(즉시 아니고 임시저장).
     selectedProductName = product['name'];
     selectedProductLocation = product['location'];
-    // Firestore에 선택된 제품의 name 값을 저장(즉시저장).
-    if (savedDocumentId != null) {
-      updateSelectedProductNameInFirestore(savedDocumentId!, product['name']);
+
+    // 현재 위치 정보와 함께 Firestore에 저장
+    if (currentPosition != null) {
+      String documentId = await FirestoreService().saveProductInformation(
+        product['name']!,
+        currentPosition!,
+      );
+      savedDocumentId = documentId; // 나중에 업데이트를 위해 문서 ID 저장
     }
   }
 
-  void updateSelectedProductNameInFirestore(String documentId, String? productName) {
+  void updateSelectedProductNameInFirestore(
+      String documentId, String? productName) {
     if (productName != null) {
       FirestoreService().updateProductName(documentId, productName);
     }
@@ -105,7 +113,7 @@ class _TourRowestContentState extends State<TourRowestContent> {
         'explanation':
             'An art platform that connects the art ecosystem in front of Hongdae',
         'latitude': "37.552451289430785",
-        'longitude':"126.92094309224551",
+        'longitude': "126.92094309224551",
       },
       {
         'imagePath': 'assets/contents/roop.png',
@@ -118,7 +126,7 @@ class _TourRowestContentState extends State<TourRowestContent> {
         'explanation':
             "The alternative space loop has been carrying out colorful activities with a new and experimental flow of contemporary art.",
         'latitude': "37.5544424103217",
-        'longitude':"126.92784729885693",
+        'longitude': "126.92784729885693",
       }
     ];
 
