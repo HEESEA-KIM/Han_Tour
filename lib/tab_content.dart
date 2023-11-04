@@ -12,9 +12,9 @@ class TabContent extends StatefulWidget {
 }
 
 class _TabContentState extends State<TabContent> {
-  String? savedDocumentId;
-  Position? currentPosition;
-  Map<String, String>? selectedProduct;
+  String? savedDocumentId; // Firestore에서 저장된 문서 ID
+  Position? currentPosition; // 현재 사용자의 위치
+  Map<String, String>? selectedProduct; // 사용자가 선택한 제품 정보
 
   final textStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);

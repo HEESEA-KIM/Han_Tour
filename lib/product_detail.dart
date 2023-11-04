@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hanstour/qrcode.dart';
+
 import 'firestore_data.dart';
 
 class ProductDetailPage extends StatelessWidget {
@@ -49,10 +50,12 @@ class ProductDetailPage extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
+            // SingleChildScrollView를 사용하여 스크롤 가능한 뷰를 생성합니다.
             child: SingleChildScrollView(
               child: SizedBox(
                 height: 850,
                 child: Center(
+                  // Column 위젯을 사용하여 상품 정보를 세로로 나열합니다.
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -122,7 +125,6 @@ class ProductDetailPage extends StatelessWidget {
   Widget _buildPurchaseButton(BuildContext context) {
     // FirestoreService 인스턴스를 생성합니다.
     final FirestoreService firestoreService = FirestoreService();
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

@@ -17,13 +17,14 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
   Map<String, String>? selectedProduct;
 
   final textStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
 
   @override
   Widget build(BuildContext context) {
     // FutureBuilder를 사용하여 현재 위치 정보를 가져옵니다.
     return FutureBuilder<Position>(
-      future: Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.medium),
+      future: Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.medium),
       builder: (BuildContext context, AsyncSnapshot<Position> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
@@ -54,7 +55,8 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
-        latitude: latitude, // 위도 전달
+        latitude: latitude,
+        // 위도 전달
         longitude: longitude, // 경도 전달
       );
     }
@@ -112,7 +114,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
         'explanation':
             "It is a place where you can experience the uniforms of Kpop celebrities and enjoy various pictures and beautiful memories.",
         'latitude': "37.556411000348504",
-        'longitude':"126.92770110295436",
+        'longitude': "126.92770110295436",
       },
       {
         'imagePath': 'assets/contents/massage.png',
@@ -125,7 +127,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
         'explanation':
             "An unusual place to relieve the exhaustion of a day-to-day exhaustion.",
         'latitude': "37.5526864110532",
-        'longitude':"126.9222414599555 ",
+        'longitude': "126.9222414599555 ",
       },
       {
         'imagePath': 'assets/contents/selfphoto.png',
@@ -138,7 +140,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
         'explanation':
             "Press the shutter for 20 minutes in a private room to capture the nastiest and most pictures of us.",
         'latitude': "37.55942724698969",
-        'longitude':"126.92435939768679",
+        'longitude': "126.92435939768679",
       },
     ];
 

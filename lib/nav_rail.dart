@@ -41,27 +41,34 @@ class _NavRailState extends State<NavRail> {
     _determinePosition();
   }
 
+// 사용자의 현재 위치를 결정하는 비동기 메소드
   Future<void> _determinePosition() async {
     try {
+      // 위치 서비스 활성화 여부를 확인합니다.
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
+        // 위치 서비스가 비활성화되어 있으면 상태를 업데이트하고 리턴합니다.
         setState(() {});
         return;
       }
 
+      // 위치 권한을 확인합니다.
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
+        // 권한이 거부되면 권한을 다시 요청합니다.
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
+          // 권한이 거부되면 상태를 업데이트하고 리턴합니다.
           setState(() {});
           return;
         }
       }
 
+      // 현재 위치를 가져옵니다.
       _currentPosition = await Geolocator.getCurrentPosition();
-      setState(() {});
+      setState(() {}); // 상태를 업데이트합니다.
     } catch (e) {
-      setState(() {});
+      setState(() {}); // 예외 발생 시 상태를 업데이트합니다.
     }
   }
 
@@ -129,6 +136,7 @@ class _NavRailState extends State<NavRail> {
       ],
     );
   }
+
   final Map<int, List<Widget>> _navRailToTabContents = {
     0: [
       // Tour
@@ -167,7 +175,9 @@ class _NavRailState extends State<NavRail> {
       length: tabContents.length, // 탭의 수를 제공해야 함
       child: Column(
         children: [
-          SizedBox(height: 140,),
+          SizedBox(
+            height: 140,
+          ),
           // 여기서는 TabBar 위젯이 없으므로 TabBarView만 진행
           Expanded(
             child: TabBarView(children: tabContents),
