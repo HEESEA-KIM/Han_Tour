@@ -307,22 +307,20 @@ class _TicketRowestContentState extends State<TicketRowestContent> {
         ),
         SizedBox(
           width: 310,
-          height: 110,
-          child: Flexible(
-            child: RichText(
-              overflow: TextOverflow.ellipsis,
-              maxLines: 5,
-              strutStyle: StrutStyle(fontSize: 15),
-              text: TextSpan(
-                text: explanation,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0XFF357ca7),
-                ),
+          height: 100,
+          child: RichText(
+            overflow: TextOverflow.ellipsis,
+            maxLines: 5,
+            strutStyle: StrutStyle(fontSize: 15),
+            text: TextSpan(
+              text: explanation,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: Color(0XFF357ca7),
               ),
-              textAlign: TextAlign.center,
             ),
+            textAlign: TextAlign.center,
           ),
         ),
       ],

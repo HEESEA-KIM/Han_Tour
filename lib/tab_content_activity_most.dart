@@ -322,21 +322,19 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
         SizedBox(
           width: 310,
           height: 100,
-          child: Flexible(
-            child: RichText(
-              overflow: TextOverflow.ellipsis,
-              maxLines: 5,
-              strutStyle: StrutStyle(fontSize: 15),
-              text: TextSpan(
-                text: explanation,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0XFF357ca7),
-                ),
+          child: RichText(
+            overflow: TextOverflow.ellipsis,
+            maxLines: 5,
+            strutStyle: StrutStyle(fontSize: 15),
+            text: TextSpan(
+              text: explanation,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: Color(0XFF357ca7),
               ),
-              textAlign: TextAlign.center,
             ),
+            textAlign: TextAlign.center,
           ),
         ),
       ],

@@ -55,7 +55,8 @@ class _TabContentState extends State<TabContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
-        latitude: latitude, // 위도 전달
+        latitude: latitude,
+        // 위도 전달
         longitude: longitude, // 경도 전달
       );
     }
@@ -321,23 +322,21 @@ class _TabContentState extends State<TabContent> {
         SizedBox(
           width: 310,
           height: 100,
-          child: Flexible(
-            child: RichText(
-              overflow: TextOverflow.ellipsis,
-              maxLines: 5,
-              strutStyle: StrutStyle(fontSize: 15),
-              text: TextSpan(
-                text: explanation,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0XFF357ca7),
-                ),
+          child: RichText(
+            overflow: TextOverflow.ellipsis,
+            maxLines: 5,
+            strutStyle: StrutStyle(fontSize: 15),
+            text: TextSpan(
+              text: explanation,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: Color(0XFF357ca7),
               ),
-              textAlign: TextAlign.center,
             ),
+            textAlign: TextAlign.center,
           ),
-        ), //SizedBox 수정
+        ),
       ],
     );
   }
