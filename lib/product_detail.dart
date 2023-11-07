@@ -45,14 +45,18 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   @override
   void initState() {
     super.initState();
-    controller.addListener(() {
-      int next = controller.page!.round();
-      if (currentPage != next) {
-        setState(() {
-          currentPage = next;
-        });
-      }
-    });
+    controller.addListener(
+      () {
+        if (controller.page != null) {
+          int next = controller.page!.round();
+          if (currentPage != next) {
+            setState(() {
+              currentPage = next;
+            });
+          }
+        }
+      },
+    );
   }
 
   @override
@@ -66,7 +70,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       alignment: Alignment.center,
       children: [
         SizedBox(
-          height: 600,
+          height: 550,
           child: PageView.builder(
             controller: controller,
             itemCount: null,
@@ -114,7 +118,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         ),
         // 왼쪽 화살표 버튼
         Positioned(
-          left: 135,
+          left: 110,
           child: IconButton(
             icon: Icon(
               Icons.arrow_back_ios,
@@ -132,7 +136,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         ),
         // 오른쪽 화살표 버튼
         Positioned(
-          right: 135,
+          right: 110,
           child: IconButton(
             icon: Icon(
               Icons.arrow_forward_ios,
