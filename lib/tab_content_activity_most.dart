@@ -50,6 +50,8 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
       return ProductDetailPage(
         currentPosition: currentPosition!,
         imagePath: selectedProduct!['imagePath']!,
+        imagePath2: selectedProduct!['imagePath2']!,
+        imagePath3: selectedProduct!['imagePath3']!,
         productName: selectedProduct!['name']!,
         productLocation: selectedProduct!['location']!,
         productPrice: selectedProduct!['price']!,
@@ -104,6 +106,8 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
     final contents = [
       {
         'imagePath': 'assets/contents/Activity_most/rental/rental.png',
+        'imagePath2': 'assets/contents/Activity_most/rental/rental2.png',
+        'imagePath3': 'assets/contents/Activity_most/rental/rental3.png',
         'name': 'anyone School uniform rental',
         'category': 'RENTAL',
         'location':
@@ -118,6 +122,8 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
       },
       {
         'imagePath': 'assets/contents/Activity_most/message/massage.png',
+        'imagePath2': 'assets/contents/Activity_most/message/massage2.png',
+        'imagePath3': 'assets/contents/Activity_most/message/massage3.png',
         'name': 'Himawari Massage & Cafe',
         'category': 'SPA',
         'location': '28-7, Wausan-ro 21-gil, Mapo-gu, Seoul',
@@ -131,6 +137,8 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
       },
       {
         'imagePath': 'assets/contents/Activity_most/oditymode/selfphoto.png',
+        'imagePath2': 'assets/contents/Activity_most/oditymode/selfphoto2.png',
+        'imagePath3': 'assets/contents/Activity_most/oditymode/selfphoto3.png',
         'name': 'Odity mode',
         'category': 'A SELF-PHOTO STUDIO',
         'location': '212-28, Donggyo-ro, Mapo-gu, Seoul, 2nd floor',
@@ -158,6 +166,8 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
                 child: ProductDetailPage(
                   currentPosition: currentPosition!,
                   imagePath: content['imagePath']!,
+                  imagePath2: content['imagePath2']!,
+                  imagePath3: content['imagePath3']!,
                   productName: content['name']!,
                   productLocation: content['location']!,
                   productPrice: content['price']!,

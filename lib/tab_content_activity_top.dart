@@ -50,6 +50,8 @@ class _ActivityTopContent extends State<ActivityTopContent> {
       return ProductDetailPage(
         currentPosition: currentPosition!,
         imagePath: selectedProduct!['imagePath']!,
+        imagePath2: selectedProduct!['imagePath2']!,
+        imagePath3: selectedProduct!['imagePath3']!,
         productName: selectedProduct!['name']!,
         productLocation: selectedProduct!['location']!,
         productPrice: selectedProduct!['price']!,
@@ -104,6 +106,8 @@ class _ActivityTopContent extends State<ActivityTopContent> {
     final contents = [
       {
         'imagePath': 'assets/contents/Activity_top/cube/cube.png',
+        'imagePath2': 'assets/contents/Activity_top/cube/cube2.png',
+        'imagePath3': 'assets/contents/Activity_top/cube/cube3.png',
         'name': 'Cube Escape',
         'category': 'ROOM ESCAPE CAFE',
         'location': 'Hongik Mall, 29 Yanghwa-ro 16-gil, Mapo-gu, Seoul',
@@ -117,6 +121,8 @@ class _ActivityTopContent extends State<ActivityTopContent> {
       },
       {
         'imagePath': 'assets/contents/Activity_top/acorn/Acorn.png',
+        'imagePath2': 'assets/contents/Activity_top/acorn/Acorn2.png',
+        'imagePath3': 'assets/contents/Activity_top/acorn/Acorn3.png',
         'name': 'Acorn caricature',
         'category': 'CRAFT SHOP',
         'location':
@@ -131,6 +137,8 @@ class _ActivityTopContent extends State<ActivityTopContent> {
       },
       {
         'imagePath': 'assets/contents/Activity_top/collector/Collectors.png',
+        'imagePath2': 'assets/contents/Activity_top/collector/Collectors2.png',
+        'imagePath3': 'assets/contents/Activity_top/collector/Collectors3.png',
         'name': 'Seoul Collectors',
         'category': 'COMPLEX CULTURAL SPACE',
         'location': '1912, Seongmisan-ro, Mapo-gu, Seoul',
@@ -158,6 +166,8 @@ class _ActivityTopContent extends State<ActivityTopContent> {
                 child: ProductDetailPage(
                   currentPosition: currentPosition!,
                   imagePath: content['imagePath']!,
+                  imagePath2: content['imagePath2']!,
+                  imagePath3: content['imagePath3']!,
                   productName: content['name']!,
                   productLocation: content['location']!,
                   productPrice: content['price']!,

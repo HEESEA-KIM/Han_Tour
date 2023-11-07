@@ -50,6 +50,8 @@ class _TourRowestContentState extends State<TourRowestContent> {
       return ProductDetailPage(
         currentPosition: currentPosition!,
         imagePath: selectedProduct!['imagePath']!,
+        imagePath2: selectedProduct!['imagePath2']!,
+        imagePath3: selectedProduct!['imagePath3']!,
         productName: selectedProduct!['name']!,
         productLocation: selectedProduct!['location']!,
         productPrice: selectedProduct!['price']!,
@@ -104,6 +106,8 @@ class _TourRowestContentState extends State<TourRowestContent> {
     final contents = [
       {
         'imagePath': 'assets/contents/Tour_Lowest/center/center.png',
+        'imagePath2': 'assets/contents/Tour_Lowest/center/center2.png',
+        'imagePath3': 'assets/contents/Tour_Lowest/center/center3.png',
         'name': 'Seogyo Arts Experiment Center',
         'category': 'TOUR',
         'location': '33, Zandari-ro 6-gil, Mapo-gu, Seoul',
@@ -117,6 +121,8 @@ class _TourRowestContentState extends State<TourRowestContent> {
       },
       {
         'imagePath': 'assets/contents/Tour_Lowest/roof/roop.png',
+        'imagePath2': 'assets/contents/Tour_Lowest/roof/roop2.png',
+        'imagePath3': 'assets/contents/Tour_Lowest/roof/roop3.png',
         'name': 'Alternative space loop',
         'category': 'TOUR',
         'location': '20, Wausan-ro 29na-gil, Mapo-gu, Seoul, Republic of Korea',
@@ -144,6 +150,8 @@ class _TourRowestContentState extends State<TourRowestContent> {
                 child: ProductDetailPage(
                   currentPosition: currentPosition!,
                   imagePath: content['imagePath']!,
+                  imagePath2: content['imagePath2']!,
+                  imagePath3: content['imagePath3']!,
                   productName: content['name']!,
                   productLocation: content['location']!,
                   productPrice: content['price']!,

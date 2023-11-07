@@ -50,6 +50,8 @@ class _TourTopContentState extends State<TourTopContent> {
       return ProductDetailPage(
         currentPosition: currentPosition!,
         imagePath: selectedProduct!['imagePath']!,
+        imagePath2: selectedProduct!['imagePath2']!,
+        imagePath3: selectedProduct!['imagePath3']!,
         productName: selectedProduct!['name']!,
         productLocation: selectedProduct!['location']!,
         productPrice: selectedProduct!['price']!,
@@ -104,6 +106,8 @@ class _TourTopContentState extends State<TourTopContent> {
     final contents = [
       {
         'imagePath': 'assets/contents/Tour_top/gyeongbokgung/Gyeongbokgung.png',
+        'imagePath2': 'assets/contents/Tour_top/gyeongbokgung/Gyeongbokgung2.png',
+        'imagePath3': 'assets/contents/Tour_top/gyeongbokgung/Gyeongbokgung3.png',
         'name': 'Gyeongbokgung Palace',
         'category': 'Tour',
         'location': 'Gyeongbokgung Palace, 161 Sajik-ro, Jongno-gu, Seoul',
@@ -117,6 +121,8 @@ class _TourTopContentState extends State<TourTopContent> {
       },
       {
         'imagePath': 'assets/contents/Tour_top/artgallery/Hongik University.png',
+        'imagePath2': 'assets/contents/Tour_top/artgallery/Hongik University2.png',
+        'imagePath3': 'assets/contents/Tour_top/artgallery/Hongik University3.png',
         'name': 'Hongik Museum of Art',
         'category': 'ART MUSEUM',
         'location':
@@ -131,6 +137,8 @@ class _TourTopContentState extends State<TourTopContent> {
       },
       {
         'imagePath': 'assets/contents/Tour_top/arder/arder.png',
+        'imagePath2': 'assets/contents/Tour_top/arder/arder2.png',
+        'imagePath3': 'assets/contents/Tour_top/arder/arder3.png',
         'name': 'Arder Error',
         'category': 'EDITING SHOP',
         'location': '19-18 Wausan-ro 21-gil, Mapo-gu, Seoul',
@@ -158,6 +166,8 @@ class _TourTopContentState extends State<TourTopContent> {
                 child: ProductDetailPage(
                   currentPosition: currentPosition!,
                   imagePath: content['imagePath']!,
+                  imagePath2: content['imagePath2']!,
+                  imagePath3: content['imagePath3']!,
                   productName: content['name']!,
                   productLocation: content['location']!,
                   productPrice: content['price']!,

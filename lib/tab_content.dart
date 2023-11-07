@@ -50,6 +50,8 @@ class _TabContentState extends State<TabContent> {
       return ProductDetailPage(
         currentPosition: currentPosition!,
         imagePath: selectedProduct!['imagePath']!,
+        imagePath2: selectedProduct!['imagePath2']!,
+        imagePath3: selectedProduct!['imagePath3']!,
         productName: selectedProduct!['name']!,
         productLocation: selectedProduct!['location']!,
         productPrice: selectedProduct!['price']!,
@@ -104,6 +106,8 @@ class _TabContentState extends State<TabContent> {
     final contents = [
       {
         'imagePath': 'assets/contents/ticket_top/nanta/hongdaenanta.png',
+        'imagePath2': 'assets/contents/ticket_top/nanta/hongdaenanta2.png',
+        'imagePath3': 'assets/contents/ticket_top/nanta/hongdaenanta3.png',
         'name': 'Hongik University Nanta',
         'category': 'PERFORMANCES',
         'location': 'Hongik Mall, 29 Yanghwa-ro 16-gil, Mapo-gu, Seoul',
@@ -117,6 +121,8 @@ class _TabContentState extends State<TabContent> {
       },
       {
         'imagePath': 'assets/contents/ticket_top/rolling/rolling.png',
+        'imagePath2': 'assets/contents/ticket_top/rolling/rolling2.png',
+        'imagePath3': 'assets/contents/ticket_top/rolling/rolling3.png',
         'name': 'Rolling Hall in Hongdae',
         'category': 'Concert hall',
         'location': '35, Eoulmadang-ro, Mapo-gu, Seoul',
@@ -130,6 +136,8 @@ class _TabContentState extends State<TabContent> {
       },
       {
         'imagePath': 'assets/contents/ticket_top/kt/kt.png',
+        'imagePath2': 'assets/contents/ticket_top/kt/kt2.png',
+        'imagePath3': 'assets/contents/ticket_top/kt/kt3.png',
         'name': 'KT&G Sangsang Madang',
         'category': 'COMPLEX CULTURAL SPACE',
         'location':
@@ -158,6 +166,8 @@ class _TabContentState extends State<TabContent> {
                 child: ProductDetailPage(
                   currentPosition: currentPosition!,
                   imagePath: content['imagePath']!,
+                  imagePath2: content['imagePath2']!,
+                  imagePath3: content['imagePath3']!,
                   productName: content['name']!,
                   productLocation: content['location']!,
                   productPrice: content['price']!,

@@ -49,6 +49,8 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
       return ProductDetailPage(
         currentPosition: currentPosition!,
         imagePath: selectedProduct!['imagePath']!,
+        imagePath2: selectedProduct!['imagePath2']!,
+        imagePath3: selectedProduct!['imagePath3']!,
         productName: selectedProduct!['name']!,
         productLocation: selectedProduct!['location']!,
         productPrice: selectedProduct!['price']!,
@@ -102,6 +104,8 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
     final contents = [
       {
         'imagePath': 'assets/contents/Activity_Lowest/hongikstreet/hongik.png',
+        'imagePath2': 'assets/contents/Activity_Lowest/hongikstreet/hongik2.png',
+        'imagePath3': 'assets/contents/Activity_Lowest/hongikstreet/hongik3.png',
         'name': 'Hongik University Street',
         'category': 'A TOURIST ATTRACTION',
         'location': 'Seogyo-dong, Mapo-gu, Seoul',
@@ -115,6 +119,8 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
       },
       {
         'imagePath': 'assets/contents/Activity_Lowest/playstation/PlayStation.png',
+        'imagePath2': 'assets/contents/Activity_Lowest/playstation/PlayStation2.png',
+        'imagePath3': 'assets/contents/Activity_Lowest/playstation/PlayStation3.png',
         'name': 'Hongik University Lounge Play Store',
         'category': 'PLAYSTATION ROOM',
         'location':
@@ -143,6 +149,8 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
                 child: ProductDetailPage(
                   currentPosition: currentPosition!,
                   imagePath: content['imagePath']!,
+                  imagePath2: content['imagePath2']!,
+                  imagePath3: content['imagePath3']!,
                   productName: content['name']!,
                   productLocation: content['location']!,
                   productPrice: content['price']!,

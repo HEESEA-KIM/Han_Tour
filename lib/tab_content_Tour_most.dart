@@ -50,6 +50,8 @@ class _TourMostContentState extends State<TourMostContent> {
       return ProductDetailPage(
         currentPosition: currentPosition!,
         imagePath: selectedProduct!['imagePath']!,
+        imagePath2: selectedProduct!['imagePath2']!,
+        imagePath3: selectedProduct!['imagePath3']!,
         productName: selectedProduct!['name']!,
         productLocation: selectedProduct!['location']!,
         productPrice: selectedProduct!['price']!,
@@ -104,6 +106,8 @@ class _TourMostContentState extends State<TourMostContent> {
     final contents = [
       {
         'imagePath': 'assets/contents/Tour_most/musinsa/Musinsa.png',
+        'imagePath2': 'assets/contents/Tour_most/musinsa/Musinsa2.png',
+        'imagePath3': 'assets/contents/Tour_most/musinsa/Musinsa3.png',
         'name': 'Musinsa Terrace Hongdae',
         'category': 'EDITING SHOP',
         'location': '188, Yanghwa-ro, Mapo-gu, Seoul, 17th floor',
@@ -117,6 +121,8 @@ class _TourMostContentState extends State<TourMostContent> {
       },
       {
         'imagePath': 'assets/contents/Tour_most/bakery/bakery.png',
+        'imagePath2': 'assets/contents/Tour_most/bakery/bakery2.png',
+        'imagePath3': 'assets/contents/Tour_most/bakery/bakery3.png',
         'name': 'Butter Bakery',
         'category': 'BAKERY',
         'location': '226, Donggyo-ro, Mapo-gu, Seoul',
@@ -144,6 +150,8 @@ class _TourMostContentState extends State<TourMostContent> {
                 child: ProductDetailPage(
                   currentPosition: currentPosition!,
                   imagePath: content['imagePath']!,
+                  imagePath2: content['imagePath2']!,
+                  imagePath3: content['imagePath3']!,
                   productName: content['name']!,
                   productLocation: content['location']!,
                   productPrice: content['price']!,

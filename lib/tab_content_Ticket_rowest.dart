@@ -50,6 +50,8 @@ class _TicketRowestContentState extends State<TicketRowestContent> {
       return ProductDetailPage(
         currentPosition: currentPosition!,
         imagePath: selectedProduct!['imagePath']!,
+        imagePath2: selectedProduct!['imagePath2']!,
+        imagePath3: selectedProduct!['imagePath3']!,
         productName: selectedProduct!['name']!,
         productLocation: selectedProduct!['location']!,
         productPrice: selectedProduct!['price']!,
@@ -104,6 +106,8 @@ class _TicketRowestContentState extends State<TicketRowestContent> {
     final contents = [
       {
         'imagePath': 'assets/contents/ticket_Lowest/LeeCH/LEE.png',
+        'imagePath2': 'assets/contents/ticket_Lowest/LeeCH/LEE2.png',
+        'imagePath3': 'assets/contents/ticket_Lowest/LeeCH/LEE3.png',
         'name': 'Lee Chanhyuk`s inspiration',
         'category': 'COMPLEX CULTURAL SPACE',
         'location': '11-4 1st floor, Wausan-ro 29 Bar-gil, Mapo-gu, Seoul',
@@ -117,6 +121,8 @@ class _TicketRowestContentState extends State<TicketRowestContent> {
       },
       {
         'imagePath': 'assets/contents/ticket_Lowest/tfactory/T.png',
+        'imagePath2': 'assets/contents/ticket_Lowest/tfactory/T2.png',
+        'imagePath3': 'assets/contents/ticket_Lowest/tfactory/T3.png',
         'name': 'T FACTORY',
         'category': 'COMPLEX CULTURAL SPACE',
         'location': '144 1st floor, Yanghwa-ro, Mapo-gu, Seoul',
@@ -144,6 +150,8 @@ class _TicketRowestContentState extends State<TicketRowestContent> {
                 child: ProductDetailPage(
                   currentPosition: currentPosition!,
                   imagePath: content['imagePath']!,
+                  imagePath2: content['imagePath2']!,
+                  imagePath3: content['imagePath3']!,
                   productName: content['name']!,
                   productLocation: content['location']!,
                   productPrice: content['price']!,

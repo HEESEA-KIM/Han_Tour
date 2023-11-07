@@ -50,6 +50,8 @@ class _TicketMostContentState extends State<TicketMostContent> {
       return ProductDetailPage(
         currentPosition: currentPosition!,
         imagePath: selectedProduct!['imagePath']!,
+        imagePath2: selectedProduct!['imagePath2']!,
+        imagePath3: selectedProduct!['imagePath3']!,
         productName: selectedProduct!['name']!,
         productLocation: selectedProduct!['location']!,
         productPrice: selectedProduct!['price']!,
@@ -104,6 +106,8 @@ class _TicketMostContentState extends State<TicketMostContent> {
     final contents = [
       {
         'imagePath': 'assets/contents/ticket_most/yoons/Yoonscolor.png',
+        'imagePath2': 'assets/contents/ticket_most/yoons/Yoonscolor2.png',
+        'imagePath3': 'assets/contents/ticket_most/yoons/Yoonscolor3.png',
         'name': 'Yoon`s Color',
         'category': 'Museum',
         'location': '12, Wausan-ro 14-gil, Mapo-gu, Seoul, Sangsu-dong',
@@ -117,6 +121,8 @@ class _TicketMostContentState extends State<TicketMostContent> {
       },
       {
         'imagePath': 'assets/contents/ticket_most/da/DA.png',
+        'imagePath2': 'assets/contents/ticket_most/da/DA2.png',
+        'imagePath3': 'assets/contents/ticket_most/da/DA3.png',
         'name': 'Art Space DA Studio',
         'category': 'MUSEUM',
         'location': '35 B1, Sinchon-ro 12-gil, Mapo-gu, Seoul',
@@ -130,6 +136,8 @@ class _TicketMostContentState extends State<TicketMostContent> {
       },
       {
         'imagePath': 'assets/contents/ticket_most/yeonhui/Yeonhui.png',
+        'imagePath2': 'assets/contents/ticket_most/yeonhui/Yeonhui2.png',
+        'imagePath3': 'assets/contents/ticket_most/yeonhui/Yeonhui3.png',
         'name': 'Yeonhui Art Theater',
         'category': 'COMPLEX CULTURAL SPACE',
         'location':
@@ -158,6 +166,8 @@ class _TicketMostContentState extends State<TicketMostContent> {
                 child: ProductDetailPage(
                   currentPosition: currentPosition!,
                   imagePath: content['imagePath']!,
+                  imagePath2: content['imagePath2']!,
+                  imagePath3: content['imagePath3']!,
                   productName: content['name']!,
                   productLocation: content['location']!,
                   productPrice: content['price']!,
