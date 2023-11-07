@@ -103,7 +103,7 @@ class _TicketMostContentState extends State<TicketMostContent> {
   List<Widget> _buildInkWells() {
     final contents = [
       {
-        'imagePath': 'assets/contents/Yoonscolor.png',
+        'imagePath': 'assets/contents/ticket_most/yoons/Yoonscolor.png',
         'name': 'Yoon`s Color',
         'category': 'Museum',
         'location': '12, Wausan-ro 14-gil, Mapo-gu, Seoul, Sangsu-dong',
@@ -116,7 +116,7 @@ class _TicketMostContentState extends State<TicketMostContent> {
         'longitude': "126.92371241168854",
       },
       {
-        'imagePath': 'assets/contents/DA.png',
+        'imagePath': 'assets/contents/ticket_most/da/DA.png',
         'name': 'Art Space DA Studio',
         'category': 'MUSEUM',
         'location': '35 B1, Sinchon-ro 12-gil, Mapo-gu, Seoul',
@@ -129,7 +129,7 @@ class _TicketMostContentState extends State<TicketMostContent> {
         'longitude': "126.9327784081659",
       },
       {
-        'imagePath': 'assets/contents/Yeonhui.png',
+        'imagePath': 'assets/contents/ticket_most/yeonhui/Yeonhui.png',
         'name': 'Yeonhui Art Theater',
         'category': 'COMPLEX CULTURAL SPACE',
         'location':

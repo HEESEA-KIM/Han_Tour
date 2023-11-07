@@ -103,7 +103,7 @@ class _TabContentState extends State<TabContent> {
   List<Widget> _buildInkWells() {
     final contents = [
       {
-        'imagePath': 'assets/contents/hongdaenanta.png',
+        'imagePath': 'assets/contents/ticket_top/nanta/hongdaenanta.png.png',
         'name': 'Hongik University Nanta',
         'category': 'PERFORMANCES',
         'location': 'Hongik Mall, 29 Yanghwa-ro 16-gil, Mapo-gu, Seoul',
@@ -116,7 +116,7 @@ class _TabContentState extends State<TabContent> {
         'longitude': "126.92126776515072",
       },
       {
-        'imagePath': 'assets/contents/rolling.png',
+        'imagePath': 'assets/contents/ticket_top/rolling/rolling.png',
         'name': 'Rolling Hall in Hongdae',
         'category': 'Concert hall',
         'location': '35, Eoulmadang-ro, Mapo-gu, Seoul',
@@ -129,7 +129,7 @@ class _TabContentState extends State<TabContent> {
         'longitude': "126.92015803185787",
       },
       {
-        'imagePath': 'assets/contents/kt.png',
+        'imagePath': 'assets/contents/ticket_top/kt/kt.png',
         'name': 'KT&G Sangsang Madang',
         'category': 'COMPLEX CULTURAL SPACE',
         'location':

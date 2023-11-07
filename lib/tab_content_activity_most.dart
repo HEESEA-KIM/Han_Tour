@@ -103,7 +103,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
   List<Widget> _buildInkWells() {
     final contents = [
       {
-        'imagePath': 'assets/contents/rental.png',
+        'imagePath': 'assets/contents/activity_most/rental/rental.png',
         'name': 'anyone School uniform rental',
         'category': 'RENTAL',
         'location':
@@ -117,7 +117,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
         'longitude': "126.92770110295436",
       },
       {
-        'imagePath': 'assets/contents/massage.png',
+        'imagePath': 'assets/contents/activity_most/message/massage.png',
         'name': 'Himawari Massage & Cafe',
         'category': 'SPA',
         'location': '28-7, Wausan-ro 21-gil, Mapo-gu, Seoul',
@@ -130,7 +130,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
         'longitude': "126.9222414599555 ",
       },
       {
-        'imagePath': 'assets/contents/selfphoto.png',
+        'imagePath': 'assets/contents/activity_most/oditymode/selfphoto.png',
         'name': 'Odity mode',
         'category': 'A SELF-PHOTO STUDIO',
         'location': '212-28, Donggyo-ro, Mapo-gu, Seoul, 2nd floor',

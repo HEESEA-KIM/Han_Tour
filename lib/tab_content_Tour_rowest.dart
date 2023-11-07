@@ -103,7 +103,7 @@ class _TourRowestContentState extends State<TourRowestContent> {
   List<Widget> _buildInkWells() {
     final contents = [
       {
-        'imagePath': 'assets/contents/center.png',
+        'imagePath': 'assets/contents/Tour_Lowest/center/center.png',
         'name': 'Seogyo Arts Experiment Center',
         'category': 'TOUR',
         'location': '33, Zandari-ro 6-gil, Mapo-gu, Seoul',
@@ -116,7 +116,7 @@ class _TourRowestContentState extends State<TourRowestContent> {
         'longitude': "126.92094309224551",
       },
       {
-        'imagePath': 'assets/contents/roop.png',
+        'imagePath': 'assets/contents/Tour_Lowest/roof/roop.png',
         'name': 'Alternative space loop',
         'category': 'TOUR',
         'location': '20, Wausan-ro 29na-gil, Mapo-gu, Seoul, Republic of Korea',

@@ -103,7 +103,7 @@ class _TourTopContentState extends State<TourTopContent> {
   List<Widget> _buildInkWells() {
     final contents = [
       {
-        'imagePath': 'assets/contents/Gyeongbokgung.png',
+        'imagePath': 'assets/contents/Tour_top/gyeongbokgung/Gyeongbokgung.png',
         'name': 'Gyeongbokgung Palace',
         'category': 'Tour',
         'location': 'Gyeongbokgung Palace, 161 Sajik-ro, Jongno-gu, Seoul',
@@ -116,7 +116,7 @@ class _TourTopContentState extends State<TourTopContent> {
         'longitude': "126.97691146775416",
       },
       {
-        'imagePath': 'assets/contents/Hongik University.png',
+        'imagePath': 'assets/contents/Tour_top/artgallery/Hongik University.png',
         'name': 'Hongik Museum of Art',
         'category': 'ART MUSEUM',
         'location':
@@ -130,7 +130,7 @@ class _TourTopContentState extends State<TourTopContent> {
         'longitude': "126.92497177250269",
       },
       {
-        'imagePath': 'assets/contents/arder.png',
+        'imagePath': 'assets/contents/Tour_top/arder/arder.png',
         'name': 'Arder Error',
         'category': 'EDITING SHOP',
         'location': '19-18 Wausan-ro 21-gil, Mapo-gu, Seoul',

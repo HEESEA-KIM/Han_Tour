@@ -103,7 +103,7 @@ class _TicketRowestContentState extends State<TicketRowestContent> {
   List<Widget> _buildInkWells() {
     final contents = [
       {
-        'imagePath': 'assets/contents/LEE.png',
+        'imagePath': 'assets/contents/ticket_Lowest/LeeCH/LEE.png',
         'name': 'Lee Chanhyuk`s inspiration',
         'category': 'COMPLEX CULTURAL SPACE',
         'location': '11-4 1st floor, Wausan-ro 29 Bar-gil, Mapo-gu, Seoul',
@@ -116,7 +116,7 @@ class _TicketRowestContentState extends State<TicketRowestContent> {
         'longitude': "126.9261627268187",
       },
       {
-        'imagePath': 'assets/contents/T.png',
+        'imagePath': 'assets/contents/ticket_Lowest/tfactory/T.png',
         'name': 'T FACTORY',
         'category': 'COMPLEX CULTURAL SPACE',
         'location': '144 1st floor, Yanghwa-ro, Mapo-gu, Seoul',

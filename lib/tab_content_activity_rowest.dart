@@ -101,7 +101,7 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
   List<Widget> _buildInkWells() {
     final contents = [
       {
-        'imagePath': 'assets/contents/hongik.png',
+        'imagePath': 'assets/contents/activity_Lowest/hongikstreet/hongik.png',
         'name': 'Hongik University Street',
         'category': 'A TOURIST ATTRACTION',
         'location': 'Seogyo-dong, Mapo-gu, Seoul',
@@ -114,7 +114,7 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
         'longitude':"126.92355427116303",
       },
       {
-        'imagePath': 'assets/contents/PlayStation.png',
+        'imagePath': 'assets/contents/activity_Lowest/playstation/PlayStation.png',
         'name': 'Hongik University Lounge Play Store',
         'category': 'PLAYSTATION ROOM',
         'location':

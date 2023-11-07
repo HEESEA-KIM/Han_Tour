@@ -103,7 +103,7 @@ class _TourMostContentState extends State<TourMostContent> {
   List<Widget> _buildInkWells() {
     final contents = [
       {
-        'imagePath': 'assets/contents/Musinsa.png',
+        'imagePath': 'assets/contents/Tour_most/musinsa/Musinsa.png',
         'name': 'Musinsa Terrace Hongdae',
         'category': 'EDITING SHOP',
         'location': '188, Yanghwa-ro, Mapo-gu, Seoul, 17th floor',
@@ -116,7 +116,7 @@ class _TourMostContentState extends State<TourMostContent> {
         'longitude': "126.9265029683455",
       },
       {
-        'imagePath': 'assets/contents/bakery.png',
+        'imagePath': 'assets/contents/Tour_most/bakery/bakery.png',
         'name': 'Butter Bakery',
         'category': 'BAKERY',
         'location': '226, Donggyo-ro, Mapo-gu, Seoul',

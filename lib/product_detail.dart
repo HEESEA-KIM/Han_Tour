@@ -92,13 +92,10 @@ class ProductDetailPage extends StatelessWidget {
 
   Widget _buildProductImage() {
     return SizedBox(
-      width: 1250,
-      height: 470,
+      height: 500,
       child: Image.asset(
         imagePath,
-        width: 550,
-        height: 200,
-        fit: BoxFit.fill,
+        fit: BoxFit.fitHeight,
       ),
     );
   }
