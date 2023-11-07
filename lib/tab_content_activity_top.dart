@@ -103,7 +103,7 @@ class _ActivityTopContent extends State<ActivityTopContent> {
   List<Widget> _buildInkWells() {
     final contents = [
       {
-        'imagePath': 'assets/contents/activity_top/cube/cube.png',
+        'imagePath': 'assets/contents/Activity_top/cube/cube.png',
         'name': 'Cube Escape',
         'category': 'ROOM ESCAPE CAFE',
         'location': 'Hongik Mall, 29 Yanghwa-ro 16-gil, Mapo-gu, Seoul',
@@ -116,7 +116,7 @@ class _ActivityTopContent extends State<ActivityTopContent> {
         'longitude': "126.92057146067562",
       },
       {
-        'imagePath': 'assets/contents/activity_top/acorn/Acorn.png',
+        'imagePath': 'assets/contents/Activity_top/acorn/Acorn.png',
         'name': 'Acorn caricature',
         'category': 'CRAFT SHOP',
         'location':
@@ -130,7 +130,7 @@ class _ActivityTopContent extends State<ActivityTopContent> {
         'longitude': "126.92556279626886",
       },
       {
-        'imagePath': 'assets/contents/activity_top/collector/Collectors.png',
+        'imagePath': 'assets/contents/Activity_top/collector/Collectors.png',
         'name': 'Seoul Collectors',
         'category': 'COMPLEX CULTURAL SPACE',
         'location': '1912, Seongmisan-ro, Mapo-gu, Seoul',

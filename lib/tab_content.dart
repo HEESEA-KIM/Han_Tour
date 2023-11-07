@@ -103,7 +103,7 @@ class _TabContentState extends State<TabContent> {
   List<Widget> _buildInkWells() {
     final contents = [
       {
-        'imagePath': 'assets/contents/ticket_top/nanta/hongdaenanta.png.png',
+        'imagePath': 'assets/contents/ticket_top/nanta/hongdaenanta.png',
         'name': 'Hongik University Nanta',
         'category': 'PERFORMANCES',
         'location': 'Hongik Mall, 29 Yanghwa-ro 16-gil, Mapo-gu, Seoul',

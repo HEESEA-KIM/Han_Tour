@@ -68,7 +68,30 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
-    - assets/contents/
+    - assets/contents/Activity_Lowest/hongikstreet/
+    - assets/contents/Activity_Lowest/playstation/
+    - assets/contents/Activity_most/message/
+    - assets/contents/Activity_most/oditymode/
+    - assets/contents/Activity_most/rental/
+    - assets/contents/Activity_top/acorn/
+    - assets/contents/Activity_top/collector/
+    - assets/contents/Activity_top/cube/
+    - assets/contents/ticket_Lowest/LeeCH/
+    - assets/contents/ticket_Lowest/tfactory/
+    - assets/contents/ticket_most/da/
+    - assets/contents/ticket_most/yeonhui/
+    - assets/contents/ticket_most/yoons/
+    - assets/contents/ticket_top/kt/
+    - assets/contents/ticket_top/nanta/
+    - assets/contents/ticket_top/rolling/
+    - assets/contents/Tour_Lowest/center/
+    - assets/contents/Tour_Lowest/roof/
+    - assets/contents/Tour_most/bakery/
+    - assets/contents/Tour_most/musinsa/
+    - assets/contents/Tour_top/arder/
+    - assets/contents/Tour_top/artgallery/
+    - assets/contents/Tour_top/gyeongbokgung/
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
