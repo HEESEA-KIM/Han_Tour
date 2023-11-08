@@ -57,6 +57,7 @@ class _TourMostContentState extends State<TourMostContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
+        operationtime : selectedProduct!['operationtime']!, // 운영 시간,요일
         latitude: latitude,
         // 위도 전달
         longitude: longitude, // 경도 전달
@@ -118,6 +119,8 @@ class _TourMostContentState extends State<TourMostContent> {
             "It consists of shops, cafes, lounges, and parks, and it is an editing space where you can experience a variety of things such as shopping, food, and relaxation.",
         'latitude': "37.55774598896755",
         'longitude': "126.9265029683455",
+        'operationtime': "Monday to Tuesday 11:00 am to 21:00 pm "
+            "\n Friday to Sunday 11:00 am to 21:00 pm",
       },
       {
         'imagePath': 'assets/contents/Tour_most/bakery/bakery.png',
@@ -133,6 +136,7 @@ class _TourMostContentState extends State<TourMostContent> {
             'Products that show the chef`s pride in making delicious bread with numerous processes and various methods',
         'latitude': "37.55995636606521",
         'longitude': "126.9240221518359",
+        'operationtime': "Open all year round from 09:00 am to 21:30 pm",
       },
     ];
 
@@ -159,6 +163,7 @@ class _TourMostContentState extends State<TourMostContent> {
                   productExplanation: content['explanation']!,
                   latitude: double.parse(content['latitude']!),
                   longitude: double.parse(content['longitude']!),
+                  operationtime: content['operationtime']!,
                 ),
               );
             },
@@ -177,6 +182,7 @@ class _TourMostContentState extends State<TourMostContent> {
           content['category']!,
           content['location']!,
           content['price']!,
+          content['operationtime']!,
           content['description']!,
           content['explanation']!,
         ),
@@ -191,6 +197,7 @@ class _TourMostContentState extends State<TourMostContent> {
       String category,
       String location,
       String price,
+      String operationtime,
       String description,
       String explanation) {
     return Column(
@@ -203,6 +210,8 @@ class _TourMostContentState extends State<TourMostContent> {
         buildCategoryWithReviews(category),
         SizedBox(height: 20),
         buildLocation(location),
+        SizedBox(height: 10),
+        buildoperationtime(operationtime),
         buildHighlightText(explanation),
         buildPrice(price),
       ], // time, distance 지움, location 추가
@@ -315,7 +324,7 @@ class _TourMostContentState extends State<TourMostContent> {
         ),
         SizedBox(
           width: 310,
-          height: 100,
+          height: 110,
           child: RichText(
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
@@ -351,4 +360,12 @@ class _TourMostContentState extends State<TourMostContent> {
       ),
     );
   }
+}
+
+Widget buildoperationtime(String operationtime) {
+  return Container(
+    height: 60,
+    width: 310,
+    child: Text(operationtime, textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: Colors.blue),),
+  );
 }

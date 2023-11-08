@@ -12,6 +12,7 @@ class ProductDetailPage extends StatefulWidget {
   final String productPrice;
   final String productDescription;
   final String productExplanation;
+  final String operationtime;
   final Position currentPosition;
   final double latitude;
   final double longitude;
@@ -25,6 +26,7 @@ class ProductDetailPage extends StatefulWidget {
     required this.productPrice,
     required this.productDescription,
     required this.productExplanation,
+    required this.operationtime,
     required this.currentPosition,
     required this.latitude,
     required this.longitude,

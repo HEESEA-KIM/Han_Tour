@@ -57,6 +57,7 @@ class _TourRowestContentState extends State<TourRowestContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
+        operationtime : selectedProduct!['operationtime']!, // 운영 시간,요일
         latitude: latitude,
         // 위도 전달
         longitude: longitude, // 경도 전달
@@ -118,6 +119,7 @@ class _TourRowestContentState extends State<TourRowestContent> {
             'An art platform that connects the art ecosystem in front of Hongdae',
         'latitude': "37.552451289430785",
         'longitude': "126.92094309224551",
+        'operationtime': "Tuesday to Sunday 11:00 am to 20:00 pm",
       },
       {
         'imagePath': 'assets/contents/Tour_Lowest/roof/roop.png',
@@ -133,6 +135,7 @@ class _TourRowestContentState extends State<TourRowestContent> {
             "The alternative space loop has been carrying out colorful activities with a new and experimental flow of contemporary art.",
         'latitude': "37.5544424103217",
         'longitude': "126.92784729885693",
+        'operationtime': "Open all year round from 10:00 am to 19:00 pm",
       }
     ];
 
@@ -159,6 +162,7 @@ class _TourRowestContentState extends State<TourRowestContent> {
                   productExplanation: content['explanation']!,
                   latitude: double.parse(content['latitude']!),
                   longitude: double.parse(content['longitude']!),
+                  operationtime: content['operationtime']!,
                 ),
               );
             },
@@ -177,6 +181,7 @@ class _TourRowestContentState extends State<TourRowestContent> {
           content['category']!,
           content['location']!,
           content['price']!,
+          content['operationtime']!,
           content['description']!,
           content['explanation']!,
         ),
@@ -191,6 +196,7 @@ class _TourRowestContentState extends State<TourRowestContent> {
       String category,
       String location,
       String price,
+      String operationtime,
       String description,
       String explanation) {
     return Column(
@@ -203,6 +209,8 @@ class _TourRowestContentState extends State<TourRowestContent> {
         buildCategoryWithReviews(category),
         SizedBox(height: 20),
         buildLocation(location),
+        SizedBox(height: 10),
+        buildoperationtime(operationtime),
         buildHighlightText(explanation),
         buildPrice(price),
       ], // time, distance 지움, location 추가
@@ -315,7 +323,7 @@ class _TourRowestContentState extends State<TourRowestContent> {
         ),
         SizedBox(
           width: 310,
-          height: 100,
+          height: 110,
           child: RichText(
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
@@ -351,4 +359,12 @@ class _TourRowestContentState extends State<TourRowestContent> {
       ),
     );
   }
+}
+
+Widget buildoperationtime(String operationtime) {
+  return Container(
+    height: 60,
+    width: 310,
+    child: Text(operationtime, textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: Colors.blue),),
+  );
 }

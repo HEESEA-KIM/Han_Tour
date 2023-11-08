@@ -57,6 +57,7 @@ class _TicketRowestContentState extends State<TicketRowestContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
+        operationtime : selectedProduct!['operationtime']!, // 운영 시간,요일
         latitude: latitude,
         // 위도 전달
         longitude: longitude, // 경도 전달
@@ -118,6 +119,7 @@ class _TicketRowestContentState extends State<TicketRowestContent> {
             "It was planned with the desire to share the energy of his inspiration with the solo exhibition of Akdong Musician Lee Chan-hyuk's solo exhibition.",
         'latitude': "37.55559915070057",
         'longitude': "126.9261627268187",
+        'operationtime': "Open all year round from 11:00 am to 20:00 pm",
       },
       {
         'imagePath': 'assets/contents/ticket_Lowest/tfactory/T.png',
@@ -133,6 +135,7 @@ class _TicketRowestContentState extends State<TicketRowestContent> {
             'It is a space where you can experience various services provided by SK Telecom for free.',
         'latitude': "37.5553421407844",
         'longitude': "126.92230094583259",
+        'operationtime': "Open all year round from 11:00 am to 21:00 pm \n the third Monday of every month",
       },
     ];
 
@@ -159,6 +162,7 @@ class _TicketRowestContentState extends State<TicketRowestContent> {
                   productExplanation: content['explanation']!,
                   latitude: double.parse(content['latitude']!),
                   longitude: double.parse(content['longitude']!),
+                  operationtime: content['operationtime']!,
                 ),
               );
             },
@@ -177,6 +181,7 @@ class _TicketRowestContentState extends State<TicketRowestContent> {
           content['category']!,
           content['location']!,
           content['price']!,
+          content['operationtime']!,
           content['description']!,
           content['explanation']!,
         ),
@@ -191,6 +196,7 @@ class _TicketRowestContentState extends State<TicketRowestContent> {
       String category,
       String location,
       String price,
+      String operationtime,
       String description,
       String explanation) {
     return Column(
@@ -203,6 +209,8 @@ class _TicketRowestContentState extends State<TicketRowestContent> {
         buildCategoryWithReviews(category),
         SizedBox(height: 20),
         buildLocation(location),
+        SizedBox(height: 10),
+        buildoperationtime(operationtime),
         buildHighlightText(explanation),
         buildPrice(price),
       ], // time, distance 지움, location 추가
@@ -315,7 +323,7 @@ class _TicketRowestContentState extends State<TicketRowestContent> {
         ),
         SizedBox(
           width: 310,
-          height: 100,
+          height: 110,
           child: RichText(
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
@@ -351,4 +359,12 @@ class _TicketRowestContentState extends State<TicketRowestContent> {
       ),
     );
   }
+}
+
+Widget buildoperationtime(String operationtime) {
+  return Container(
+    height: 60,
+    width: 310,
+    child: Text(operationtime, textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: Colors.blue),),
+  );
 }

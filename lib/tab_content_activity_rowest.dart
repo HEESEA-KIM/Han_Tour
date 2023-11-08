@@ -56,6 +56,7 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
+        operationtime : selectedProduct!['operationtime']!, // 운영 시간,요일
         latitude: latitude, // 위도 전달
         longitude: longitude, // 경도 전달
       );
@@ -116,6 +117,7 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
             'Hongik University has a variety of cultural elements and is rich in attractions and food.',
         'latitude': "37.55540828121299",
         'longitude':"126.92355427116303",
+        'operationtime': "Open all year round from 24hours",
       },
       {
         'imagePath': 'assets/contents/Activity_Lowest/playstation/PlayStation.png',
@@ -132,6 +134,7 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
             "Couples or friends can enjoy various games as a good place to play and enjoy together.",
         'latitude': "37.550895426643145",
         'longitude':"126.92186138386253",
+        'operationtime': "Open all year round from 12:00 pm to 03:00 am",
       },
     ];
 
@@ -158,6 +161,7 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
                   productExplanation: content['explanation']!,
                   latitude: double.parse(content['latitude']!),
                   longitude: double.parse(content['longitude']!),
+                  operationtime: content['operationtime']!,
                 ),
               );
             },
@@ -176,6 +180,7 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
           content['category']!,
           content['location']!,
           content['price']!,
+          content['operationtime']!,
           content['description']!,
           content['explanation']!,
         ),
@@ -190,6 +195,7 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
       String category,
       String location,
       String price,
+      String operationtime,
       String description,
       String explanation) {
     return Column(
@@ -202,6 +208,8 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
         buildCategoryWithReviews(category),
         SizedBox(height: 20),
         buildLocation(location),
+        SizedBox(height: 10),
+        buildoperationtime(operationtime),
         buildHighlightText(explanation),
         buildPrice(price),
       ], // time, distance 지움, location 추가
@@ -314,7 +322,7 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
         ),
         SizedBox(
           width: 310,
-          height: 100,
+          height: 110,
           child: RichText(
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
@@ -350,4 +358,12 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
       ),
     );
   }
+}
+
+Widget buildoperationtime(String operationtime) {
+  return Container(
+    height: 60,
+    width: 310,
+    child: Text(operationtime, textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: Colors.blue),),
+  );
 }

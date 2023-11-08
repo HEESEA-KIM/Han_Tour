@@ -57,6 +57,7 @@ class _TicketMostContentState extends State<TicketMostContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
+        operationtime : selectedProduct!['operationtime']!, // 운영 시간,요일
         latitude: latitude,
         // 위도 전달
         longitude: longitude, // 경도 전달
@@ -118,6 +119,7 @@ class _TicketMostContentState extends State<TicketMostContent> {
             "An exotic museum that displays props used in dramas, on-site photos, and drama sets",
         'latitude': "37.55015331355875",
         'longitude': "126.92371241168854",
+        'operationtime': "Monday to Saturday 10:00am to 18:30pm \n Sunday 11:00am to 18:30pm",
       },
       {
         'imagePath': 'assets/contents/ticket_most/da/DA.png',
@@ -133,6 +135,7 @@ class _TicketMostContentState extends State<TicketMostContent> {
             'It aims to become a space where artists and galleries coexist through various special exhibitions and artist curations.',
         'latitude': "37.55483500213329",
         'longitude': "126.9327784081659",
+        'operationtime': "Tuesday to Sunday 12:00 pm to 22:00 pm",
       },
       {
         'imagePath': 'assets/contents/ticket_most/yeonhui/Yeonhui.png',
@@ -149,6 +152,7 @@ class _TicketMostContentState extends State<TicketMostContent> {
             "It is a theater where you can enjoy and interact with art while drinking wine and beer, not just watching.",
         'latitude': "37.565617480564505",
         'longitude': "126.9286005456683",
+        'operationtime': "Monday to Friday 19:30 pm to 22:35 pm \n  Saturday to Sunday 15:00pm to 18:05pm",
       }
     ];
 
@@ -175,6 +179,7 @@ class _TicketMostContentState extends State<TicketMostContent> {
                   productExplanation: content['explanation']!,
                   latitude: double.parse(content['latitude']!),
                   longitude: double.parse(content['longitude']!),
+                  operationtime: content['operationtime']!,
                 ),
               );
             },
@@ -193,6 +198,7 @@ class _TicketMostContentState extends State<TicketMostContent> {
           content['category']!,
           content['location']!,
           content['price']!,
+          content['operationtime']!,
           content['description']!,
           content['explanation']!,
         ),
@@ -207,6 +213,7 @@ class _TicketMostContentState extends State<TicketMostContent> {
       String category,
       String location,
       String price,
+      String operationtime,
       String description,
       String explanation) {
     return Column(
@@ -219,6 +226,8 @@ class _TicketMostContentState extends State<TicketMostContent> {
         buildCategoryWithReviews(category),
         SizedBox(height: 20),
         buildLocation(location),
+        SizedBox(height: 10),
+        buildoperationtime(operationtime),
         buildHighlightText(explanation),
         buildPrice(price),
       ], // time, distance 지움, location 추가, sizedbox 수정 및 삭제
@@ -331,7 +340,7 @@ class _TicketMostContentState extends State<TicketMostContent> {
         ),
         SizedBox(
           width: 310,
-          height: 100,
+          height: 110,
           child: RichText(
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
@@ -367,4 +376,12 @@ class _TicketMostContentState extends State<TicketMostContent> {
       ),
     );
   }
+}
+
+Widget buildoperationtime(String operationtime) {
+  return Container(
+    height: 60,
+    width: 310,
+    child: Text(operationtime, textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: Colors.blue),),
+  );
 }

@@ -57,6 +57,7 @@ class _TabContentState extends State<TabContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
+        operationtime : selectedProduct!['operationtime']!, // 운영 시간,요일
         latitude: latitude,
         // 위도 전달
         longitude: longitude, // 경도 전달
@@ -118,6 +119,7 @@ class _TabContentState extends State<TabContent> {
             "Since 1997 14.8 million viewers made a reasonable choice! Nanta impressed not only Korea but the world!",
         'latitude': "37.55310472979606",
         'longitude': "126.92126776515072",
+        'operationtime': "Thursday to Sunday 17:00 pm to 18:30 pm",
       },
       {
         'imagePath': 'assets/contents/ticket_top/rolling/rolling.png',
@@ -133,6 +135,7 @@ class _TabContentState extends State<TabContent> {
             'Rolling Hall, which has been in place for a long time since 1995, is a concert hall where both audiences and artists strive to have a good time.',
         'latitude': "37.54842780429565",
         'longitude': "126.92015803185787",
+        'operationtime': "Open all year round from 12:00 pm to 22:00 pm",
       },
       {
         'imagePath': 'assets/contents/ticket_top/kt/kt.png',
@@ -149,6 +152,7 @@ class _TabContentState extends State<TabContent> {
             "It is a communication channel between artists and the public and a special space where you can enjoy fresh culture and art.",
         'latitude': "37.55094895772248",
         'longitude': "126.92106633311023",
+        'operationtime': "Open all year round from 11:00 am to 21:00 pm",
       }
     ];
 
@@ -175,6 +179,7 @@ class _TabContentState extends State<TabContent> {
                   productExplanation: content['explanation']!,
                   latitude: double.parse(content['latitude']!),
                   longitude: double.parse(content['longitude']!),
+                  operationtime: content['operationtime']!,
                 ),
               );
             },
@@ -193,6 +198,7 @@ class _TabContentState extends State<TabContent> {
           content['category']!,
           content['location']!,
           content['price']!,
+          content['operationtime']!,
           content['description']!,
           content['explanation']!,
         ),
@@ -207,6 +213,7 @@ class _TabContentState extends State<TabContent> {
       String category,
       String location,
       String price,
+      String operationtime,
       String description,
       String explanation) {
     return Column(
@@ -219,6 +226,8 @@ class _TabContentState extends State<TabContent> {
         buildCategoryWithReviews(category),
         SizedBox(height: 20),
         buildLocation(location),
+        SizedBox(height: 10,),
+        buildoperationtime(operationtime),
         buildHighlightText(explanation),
         buildPrice(price),
       ], // time, distance 지움, location 추가, SizedBox 삭제
@@ -331,7 +340,7 @@ class _TabContentState extends State<TabContent> {
         ),
         SizedBox(
           width: 310,
-          height: 100,
+          height: 110,
           child: RichText(
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
@@ -344,7 +353,7 @@ class _TabContentState extends State<TabContent> {
                 color: Color(0XFF357ca7),
               ),
             ),
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.start,
           ),
         ),
       ],
@@ -367,4 +376,12 @@ class _TabContentState extends State<TabContent> {
       ),
     );
   }
+}
+
+Widget buildoperationtime(String operationtime) {
+  return Container(
+    height: 60,
+    width: 310,
+    child: Text(operationtime, textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: Colors.blue),),
+  );
 }

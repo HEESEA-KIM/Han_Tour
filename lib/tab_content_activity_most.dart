@@ -57,6 +57,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
+        operationtime : selectedProduct!['operationtime']!, // 운영 시간,요일
         latitude: latitude,
         // 위도 전달
         longitude: longitude, // 경도 전달
@@ -119,6 +120,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
             "It is a place where you can experience the uniforms of Kpop celebrities and enjoy various pictures and beautiful memories.",
         'latitude': "37.556411000348504",
         'longitude': "126.92770110295436",
+        'operationtime': "Open all year round from 11:00 am to 20:00 pm",
       },
       {
         'imagePath': 'assets/contents/Activity_most/message/massage.png',
@@ -134,6 +136,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
             "An unusual place to relieve the exhaustion of a day-to-day exhaustion.",
         'latitude': "37.5526864110532",
         'longitude': "126.9222414599555 ",
+        'operationtime': "Open all year round from 10:00 am to 05:00 am",
       },
       {
         'imagePath': 'assets/contents/Activity_most/oditymode/selfphoto.png',
@@ -149,6 +152,9 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
             "Press the shutter for 20 minutes in a private room to capture the nastiest and most pictures of us.",
         'latitude': "37.55942724698969",
         'longitude': "126.92435939768679",
+        'operationtime': "Monday to Thursday 13:00 pm to 21:00 pm"
+            "\n Friday 11:00 am to 21:00 pm"
+            "\n Saturday to Sunday 10:00 am to 21:00 pm",
       },
     ];
 
@@ -175,6 +181,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
                   productExplanation: content['explanation']!,
                   latitude: double.parse(content['latitude']!),
                   longitude: double.parse(content['longitude']!),
+                  operationtime: content['operationtime']!,
                 ),
               );
             },
@@ -193,6 +200,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
           content['category']!,
           content['location']!,
           content['price']!,
+          content['operationtime']!,
           content['description']!,
           content['explanation']!,
         ),
@@ -207,6 +215,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
       String category,
       String location,
       String price,
+      String operationtime,
       String description,
       String explanation) {
     return Column(
@@ -219,6 +228,8 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
         buildCategoryWithReviews(category),
         SizedBox(height: 20),
         buildLocation(location),
+        SizedBox(height: 10),
+        buildoperationtime(operationtime),
         buildHighlightText(explanation),
         buildPrice(price),
       ], // time, distance 지움, location 추가
@@ -331,7 +342,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
         ),
         SizedBox(
           width: 310,
-          height: 100,
+          height: 110,
           child: RichText(
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
@@ -367,4 +378,12 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
       ),
     );
   }
+}
+
+Widget buildoperationtime(String operationtime) {
+  return Container(
+    height: 60,
+    width: 310,
+    child: Text(operationtime, textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: Colors.blue),),
+  );
 }

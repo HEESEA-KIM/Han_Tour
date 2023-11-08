@@ -57,6 +57,7 @@ class _TourTopContentState extends State<TourTopContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
+        operationtime : selectedProduct!['operationtime']!, // 운영 시간,요일
         latitude: latitude,
         // 위도 전달
         longitude: longitude, // 경도 전달
@@ -118,6 +119,7 @@ class _TourTopContentState extends State<TourTopContent> {
             "A palace built in the early Joseon Dynasty in Sejong-ro, Jongno-gu, Seoul and used as a royal palace. a royal palace.",
         'latitude': "37.577565988721304",
         'longitude': "126.97691146775416",
+        'operationtime': "Open all year round from 09:00 am to 17:00 pm",
       },
       {
         'imagePath': 'assets/contents/Tour_top/artgallery/Hongik University.png',
@@ -134,6 +136,8 @@ class _TourTopContentState extends State<TourTopContent> {
             'As the central university of contemporary art education in Korea, it is a place that provides experiments and experiences of contemporary art.',
         'latitude': "37.55258005778728",
         'longitude': "126.92497177250269",
+        'operationtime': "Subsection 1: Open all year round from 10:00 am to 17:00 pm"
+            "\n Subsection 2: Open all year round from 10:00 am to 18:00 pm",
       },
       {
         'imagePath': 'assets/contents/Tour_top/arder/arder.png',
@@ -149,6 +153,7 @@ class _TourTopContentState extends State<TourTopContent> {
             "It is a showroom containing Arthur's unique fashion philosophy and is a place where you can enjoy various clothes and exhibitions at once.",
         'latitude': "37.551706688143014",
         'longitude': "126.92241222933296",
+        'operationtime': "Open all year round from 13:00 pm to 21:00 pm",
       }
     ];
 
@@ -175,6 +180,7 @@ class _TourTopContentState extends State<TourTopContent> {
                   productExplanation: content['explanation']!,
                   latitude: double.parse(content['latitude']!),
                   longitude: double.parse(content['longitude']!),
+                  operationtime: content['operationtime']!,
                 ),
               );
             },
@@ -193,6 +199,7 @@ class _TourTopContentState extends State<TourTopContent> {
           content['category']!,
           content['location']!,
           content['price']!,
+          content['operationtime']!,
           content['description']!,
           content['explanation']!,
         ),
@@ -207,6 +214,7 @@ class _TourTopContentState extends State<TourTopContent> {
       String category,
       String location,
       String price,
+      String operationtime,
       String description,
       String explanation) {
     return Column(
@@ -219,6 +227,8 @@ class _TourTopContentState extends State<TourTopContent> {
         buildCategoryWithReviews(category),
         SizedBox(height: 20),
         buildLocation(location),
+        SizedBox(height: 10),
+        buildoperationtime(operationtime),
         buildHighlightText(explanation),
         buildPrice(price),
       ], // time, distance 지움, location 추가
@@ -331,7 +341,7 @@ class _TourTopContentState extends State<TourTopContent> {
         ),
         SizedBox(
           width: 310,
-          height: 100,
+          height: 110,
           child: RichText(
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
@@ -367,4 +377,12 @@ class _TourTopContentState extends State<TourTopContent> {
       ),
     );
   }
+}
+
+Widget buildoperationtime(String operationtime) {
+  return Container(
+    height: 60,
+    width: 310,
+    child: Text(operationtime, textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: Colors.blue),),
+  );
 }

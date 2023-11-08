@@ -57,6 +57,7 @@ class _ActivityTopContent extends State<ActivityTopContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
+        operationtime : selectedProduct!['operationtime']!, // 운영 시간,요일
         latitude: latitude,
         // 위도 전달
         longitude: longitude, // 경도 전달
@@ -118,6 +119,10 @@ class _ActivityTopContent extends State<ActivityTopContent> {
             "A new concept cultural facility where participants must escape by solving a given mission within 60 minutes while trapped in a special theme room.",
         'latitude': "37.55339708771902",
         'longitude': "126.92057146067562",
+        'operationtime': "Monday to Tuesday 12:00 pm to 23:45 pm "
+            "\n Wednesday to Thursday 11:00 pm to 23:45 pm"
+            "\n Friday to Saturday 10:00 pm to 00:05 am "
+            "\n Sunday 10:00 am to 23:45 pm",
       },
       {
         'imagePath': 'assets/contents/Activity_top/acorn/Acorn.png',
@@ -134,6 +139,7 @@ class _ActivityTopContent extends State<ActivityTopContent> {
             'It is a place where you can get your own caricatures at a short and reasonable price.',
         'latitude': "37.561398942072316",
         'longitude': "126.92556279626886",
+        'operationtime': "Open all year round from 12:00 pm to 21:00 pm \n break time from 16:00 pm to 17:00 pm ",
       },
       {
         'imagePath': 'assets/contents/Activity_top/collector/Collectors.png',
@@ -149,6 +155,7 @@ class _ActivityTopContent extends State<ActivityTopContent> {
             "It is a place to reinterpret the moments that connect the past and the present with the keyword of collection from the perspective of this place.",
         'latitude': "37.56295153121545",
         'longitude': "126.92655727677936",
+        'operationtime': "Wednesday to Saturday 12:00 pm to 21:00 pm \n Sunday 12:00 pm to 19:00 pm",
       }
     ];
 
@@ -175,6 +182,7 @@ class _ActivityTopContent extends State<ActivityTopContent> {
                   productExplanation: content['explanation']!,
                   latitude: double.parse(content['latitude']!),
                   longitude: double.parse(content['longitude']!),
+                  operationtime: content['operationtime']!,
                 ),
               );
             },
@@ -193,6 +201,7 @@ class _ActivityTopContent extends State<ActivityTopContent> {
           content['category']!,
           content['location']!,
           content['price']!,
+          content['operationtime']!,
           content['description']!,
           content['explanation']!,
         ),
@@ -207,6 +216,7 @@ class _ActivityTopContent extends State<ActivityTopContent> {
       String category,
       String location,
       String price,
+      String operationtime,
       String description,
       String explanation) {
     return Column(
@@ -219,6 +229,8 @@ class _ActivityTopContent extends State<ActivityTopContent> {
         buildCategoryWithReviews(category),
         SizedBox(height: 20),
         buildLocation(location),
+        SizedBox(height: 10),
+        buildoperationtime(operationtime),
         buildHighlightText(explanation),
         buildPrice(price),
       ], // time, distance 지움, location 추가
@@ -318,9 +330,10 @@ class _ActivityTopContent extends State<ActivityTopContent> {
 
   Column buildHighlightText(String explanation) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+
           children: [
             Text("",
                 style: TextStyle(
@@ -331,7 +344,7 @@ class _ActivityTopContent extends State<ActivityTopContent> {
         ),
         SizedBox(
           width: 310,
-          height: 100,
+          height: 110,
           child: RichText(
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
@@ -367,4 +380,12 @@ class _ActivityTopContent extends State<ActivityTopContent> {
       ),
     );
   }
+}
+
+Widget buildoperationtime(String operationtime) {
+  return Container(
+    height: 60,
+    width: 310,
+    child: Text(operationtime, textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: Colors.blue),),
+  );
 }
