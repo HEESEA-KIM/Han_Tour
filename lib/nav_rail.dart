@@ -9,11 +9,10 @@ import 'package:hanstour/tab_content_Tour_top.dart';
 import 'package:hanstour/tab_content_activity_most.dart';
 import 'package:hanstour/tab_content_activity_rowest.dart';
 import 'package:hanstour/tab_content_activity_top.dart';
-import 'package:hanstour/nav_rail_destinations.dart';
+import 'nav_rail_destinations.dart';
 
 class NavigationRailApp extends StatelessWidget {
   const NavigationRailApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -22,55 +21,48 @@ class NavigationRailApp extends StatelessWidget {
     );
   }
 }
-
 class NavRail extends StatefulWidget {
   const NavRail({super.key});
-
   @override
   State<NavRail> createState() => _NavRailState();
 }
-
 class _NavRailState extends State<NavRail> {
   int _selectedIndex = 0;
   bool _extended = true;
   Position? _currentPosition;
-
   @override
   void initState() {
     super.initState();
     _determinePosition();
   }
-
-// 사용자의 현재 위치를 결정하는 비동기 메소드
   Future<void> _determinePosition() async {
     try {
-      // 위치 서비스 활성화 여부를 확인합니다.
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
-        // 위치 서비스가 비활성화되어 있으면 상태를 업데이트하고 리턴합니다.
-        setState(() {});
+        setState(() {
+        });
         return;
       }
 
-      // 위치 권한을 확인합니다.
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
-        // 권한이 거부되면 권한을 다시 요청합니다.
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
-          // 권한이 거부되면 상태를 업데이트하고 리턴합니다.
-          setState(() {});
+          setState(() {
+          });
           return;
         }
       }
 
-      // 현재 위치를 가져옵니다.
       _currentPosition = await Geolocator.getCurrentPosition();
-      setState(() {}); // 상태를 업데이트합니다.
+      setState(() {
+      });
     } catch (e) {
-      setState(() {}); // 예외 발생 시 상태를 업데이트합니다.
+      setState(() {
+      });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +99,6 @@ class _NavRailState extends State<NavRail> {
       ),
     );
   }
-
   Widget _buildLeading() {
     //로고있는 부분
     return Row(
@@ -137,21 +128,19 @@ class _NavRailState extends State<NavRail> {
     );
   }
 
+
   final Map<int, List<Widget>> _navRailToTabContents = {
-    0: [
-      // Tour
+    0: [ // Tour
       TabContent(),
       TicketMostContent(),
       TicketRowestContent(),
     ],
-    1: [
-      // Activity
+    1: [ // Activity
       ActivityTopContent(),
       ActivityMostContent(),
       ActivityRowestContent(),
     ],
-    2: [
-      // Ticket
+    2: [ // Ticket
       TourTopContent(),
       TourMostContent(),
       TourRowestContent(),
@@ -159,30 +148,61 @@ class _NavRailState extends State<NavRail> {
   };
 
   Widget _buildTabContent() {
-    if (_currentPosition == null) {
+    if(_currentPosition == null){
       return Center(child: CircularProgressIndicator());
     }
-// 선택된 인덱스에 따라 탭 내용을 결정
-    List<Widget> tabContents = _navRailToTabContents[_selectedIndex] ??
-        [
-          Center(child: Text('Unknown index: $_selectedIndex')),
-          Center(child: Text('Unknown index: $_selectedIndex')),
-          Center(child: Text('Unknown index: $_selectedIndex')),
-        ];
+    // 초기화된 위치 정보를 바탕으로 TabContent를 빌드
+    List<Widget> tabContents = _navRailToTabContents[_selectedIndex] ?? [
+      Center(child: Text('Unknown index: $_selectedIndex')),
+      Center(child: Text('Unknown index: $_selectedIndex')),
+      Center(child: Text('Unknown index: $_selectedIndex'))
+    ];
 
-    // TabBarView를 DefaultTabController로 감싸서 제공
+
+
     return DefaultTabController(
-      length: tabContents.length, // 탭의 수를 제공해야 함
+      length: 3,
       child: Column(
         children: [
-          SizedBox(
-            height: 140,
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 40),
+            child: _buildTabBar(),
           ),
-          // 여기서는 TabBar 위젯이 없으므로 TabBarView만 진행
           Expanded(
             child: TabBarView(children: tabContents),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildTabBar() {
+    final tabs = ['', ' ', ' '];
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20.0),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 3))
+        ],
+      ),
+      child: TabBar(
+        onTap: (index) {},
+        indicator: ShapeDecoration(
+          color: Colors.blue,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
+        unselectedLabelColor: Colors.black26,
+        labelColor: Colors.white,
+        labelStyle: TextStyle(fontWeight: FontWeight.bold),
+        tabs: tabs.map((e) => Tab(text: e)).toList(),
       ),
     );
   }
