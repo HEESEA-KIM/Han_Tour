@@ -57,7 +57,8 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
-        operationtime : selectedProduct!['operationtime']!, // 운영 시간,요일
+        operationtime: selectedProduct!['operationtime']!,
+        // 운영 시간,요일
         latitude: latitude,
         // 위도 전달
         longitude: longitude, // 경도 전달
@@ -120,7 +121,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
             "It is a place where you can experience the uniforms of Kpop celebrities and enjoy various pictures and beautiful memories.",
         'latitude': "37.556411000348504",
         'longitude': "126.92770110295436",
-        'operationtime': "Open all year round from 11:00 am to 20:00 pm",
+        'operationtime': "Open all year round \nfrom 11:00 am to 20:00 pm",
       },
       {
         'imagePath': 'assets/contents/Activity_most/message/massage.png',
@@ -136,7 +137,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
             "An unusual place to relieve the exhaustion of a day-to-day exhaustion.",
         'latitude': "37.5526864110532",
         'longitude': "126.9222414599555 ",
-        'operationtime': "Open all year round from 10:00 am to 05:00 am",
+        'operationtime': "Open all year round \nfrom 10:00 am to 05:00 am",
       },
       {
         'imagePath': 'assets/contents/Activity_most/oditymode/selfphoto.png',
@@ -144,7 +145,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
         'imagePath3': 'assets/contents/Activity_most/oditymode/selfphoto3.png',
         'name': 'Odity mode',
         'category': 'A SELF-PHOTO STUDIO',
-        'location': '212-28, Donggyo-ro, Mapo-gu, Seoul, 2nd floor',
+        'location': '212-28, Donggyo-ro, Mapo-gu,\nSeoul, 2nd floor',
         'price': '₩50000',
         'description':
             'The joy of recording my own time \n The excitement of waiting for a picture that looks like me \n Happiness that confirms who I am',
@@ -154,7 +155,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
         'longitude': "126.92435939768679",
         'operationtime': "Monday to Thursday 13:00 pm to 21:00 pm"
             "\n Friday 11:00 am to 21:00 pm"
-            "\n Saturday to Sunday 10:00 am to 21:00 pm",
+            "\n Saturday to Sunday \n10:00 am to 21:00 pm",
       },
     ];
 
@@ -220,15 +221,16 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
       String explanation) {
     return Column(
       children: <Widget>[
-        SizedBox(height: 10),
         buildImageWithBookmark(context, imagePath),
         SizedBox(height: 20),
         buildNameWithReviews(name),
         SizedBox(height: 20),
         buildCategoryWithReviews(category),
-        SizedBox(height: 20),
+        SizedBox(height: 13),
         buildLocation(location),
-        SizedBox(height: 10),
+        SizedBox(
+          height: 10,
+        ),
         buildoperationtime(operationtime),
         buildHighlightText(explanation),
         buildPrice(price),
@@ -254,24 +256,23 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
     );
   }
 
-  Row buildCategoryWithReviews(String category) {
-    return Row(
-      textDirection: TextDirection.ltr,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        buildCategoryCard(category),
-      ],
-    );
-  }
-
-  Card buildCategoryCard(String text) {
+  Widget buildCategoryWithReviews(String category) {
     return Card(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
-        child: Text(
-          text,
-          style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w500, color: Colors.blue),
+        child: Row(
+          textDirection: TextDirection.ltr,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              category,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.blue,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -284,7 +285,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
       children: [
         SizedBox(
           width: 300,
-          height: 30,
+          height: 40,
           child: RichText(
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
@@ -292,38 +293,34 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
             strutStyle: StrutStyle(fontSize: 13),
             text: TextSpan(
                 text: location,
-                style: TextStyle(fontSize: 13, color: Colors.grey)),
+                style: TextStyle(fontSize: 17, color: Colors.grey)),
           ),
         ),
       ],
     );
   }
 
+  Widget buildoperationtime(String operationtime) {
+    return SizedBox(
+      height: 45,
+      width: 310,
+      child: Text(
+        operationtime,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 17, color: Colors.blue),
+      ),
+    );
+  }
+
   Container buildImageWithBookmark(BuildContext context, String imagePath) {
     return Container(
-      width: 290,
-      height: 150,
+      width: 330,
+      height: 190,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(imagePath),
         ),
       ),
-    );
-  }
-
-  Stack buildBookmark() {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Transform.rotate(
-          angle: 4.7,
-          child: Icon(Icons.bookmark, color: Color(0XFFdfd2d2), size: 120),
-        ),
-        Text('Grade',
-            style: TextStyle(fontSize: 16, color: Colors.orangeAccent)),
-        Positioned(
-            left: 15, child: Icon(Icons.star, color: Colors.orangeAccent)),
-      ],
     );
   }
 
@@ -342,7 +339,7 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
         ),
         SizedBox(
           width: 310,
-          height: 110,
+          height: 100,
           child: RichText(
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
@@ -378,12 +375,4 @@ class _ActivityMostContentState extends State<ActivityMostContent> {
       ),
     );
   }
-}
-
-Widget buildoperationtime(String operationtime) {
-  return Container(
-    height: 60,
-    width: 310,
-    child: Text(operationtime, textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: Colors.blue),),
-  );
 }

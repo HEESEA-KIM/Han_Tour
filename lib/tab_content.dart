@@ -57,7 +57,8 @@ class _TabContentState extends State<TabContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
-        operationtime : selectedProduct!['operationtime']!, // 운영 시간,요일
+        operationtime: selectedProduct!['operationtime']!,
+        // 운영 시간,요일
         latitude: latitude,
         // 위도 전달
         longitude: longitude, // 경도 전달
@@ -119,7 +120,7 @@ class _TabContentState extends State<TabContent> {
             "Since 1997 14.8 million viewers made a reasonable choice! Nanta impressed not only Korea but the world!",
         'latitude': "37.55310472979606",
         'longitude': "126.92126776515072",
-        'operationtime': "Thursday to Sunday 17:00 pm to 18:30 pm",
+        'operationtime': "Thursday to Sunday \n17:00 pm to 18:30 pm",
       },
       {
         'imagePath': 'assets/contents/ticket_top/rolling/rolling.png',
@@ -135,7 +136,7 @@ class _TabContentState extends State<TabContent> {
             'Rolling Hall, which has been in place for a long time since 1995, is a concert hall where both audiences and artists strive to have a good time.',
         'latitude': "37.54842780429565",
         'longitude': "126.92015803185787",
-        'operationtime': "Open all year round from 12:00 pm to 22:00 pm",
+        'operationtime': "Open all year round \nfrom 12:00 pm to 22:00 pm",
       },
       {
         'imagePath': 'assets/contents/ticket_top/kt/kt.png',
@@ -152,7 +153,7 @@ class _TabContentState extends State<TabContent> {
             "It is a communication channel between artists and the public and a special space where you can enjoy fresh culture and art.",
         'latitude': "37.55094895772248",
         'longitude': "126.92106633311023",
-        'operationtime': "Open all year round from 11:00 am to 21:00 pm",
+        'operationtime': "Open all year round \nfrom 11:00 am to 21:00 pm",
       }
     ];
 
@@ -218,15 +219,16 @@ class _TabContentState extends State<TabContent> {
       String explanation) {
     return Column(
       children: <Widget>[
-        SizedBox(height: 10),
         buildImageWithBookmark(context, imagePath),
         SizedBox(height: 20),
         buildNameWithReviews(name),
         SizedBox(height: 20),
         buildCategoryWithReviews(category),
-        SizedBox(height: 20),
+        SizedBox(height: 13),
         buildLocation(location),
-        SizedBox(height: 10,),
+        SizedBox(
+          height: 10,
+        ),
         buildoperationtime(operationtime),
         buildHighlightText(explanation),
         buildPrice(price),
@@ -252,24 +254,23 @@ class _TabContentState extends State<TabContent> {
     );
   }
 
-  Row buildCategoryWithReviews(String category) {
-    return Row(
-      textDirection: TextDirection.ltr,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        buildCategoryCard(category),
-      ],
-    );
-  }
-
-  Card buildCategoryCard(String text) {
+  Widget buildCategoryWithReviews(String category) {
     return Card(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
-        child: Text(
-          text,
-          style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w500, color: Colors.blue),
+        child: Row(
+          textDirection: TextDirection.ltr,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              category,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.blue,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -282,7 +283,7 @@ class _TabContentState extends State<TabContent> {
       children: [
         SizedBox(
           width: 300,
-          height: 30,
+          height: 40,
           child: RichText(
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
@@ -290,38 +291,34 @@ class _TabContentState extends State<TabContent> {
             strutStyle: StrutStyle(fontSize: 13),
             text: TextSpan(
                 text: location,
-                style: TextStyle(fontSize: 13, color: Colors.grey)),
+                style: TextStyle(fontSize: 17, color: Colors.grey)),
           ),
         ), //SizedBox 추가
       ],
     );
   }
 
+  Widget buildoperationtime(String operationtime) {
+    return SizedBox(
+      height: 46,
+      width: 310,
+      child: Text(
+        operationtime,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 17, color: Colors.blue),
+      ),
+    );
+  }
+
   Container buildImageWithBookmark(BuildContext context, String imagePath) {
     return Container(
-      width: 290,
-      height: 150,
+      width: 330,
+      height: 190,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(imagePath),
         ),
       ),
-    );
-  }
-
-  Stack buildBookmark() {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Transform.rotate(
-          angle: 4.7,
-          child: Icon(Icons.bookmark, color: Color(0XFFdfd2d2), size: 120),
-        ),
-        Text('Grade',
-            style: TextStyle(fontSize: 16, color: Colors.orangeAccent)),
-        Positioned(
-            left: 15, child: Icon(Icons.star, color: Colors.orangeAccent)),
-      ],
     );
   }
 
@@ -340,7 +337,7 @@ class _TabContentState extends State<TabContent> {
         ),
         SizedBox(
           width: 310,
-          height: 110,
+          height: 100,
           child: RichText(
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
@@ -376,12 +373,4 @@ class _TabContentState extends State<TabContent> {
       ),
     );
   }
-}
-
-Widget buildoperationtime(String operationtime) {
-  return Container(
-    height: 60,
-    width: 310,
-    child: Text(operationtime, textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: Colors.blue),),
-  );
 }

@@ -57,7 +57,8 @@ class _TicketMostContentState extends State<TicketMostContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
-        operationtime : selectedProduct!['operationtime']!, // 운영 시간,요일
+        operationtime: selectedProduct!['operationtime']!,
+        // 운영 시간,요일
         latitude: latitude,
         // 위도 전달
         longitude: longitude, // 경도 전달
@@ -119,7 +120,8 @@ class _TicketMostContentState extends State<TicketMostContent> {
             "An exotic museum that displays props used in dramas, on-site photos, and drama sets",
         'latitude': "37.55015331355875",
         'longitude': "126.92371241168854",
-        'operationtime': "Monday to Saturday 10:00am to 18:30pm \n Sunday 11:00am to 18:30pm",
+        'operationtime':
+            "Monday to Saturday 10:00am to 18:30pm \n Sunday 11:00am to 18:30pm",
       },
       {
         'imagePath': 'assets/contents/ticket_most/da/DA.png',
@@ -127,7 +129,7 @@ class _TicketMostContentState extends State<TicketMostContent> {
         'imagePath3': 'assets/contents/ticket_most/da/DA3.png',
         'name': 'Art Space DA Studio',
         'category': 'MUSEUM',
-        'location': '35 B1, Sinchon-ro 12-gil, Mapo-gu, Seoul',
+        'location': '35 B1, Sinchon-ro 12-gil,\nMapo-gu, Seoul',
         'price': '₩Free',
         'description':
             "a place where you can enjoy art\n communication space with the writer \n You can enjoy a new experience.",
@@ -135,7 +137,7 @@ class _TicketMostContentState extends State<TicketMostContent> {
             'It aims to become a space where artists and galleries coexist through various special exhibitions and artist curations.',
         'latitude': "37.55483500213329",
         'longitude': "126.9327784081659",
-        'operationtime': "Tuesday to Sunday 12:00 pm to 22:00 pm",
+        'operationtime': "Tuesday to Sunday \n12:00 pm to 22:00 pm",
       },
       {
         'imagePath': 'assets/contents/ticket_most/yeonhui/Yeonhui.png',
@@ -152,7 +154,8 @@ class _TicketMostContentState extends State<TicketMostContent> {
             "It is a theater where you can enjoy and interact with art while drinking wine and beer, not just watching.",
         'latitude': "37.565617480564505",
         'longitude': "126.9286005456683",
-        'operationtime': "Monday to Friday 19:30 pm to 22:35 pm \n  Saturday to Sunday 15:00pm to 18:05pm",
+        'operationtime':
+            "Monday to Friday \n19:30 pm to 22:35 pm Saturday to Sunday 15:00pm to 18:05pm",
       }
     ];
 
@@ -218,15 +221,16 @@ class _TicketMostContentState extends State<TicketMostContent> {
       String explanation) {
     return Column(
       children: <Widget>[
-        SizedBox(height: 10),
         buildImageWithBookmark(context, imagePath),
         SizedBox(height: 20),
         buildNameWithReviews(name),
         SizedBox(height: 20),
         buildCategoryWithReviews(category),
-        SizedBox(height: 20),
+        SizedBox(height: 13),
         buildLocation(location),
-        SizedBox(height: 10),
+        SizedBox(
+          height: 8,
+        ),
         buildoperationtime(operationtime),
         buildHighlightText(explanation),
         buildPrice(price),
@@ -252,24 +256,23 @@ class _TicketMostContentState extends State<TicketMostContent> {
     );
   }
 
-  Row buildCategoryWithReviews(String category) {
-    return Row(
-      textDirection: TextDirection.ltr,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        buildCategoryCard(category),
-      ],
-    );
-  }
-
-  Card buildCategoryCard(String text) {
+  Widget buildCategoryWithReviews(String category) {
     return Card(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
-        child: Text(
-          text,
-          style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w500, color: Colors.blue),
+        child: Row(
+          textDirection: TextDirection.ltr,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              category,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.blue,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -282,7 +285,7 @@ class _TicketMostContentState extends State<TicketMostContent> {
       children: [
         SizedBox(
           width: 300,
-          height: 30,
+          height: 40,
           child: RichText(
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
@@ -290,38 +293,34 @@ class _TicketMostContentState extends State<TicketMostContent> {
             strutStyle: StrutStyle(fontSize: 13),
             text: TextSpan(
                 text: location,
-                style: TextStyle(fontSize: 13, color: Colors.grey)),
+                style: TextStyle(fontSize: 17, color: Colors.grey)),
           ),
-        ),
+        ), //SizedBox 추가
       ],
+    );
+  }
+
+  Widget buildoperationtime(String operationtime) {
+    return SizedBox(
+      height: 46,
+      width: 310,
+      child: Text(
+        operationtime,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 17, color: Colors.blue),
+      ),
     );
   }
 
   Container buildImageWithBookmark(BuildContext context, String imagePath) {
     return Container(
-      width: 290,
-      height: 150,
+      width: 330,
+      height: 190,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(imagePath),
         ),
       ),
-    );
-  }
-
-  Stack buildBookmark() {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Transform.rotate(
-          angle: 4.7,
-          child: Icon(Icons.bookmark, color: Color(0XFFdfd2d2), size: 120),
-        ),
-        Text('Grade',
-            style: TextStyle(fontSize: 16, color: Colors.orangeAccent)),
-        Positioned(
-            left: 15, child: Icon(Icons.star, color: Colors.orangeAccent)),
-      ],
     );
   }
 
@@ -340,7 +339,7 @@ class _TicketMostContentState extends State<TicketMostContent> {
         ),
         SizedBox(
           width: 310,
-          height: 110,
+          height: 100,
           child: RichText(
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
@@ -376,12 +375,4 @@ class _TicketMostContentState extends State<TicketMostContent> {
       ),
     );
   }
-}
-
-Widget buildoperationtime(String operationtime) {
-  return Container(
-    height: 60,
-    width: 310,
-    child: Text(operationtime, textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: Colors.blue),),
-  );
 }

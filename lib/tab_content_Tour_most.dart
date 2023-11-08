@@ -57,7 +57,8 @@ class _TourMostContentState extends State<TourMostContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
-        operationtime : selectedProduct!['operationtime']!, // 운영 시간,요일
+        operationtime: selectedProduct!['operationtime']!,
+        // 운영 시간,요일
         latitude: latitude,
         // 위도 전달
         longitude: longitude, // 경도 전달
@@ -111,7 +112,7 @@ class _TourMostContentState extends State<TourMostContent> {
         'imagePath3': 'assets/contents/Tour_most/musinsa/Musinsa3.png',
         'name': 'Musinsa Terrace Hongdae',
         'category': 'EDITING SHOP',
-        'location': '188, Yanghwa-ro, Mapo-gu, Seoul, 17th floor',
+        'location': '188, Yanghwa-ro, Mapo-gu, Seoul,\n17th floor',
         'price': '₩Free',
         'description':
             'Enjoy a variety of experiences\n Various contents every month \n a space where you can be enjoyed',
@@ -119,8 +120,8 @@ class _TourMostContentState extends State<TourMostContent> {
             "It consists of shops, cafes, lounges, and parks, and it is an editing space where you can experience a variety of things such as shopping, food, and relaxation.",
         'latitude': "37.55774598896755",
         'longitude': "126.9265029683455",
-        'operationtime': "Monday to Tuesday 11:00 am to 21:00 pm "
-            "\n Friday to Sunday 11:00 am to 21:00 pm",
+        'operationtime':
+            "Monday to Tuesday 11:00 am to 21:00 pm \n Friday to Sunday 11:00 am to 21:00 pm"
       },
       {
         'imagePath': 'assets/contents/Tour_most/bakery/bakery.png',
@@ -136,7 +137,7 @@ class _TourMostContentState extends State<TourMostContent> {
             'Products that show the chef`s pride in making delicious bread with numerous processes and various methods',
         'latitude': "37.55995636606521",
         'longitude': "126.9240221518359",
-        'operationtime': "Open all year round from 09:00 am to 21:30 pm",
+        'operationtime': "Open all year round \nfrom 09:00 am to 21:30 pm",
       },
     ];
 
@@ -202,19 +203,20 @@ class _TourMostContentState extends State<TourMostContent> {
       String explanation) {
     return Column(
       children: <Widget>[
-        SizedBox(height: 10),
         buildImageWithBookmark(context, imagePath),
-        SizedBox(height: 20),
+        SizedBox(height: 15),
         buildNameWithReviews(name),
-        SizedBox(height: 20),
+        SizedBox(height: 15),
         buildCategoryWithReviews(category),
-        SizedBox(height: 20),
+        SizedBox(height: 7),
         buildLocation(location),
-        SizedBox(height: 10),
+        SizedBox(
+          height: 16,
+        ),
         buildoperationtime(operationtime),
         buildHighlightText(explanation),
         buildPrice(price),
-      ], // time, distance 지움, location 추가
+      ], // time, distance 지움, location 추가, SizedBox 삭제
     );
   }
 
@@ -236,24 +238,23 @@ class _TourMostContentState extends State<TourMostContent> {
     );
   }
 
-  Row buildCategoryWithReviews(String category) {
-    return Row(
-      textDirection: TextDirection.ltr,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        buildCategoryCard(category),
-      ],
-    );
-  }
-
-  Card buildCategoryCard(String text) {
+  Widget buildCategoryWithReviews(String category) {
     return Card(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
-        child: Text(
-          text,
-          style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w500, color: Colors.blue),
+        child: Row(
+          textDirection: TextDirection.ltr,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              category,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.blue,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -266,7 +267,7 @@ class _TourMostContentState extends State<TourMostContent> {
       children: [
         SizedBox(
           width: 300,
-          height: 30,
+          height: 40,
           child: RichText(
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
@@ -274,17 +275,29 @@ class _TourMostContentState extends State<TourMostContent> {
             strutStyle: StrutStyle(fontSize: 13),
             text: TextSpan(
                 text: location,
-                style: TextStyle(fontSize: 13, color: Colors.grey)),
+                style: TextStyle(fontSize: 17, color: Colors.grey)),
           ),
-        ), // SizedBox 추가
+        ), //SizedBox 추가
       ],
+    );
+  }
+
+  Widget buildoperationtime(String operationtime) {
+    return SizedBox(
+      height: 50,
+      width: 350,
+      child: Text(
+        operationtime,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 17, color: Colors.blue),
+      ),
     );
   }
 
   Container buildImageWithBookmark(BuildContext context, String imagePath) {
     return Container(
-      width: 290,
-      height: 150,
+      width: 330,
+      height: 190,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(imagePath),
@@ -293,38 +306,15 @@ class _TourMostContentState extends State<TourMostContent> {
     );
   }
 
-  Stack buildBookmark() {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Transform.rotate(
-          angle: 4.7,
-          child: Icon(Icons.bookmark, color: Color(0XFFdfd2d2), size: 120),
-        ),
-        Text('Grade',
-            style: TextStyle(fontSize: 16, color: Colors.orangeAccent)),
-        Positioned(
-            left: 15, child: Icon(Icons.star, color: Colors.orangeAccent)),
-      ],
-    );
-  }
-
   Column buildHighlightText(String explanation) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("",
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF322dbd))),
-          ],
+        SizedBox(
+          height: 10,
         ),
         SizedBox(
           width: 310,
-          height: 110,
+          height: 125,
           child: RichText(
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
@@ -337,7 +327,7 @@ class _TourMostContentState extends State<TourMostContent> {
                 color: Color(0XFF357ca7),
               ),
             ),
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.start,
           ),
         ),
       ],
@@ -360,12 +350,4 @@ class _TourMostContentState extends State<TourMostContent> {
       ),
     );
   }
-}
-
-Widget buildoperationtime(String operationtime) {
-  return Container(
-    height: 60,
-    width: 310,
-    child: Text(operationtime, textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: Colors.blue),),
-  );
 }

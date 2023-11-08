@@ -57,7 +57,8 @@ class _ActivityTopContent extends State<ActivityTopContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
-        operationtime : selectedProduct!['operationtime']!, // 운영 시간,요일
+        operationtime: selectedProduct!['operationtime']!,
+        // 운영 시간,요일
         latitude: latitude,
         // 위도 전달
         longitude: longitude, // 경도 전달
@@ -116,7 +117,7 @@ class _ActivityTopContent extends State<ActivityTopContent> {
         'description':
             'You only have 60 minutes\n Everything in the room is a clue \n Mystery Room Escape Cafe',
         'explanation':
-            "A new concept cultural facility where participants must escape by solving a given mission within 60 minutes while trapped in a special theme room.",
+            "A new concept cultural facility where participants must escape by solving a given mission within 60 minutes while trapped in a special theme room",
         'latitude': "37.55339708771902",
         'longitude': "126.92057146067562",
         'operationtime': "Monday to Tuesday 12:00 pm to 23:45 pm "
@@ -139,7 +140,8 @@ class _ActivityTopContent extends State<ActivityTopContent> {
             'It is a place where you can get your own caricatures at a short and reasonable price.',
         'latitude': "37.561398942072316",
         'longitude': "126.92556279626886",
-        'operationtime': "Open all year round from 12:00 pm to 21:00 pm \n break time from 16:00 pm to 17:00 pm ",
+        'operationtime':
+            "Open all year round \nfrom 12:00 pm to 21:00 pm \n break time \nfrom 16:00 pm to 17:00 pm ",
       },
       {
         'imagePath': 'assets/contents/Activity_top/collector/Collectors.png',
@@ -155,7 +157,8 @@ class _ActivityTopContent extends State<ActivityTopContent> {
             "It is a place to reinterpret the moments that connect the past and the present with the keyword of collection from the perspective of this place.",
         'latitude': "37.56295153121545",
         'longitude': "126.92655727677936",
-        'operationtime': "Wednesday to Saturday 12:00 pm to 21:00 pm \n Sunday 12:00 pm to 19:00 pm",
+        'operationtime':
+            "Wednesday to Saturday \n12:00 pm to 21:00 pm \n Sunday \n12:00 pm to 19:00 pm",
       }
     ];
 
@@ -221,19 +224,20 @@ class _ActivityTopContent extends State<ActivityTopContent> {
       String explanation) {
     return Column(
       children: <Widget>[
-        SizedBox(height: 10),
         buildImageWithBookmark(context, imagePath),
         SizedBox(height: 20),
         buildNameWithReviews(name),
         SizedBox(height: 20),
         buildCategoryWithReviews(category),
-        SizedBox(height: 20),
+        SizedBox(height: 13),
         buildLocation(location),
-        SizedBox(height: 10),
+        SizedBox(
+          height: 10,
+        ),
         buildoperationtime(operationtime),
         buildHighlightText(explanation),
         buildPrice(price),
-      ], // time, distance 지움, location 추가
+      ], // time, distance 지움, location 추가, SizedBox 삭제
     );
   }
 
@@ -255,24 +259,23 @@ class _ActivityTopContent extends State<ActivityTopContent> {
     );
   }
 
-  Row buildCategoryWithReviews(String category) {
-    return Row(
-      textDirection: TextDirection.ltr,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        buildCategoryCard(category),
-      ],
-    );
-  }
-
-  Card buildCategoryCard(String text) {
+  Widget buildCategoryWithReviews(String category) {
     return Card(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
-        child: Text(
-          text,
-          style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w500, color: Colors.blue),
+        child: Row(
+          textDirection: TextDirection.ltr,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              category,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.blue,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -285,7 +288,7 @@ class _ActivityTopContent extends State<ActivityTopContent> {
       children: [
         SizedBox(
           width: 300,
-          height: 30,
+          height: 40,
           child: RichText(
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
@@ -293,17 +296,29 @@ class _ActivityTopContent extends State<ActivityTopContent> {
             strutStyle: StrutStyle(fontSize: 13),
             text: TextSpan(
                 text: location,
-                style: TextStyle(fontSize: 13, color: Colors.grey)),
+                style: TextStyle(fontSize: 17, color: Colors.grey)),
           ),
-        ),
+        ), //SizedBox 추가
       ],
+    );
+  }
+
+  Widget buildoperationtime(String operationtime) {
+    return SizedBox(
+      height: 80,
+      width: 310,
+      child: Text(
+        operationtime,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 13, color: Colors.blue),
+      ),
     );
   }
 
   Container buildImageWithBookmark(BuildContext context, String imagePath) {
     return Container(
-      width: 290,
-      height: 150,
+      width: 330,
+      height: 190,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(imagePath),
@@ -312,39 +327,12 @@ class _ActivityTopContent extends State<ActivityTopContent> {
     );
   }
 
-  Stack buildBookmark() {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Transform.rotate(
-          angle: 4.7,
-          child: Icon(Icons.bookmark, color: Color(0XFFdfd2d2), size: 120),
-        ),
-        Text('Grade',
-            style: TextStyle(fontSize: 16, color: Colors.orangeAccent)),
-        Positioned(
-            left: 15, child: Icon(Icons.star, color: Colors.orangeAccent)),
-      ],
-    );
-  }
-
   Column buildHighlightText(String explanation) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Row(
-
-          children: [
-            Text("",
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF322dbd))),
-          ],
-        ),
         SizedBox(
           width: 310,
-          height: 110,
+          height: 100,
           child: RichText(
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
@@ -357,7 +345,7 @@ class _ActivityTopContent extends State<ActivityTopContent> {
                 color: Color(0XFF357ca7),
               ),
             ),
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.start,
           ),
         ),
       ],
@@ -380,12 +368,4 @@ class _ActivityTopContent extends State<ActivityTopContent> {
       ),
     );
   }
-}
-
-Widget buildoperationtime(String operationtime) {
-  return Container(
-    height: 60,
-    width: 310,
-    child: Text(operationtime, textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: Colors.blue),),
-  );
 }

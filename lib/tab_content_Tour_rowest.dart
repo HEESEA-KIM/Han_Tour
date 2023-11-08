@@ -57,7 +57,8 @@ class _TourRowestContentState extends State<TourRowestContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
-        operationtime : selectedProduct!['operationtime']!, // 운영 시간,요일
+        operationtime: selectedProduct!['operationtime']!,
+        // 운영 시간,요일
         latitude: latitude,
         // 위도 전달
         longitude: longitude, // 경도 전달
@@ -119,7 +120,7 @@ class _TourRowestContentState extends State<TourRowestContent> {
             'An art platform that connects the art ecosystem in front of Hongdae',
         'latitude': "37.552451289430785",
         'longitude': "126.92094309224551",
-        'operationtime': "Tuesday to Sunday 11:00 am to 20:00 pm",
+        'operationtime': "Tuesday to Sunday \n11:00 am to 20:00 pm",
       },
       {
         'imagePath': 'assets/contents/Tour_Lowest/roof/roop.png',
@@ -135,7 +136,7 @@ class _TourRowestContentState extends State<TourRowestContent> {
             "The alternative space loop has been carrying out colorful activities with a new and experimental flow of contemporary art.",
         'latitude': "37.5544424103217",
         'longitude': "126.92784729885693",
-        'operationtime': "Open all year round from 10:00 am to 19:00 pm",
+        'operationtime': "Open all year round \nfrom 10:00 am to 19:00 pm",
       }
     ];
 
@@ -201,19 +202,20 @@ class _TourRowestContentState extends State<TourRowestContent> {
       String explanation) {
     return Column(
       children: <Widget>[
-        SizedBox(height: 10),
         buildImageWithBookmark(context, imagePath),
         SizedBox(height: 20),
         buildNameWithReviews(name),
         SizedBox(height: 20),
         buildCategoryWithReviews(category),
-        SizedBox(height: 20),
+        SizedBox(height: 13),
         buildLocation(location),
-        SizedBox(height: 10),
+        SizedBox(
+          height: 10,
+        ),
         buildoperationtime(operationtime),
         buildHighlightText(explanation),
         buildPrice(price),
-      ], // time, distance 지움, location 추가
+      ], // time, distance 지움, location 추가, SizedBox 삭제
     );
   }
 
@@ -235,24 +237,23 @@ class _TourRowestContentState extends State<TourRowestContent> {
     );
   }
 
-  Row buildCategoryWithReviews(String category) {
-    return Row(
-      textDirection: TextDirection.ltr,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        buildCategoryCard(category),
-      ],
-    );
-  }
-
-  Card buildCategoryCard(String text) {
+  Widget buildCategoryWithReviews(String category) {
     return Card(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
-        child: Text(
-          text,
-          style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w500, color: Colors.blue),
+        child: Row(
+          textDirection: TextDirection.ltr,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              category,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.blue,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -265,7 +266,7 @@ class _TourRowestContentState extends State<TourRowestContent> {
       children: [
         SizedBox(
           width: 300,
-          height: 30,
+          height: 40,
           child: RichText(
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
@@ -273,38 +274,34 @@ class _TourRowestContentState extends State<TourRowestContent> {
             strutStyle: StrutStyle(fontSize: 13),
             text: TextSpan(
                 text: location,
-                style: TextStyle(fontSize: 13, color: Colors.grey)),
+                style: TextStyle(fontSize: 17, color: Colors.grey)),
           ),
-        ),
+        ), //SizedBox 추가
       ],
+    );
+  }
+
+  Widget buildoperationtime(String operationtime) {
+    return SizedBox(
+      height: 46,
+      width: 310,
+      child: Text(
+        operationtime,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 17, color: Colors.blue),
+      ),
     );
   }
 
   Container buildImageWithBookmark(BuildContext context, String imagePath) {
     return Container(
-      width: 290,
-      height: 150,
+      width: 330,
+      height: 190,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(imagePath),
         ),
       ),
-    );
-  }
-
-  Stack buildBookmark() {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Transform.rotate(
-          angle: 4.7,
-          child: Icon(Icons.bookmark, color: Color(0XFFdfd2d2), size: 120),
-        ),
-        Text('Grade',
-            style: TextStyle(fontSize: 16, color: Colors.orangeAccent)),
-        Positioned(
-            left: 15, child: Icon(Icons.star, color: Colors.orangeAccent)),
-      ],
     );
   }
 
@@ -318,12 +315,12 @@ class _TourRowestContentState extends State<TourRowestContent> {
                 style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFF322dbd))),
+                    color: Color(0xFF322dbd))), //Text 수정
           ],
         ),
         SizedBox(
           width: 310,
-          height: 110,
+          height: 100,
           child: RichText(
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
@@ -336,7 +333,7 @@ class _TourRowestContentState extends State<TourRowestContent> {
                 color: Color(0XFF357ca7),
               ),
             ),
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.start,
           ),
         ),
       ],
@@ -359,12 +356,4 @@ class _TourRowestContentState extends State<TourRowestContent> {
       ),
     );
   }
-}
-
-Widget buildoperationtime(String operationtime) {
-  return Container(
-    height: 60,
-    width: 310,
-    child: Text(operationtime, textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: Colors.blue),),
-  );
 }

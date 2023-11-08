@@ -57,7 +57,8 @@ class _TourTopContentState extends State<TourTopContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
-        operationtime : selectedProduct!['operationtime']!, // 운영 시간,요일
+        operationtime: selectedProduct!['operationtime']!,
+        // 운영 시간,요일
         latitude: latitude,
         // 위도 전달
         longitude: longitude, // 경도 전달
@@ -107,8 +108,10 @@ class _TourTopContentState extends State<TourTopContent> {
     final contents = [
       {
         'imagePath': 'assets/contents/Tour_top/gyeongbokgung/Gyeongbokgung.png',
-        'imagePath2': 'assets/contents/Tour_top/gyeongbokgung/Gyeongbokgung2.png',
-        'imagePath3': 'assets/contents/Tour_top/gyeongbokgung/Gyeongbokgung3.png',
+        'imagePath2':
+            'assets/contents/Tour_top/gyeongbokgung/Gyeongbokgung2.png',
+        'imagePath3':
+            'assets/contents/Tour_top/gyeongbokgung/Gyeongbokgung3.png',
         'name': 'Gyeongbokgung Palace',
         'category': 'Tour',
         'location': 'Gyeongbokgung Palace, 161 Sajik-ro, Jongno-gu, Seoul',
@@ -119,16 +122,19 @@ class _TourTopContentState extends State<TourTopContent> {
             "A palace built in the early Joseon Dynasty in Sejong-ro, Jongno-gu, Seoul and used as a royal palace. a royal palace.",
         'latitude': "37.577565988721304",
         'longitude': "126.97691146775416",
-        'operationtime': "Open all year round from 09:00 am to 17:00 pm",
+        'operationtime': "Open all year round \nfrom 09:00 am to 17:00 pm",
       },
       {
-        'imagePath': 'assets/contents/Tour_top/artgallery/Hongik University.png',
-        'imagePath2': 'assets/contents/Tour_top/artgallery/Hongik University2.png',
-        'imagePath3': 'assets/contents/Tour_top/artgallery/Hongik University3.png',
+        'imagePath':
+            'assets/contents/Tour_top/artgallery/Hongik University.png',
+        'imagePath2':
+            'assets/contents/Tour_top/artgallery/Hongik University2.png',
+        'imagePath3':
+            'assets/contents/Tour_top/artgallery/Hongik University3.png',
         'name': 'Hongik Museum of Art',
         'category': 'ART MUSEUM',
         'location':
-            '94, Wausan-ro, Mapo-gu, Seoul, \n 2nd floor of Hongik University Hongmun Hall',
+            '94, Wausan-ro, Mapo-gu, Seoul, 2nd floor of Hongik University Hongmun Hall',
         'price': '₩8000',
         'description':
             "Introducing trends in contemporary art through special exhibitions and invitations\n Providing a venue for presentation of works to promising active writers \n Providing a place for community art and culture education",
@@ -136,8 +142,9 @@ class _TourTopContentState extends State<TourTopContent> {
             'As the central university of contemporary art education in Korea, it is a place that provides experiments and experiences of contemporary art.',
         'latitude': "37.55258005778728",
         'longitude': "126.92497177250269",
-        'operationtime': "Subsection 1: Open all year round from 10:00 am to 17:00 pm"
-            "\n Subsection 2: Open all year round from 10:00 am to 18:00 pm",
+        'operationtime':
+            "Subsection 1: Open all year round from 10:00 am to 17:00 pm"
+                "Subsection 2: Open all year round from 10:00 am to 18:00 pm",
       },
       {
         'imagePath': 'assets/contents/Tour_top/arder/arder.png',
@@ -153,7 +160,7 @@ class _TourTopContentState extends State<TourTopContent> {
             "It is a showroom containing Arthur's unique fashion philosophy and is a place where you can enjoy various clothes and exhibitions at once.",
         'latitude': "37.551706688143014",
         'longitude': "126.92241222933296",
-        'operationtime': "Open all year round from 13:00 pm to 21:00 pm",
+        'operationtime': "Open all year round \nfrom 13:00 pm to 21:00 pm",
       }
     ];
 
@@ -219,19 +226,20 @@ class _TourTopContentState extends State<TourTopContent> {
       String explanation) {
     return Column(
       children: <Widget>[
-        SizedBox(height: 10),
         buildImageWithBookmark(context, imagePath),
         SizedBox(height: 20),
         buildNameWithReviews(name),
         SizedBox(height: 20),
         buildCategoryWithReviews(category),
-        SizedBox(height: 20),
+        SizedBox(height: 13),
         buildLocation(location),
-        SizedBox(height: 10),
+        SizedBox(
+          height: 10,
+        ),
         buildoperationtime(operationtime),
         buildHighlightText(explanation),
         buildPrice(price),
-      ], // time, distance 지움, location 추가
+      ], // time, distance 지움, location 추가, SizedBox 삭제
     );
   }
 
@@ -253,24 +261,23 @@ class _TourTopContentState extends State<TourTopContent> {
     );
   }
 
-  Row buildCategoryWithReviews(String category) {
-    return Row(
-      textDirection: TextDirection.ltr,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        buildCategoryCard(category),
-      ],
-    );
-  }
-
-  Card buildCategoryCard(String text) {
+  Widget buildCategoryWithReviews(String category) {
     return Card(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
-        child: Text(
-          text,
-          style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w500, color: Colors.blue),
+        child: Row(
+          textDirection: TextDirection.ltr,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              category,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.blue,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -283,7 +290,7 @@ class _TourTopContentState extends State<TourTopContent> {
       children: [
         SizedBox(
           width: 300,
-          height: 30,
+          height: 50,
           child: RichText(
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
@@ -291,17 +298,29 @@ class _TourTopContentState extends State<TourTopContent> {
             strutStyle: StrutStyle(fontSize: 13),
             text: TextSpan(
                 text: location,
-                style: TextStyle(fontSize: 13, color: Colors.grey)),
+                style: TextStyle(fontSize: 17, color: Colors.grey)),
           ),
-        ),
+        ), //SizedBox 추가
       ],
+    );
+  }
+
+  Widget buildoperationtime(String operationtime) {
+    return SizedBox(
+      height: 46,
+      width: 310,
+      child: Text(
+        operationtime,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 17, color: Colors.blue),
+      ),
     );
   }
 
   Container buildImageWithBookmark(BuildContext context, String imagePath) {
     return Container(
-      width: 290,
-      height: 150,
+      width: 330,
+      height: 190,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(imagePath),
@@ -310,38 +329,15 @@ class _TourTopContentState extends State<TourTopContent> {
     );
   }
 
-  Stack buildBookmark() {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Transform.rotate(
-          angle: 4.7,
-          child: Icon(Icons.bookmark, color: Color(0XFFdfd2d2), size: 120),
-        ),
-        Text('Grade',
-            style: TextStyle(fontSize: 16, color: Colors.orangeAccent)),
-        Positioned(
-            left: 15, child: Icon(Icons.star, color: Colors.orangeAccent)),
-      ],
-    );
-  }
-
   Column buildHighlightText(String explanation) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("",
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF322dbd))),
-          ],
+        SizedBox(
+          height: 17,
         ),
         SizedBox(
           width: 310,
-          height: 110,
+          height: 100,
           child: RichText(
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
@@ -354,7 +350,7 @@ class _TourTopContentState extends State<TourTopContent> {
                 color: Color(0XFF357ca7),
               ),
             ),
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.start,
           ),
         ),
       ],
@@ -377,12 +373,4 @@ class _TourTopContentState extends State<TourTopContent> {
       ),
     );
   }
-}
-
-Widget buildoperationtime(String operationtime) {
-  return Container(
-    height: 60,
-    width: 310,
-    child: Text(operationtime, textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: Colors.blue),),
-  );
 }

@@ -17,13 +17,14 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
   Map<String, String>? selectedProduct;
 
   final textStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.black);
 
   @override
   Widget build(BuildContext context) {
     // FutureBuilder를 사용하여 현재 위치 정보를 가져옵니다.
     return FutureBuilder<Position>(
-      future: Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.medium),
+      future: Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.medium),
       builder: (BuildContext context, AsyncSnapshot<Position> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
@@ -56,8 +57,10 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
         productPrice: selectedProduct!['price']!,
         productDescription: selectedProduct!['description']!,
         productExplanation: selectedProduct!['explanation']!,
-        operationtime : selectedProduct!['operationtime']!, // 운영 시간,요일
-        latitude: latitude, // 위도 전달
+        operationtime: selectedProduct!['operationtime']!,
+        // 운영 시간,요일
+        latitude: latitude,
+        // 위도 전달
         longitude: longitude, // 경도 전달
       );
     }
@@ -105,8 +108,10 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
     final contents = [
       {
         'imagePath': 'assets/contents/Activity_Lowest/hongikstreet/hongik.png',
-        'imagePath2': 'assets/contents/Activity_Lowest/hongikstreet/hongik2.png',
-        'imagePath3': 'assets/contents/Activity_Lowest/hongikstreet/hongik3.png',
+        'imagePath2':
+            'assets/contents/Activity_Lowest/hongikstreet/hongik2.png',
+        'imagePath3':
+            'assets/contents/Activity_Lowest/hongikstreet/hongik3.png',
         'name': 'Hongik University Street',
         'category': 'A TOURIST ATTRACTION',
         'location': 'Seogyo-dong, Mapo-gu, Seoul',
@@ -116,13 +121,16 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
         'explanation':
             'Hongik University has a variety of cultural elements and is rich in attractions and food.',
         'latitude': "37.55540828121299",
-        'longitude':"126.92355427116303",
+        'longitude': "126.92355427116303",
         'operationtime': "Open all year round from 24hours",
       },
       {
-        'imagePath': 'assets/contents/Activity_Lowest/playstation/PlayStation.png',
-        'imagePath2': 'assets/contents/Activity_Lowest/playstation/PlayStation2.png',
-        'imagePath3': 'assets/contents/Activity_Lowest/playstation/PlayStation3.png',
+        'imagePath':
+            'assets/contents/Activity_Lowest/playstation/PlayStation.png',
+        'imagePath2':
+            'assets/contents/Activity_Lowest/playstation/PlayStation2.png',
+        'imagePath3':
+            'assets/contents/Activity_Lowest/playstation/PlayStation3.png',
         'name': 'Hongik University Lounge Play Store',
         'category': 'PLAYSTATION ROOM',
         'location':
@@ -133,8 +141,8 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
         'explanation':
             "Couples or friends can enjoy various games as a good place to play and enjoy together.",
         'latitude': "37.550895426643145",
-        'longitude':"126.92186138386253",
-        'operationtime': "Open all year round from 12:00 pm to 03:00 am",
+        'longitude': "126.92186138386253",
+        'operationtime': "Open all year round \nfrom 12:00 pm to 03:00 am",
       },
     ];
 
@@ -200,19 +208,20 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
       String explanation) {
     return Column(
       children: <Widget>[
-        SizedBox(height: 10),
         buildImageWithBookmark(context, imagePath),
         SizedBox(height: 20),
         buildNameWithReviews(name),
         SizedBox(height: 20),
         buildCategoryWithReviews(category),
-        SizedBox(height: 20),
+        SizedBox(height: 13),
         buildLocation(location),
-        SizedBox(height: 10),
+        SizedBox(
+          height: 10,
+        ),
         buildoperationtime(operationtime),
         buildHighlightText(explanation),
         buildPrice(price),
-      ], // time, distance 지움, location 추가
+      ], // time, distance 지움, location 추가, SizedBox 삭제
     );
   }
 
@@ -234,24 +243,23 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
     );
   }
 
-  Row buildCategoryWithReviews(String category) {
-    return Row(
-      textDirection: TextDirection.ltr,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        buildCategoryCard(category),
-      ],
-    );
-  }
-
-  Card buildCategoryCard(String text) {
+  Widget buildCategoryWithReviews(String category) {
     return Card(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
-        child: Text(
-          text,
-          style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w500, color: Colors.blue),
+        child: Row(
+          textDirection: TextDirection.ltr,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              category,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.blue,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -264,7 +272,7 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
       children: [
         SizedBox(
           width: 300,
-          height: 30,
+          height: 40,
           child: RichText(
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
@@ -272,38 +280,34 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
             strutStyle: StrutStyle(fontSize: 13),
             text: TextSpan(
                 text: location,
-                style: TextStyle(fontSize: 13, color: Colors.grey)),
+                style: TextStyle(fontSize: 17, color: Colors.grey)),
           ),
-        ),
+        ), //SizedBox 추가
       ],
+    );
+  }
+
+  Widget buildoperationtime(String operationtime) {
+    return SizedBox(
+      height: 46,
+      width: 310,
+      child: Text(
+        operationtime,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 17, color: Colors.blue),
+      ),
     );
   }
 
   Container buildImageWithBookmark(BuildContext context, String imagePath) {
     return Container(
-      width: 290,
-      height: 150,
+      width: 330,
+      height: 190,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(imagePath),
         ),
       ),
-    );
-  }
-
-  Stack buildBookmark() {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Transform.rotate(
-          angle: 4.7,
-          child: Icon(Icons.bookmark, color: Color(0XFFdfd2d2), size: 120),
-        ),
-        Text('Grade',
-            style: TextStyle(fontSize: 16, color: Colors.orangeAccent)),
-        Positioned(
-            left: 15, child: Icon(Icons.star, color: Colors.orangeAccent)),
-      ],
     );
   }
 
@@ -317,12 +321,12 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
                 style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFF322dbd))),
+                    color: Color(0xFF322dbd))), //Text 수정
           ],
         ),
         SizedBox(
           width: 310,
-          height: 110,
+          height: 100,
           child: RichText(
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
@@ -335,7 +339,7 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
                 color: Color(0XFF357ca7),
               ),
             ),
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.start,
           ),
         ),
       ],
@@ -358,12 +362,4 @@ class _ActivityRowestContentState extends State<ActivityRowestContent> {
       ),
     );
   }
-}
-
-Widget buildoperationtime(String operationtime) {
-  return Container(
-    height: 60,
-    width: 310,
-    child: Text(operationtime, textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: Colors.blue),),
-  );
 }
