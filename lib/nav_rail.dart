@@ -13,6 +13,7 @@ import 'nav_rail_destinations.dart';
 
 class NavigationRailApp extends StatelessWidget {
   const NavigationRailApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -21,26 +22,30 @@ class NavigationRailApp extends StatelessWidget {
     );
   }
 }
+
 class NavRail extends StatefulWidget {
   const NavRail({super.key});
+
   @override
   State<NavRail> createState() => _NavRailState();
 }
+
 class _NavRailState extends State<NavRail> {
   int _selectedIndex = 0;
   bool _extended = true;
   Position? _currentPosition;
+
   @override
   void initState() {
     super.initState();
     _determinePosition();
   }
+
   Future<void> _determinePosition() async {
     try {
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
-        setState(() {
-        });
+        setState(() {});
         return;
       }
 
@@ -48,21 +53,17 @@ class _NavRailState extends State<NavRail> {
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
-          setState(() {
-          });
+          setState(() {});
           return;
         }
       }
 
       _currentPosition = await Geolocator.getCurrentPosition();
-      setState(() {
-      });
+      setState(() {});
     } catch (e) {
-      setState(() {
-      });
+      setState(() {});
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +100,7 @@ class _NavRailState extends State<NavRail> {
       ),
     );
   }
+
   Widget _buildLeading() {
     //로고있는 부분
     return Row(
@@ -128,19 +130,21 @@ class _NavRailState extends State<NavRail> {
     );
   }
 
-
   final Map<int, List<Widget>> _navRailToTabContents = {
-    0: [ // Tour
+    0: [
+      // Tour
       TabContent(),
       TicketMostContent(),
       TicketRowestContent(),
     ],
-    1: [ // Activity
+    1: [
+      // Activity
       ActivityTopContent(),
       ActivityMostContent(),
       ActivityRowestContent(),
     ],
-    2: [ // Ticket
+    2: [
+      // Ticket
       TourTopContent(),
       TourMostContent(),
       TourRowestContent(),
@@ -148,17 +152,16 @@ class _NavRailState extends State<NavRail> {
   };
 
   Widget _buildTabContent() {
-    if(_currentPosition == null){
+    if (_currentPosition == null) {
       return Center(child: CircularProgressIndicator());
     }
     // 초기화된 위치 정보를 바탕으로 TabContent를 빌드
-    List<Widget> tabContents = _navRailToTabContents[_selectedIndex] ?? [
-      Center(child: Text('Unknown index: $_selectedIndex')),
-      Center(child: Text('Unknown index: $_selectedIndex')),
-      Center(child: Text('Unknown index: $_selectedIndex'))
-    ];
-
-
+    List<Widget> tabContents = _navRailToTabContents[_selectedIndex] ??
+        [
+          Center(child: Text('Unknown index: $_selectedIndex')),
+          Center(child: Text('Unknown index: $_selectedIndex')),
+          Center(child: Text('Unknown index: $_selectedIndex'))
+        ];
 
     return DefaultTabController(
       length: 3,
